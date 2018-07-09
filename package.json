@@ -1,0 +1,19 @@
+{
+  "name": "musicproj",
+  "version": "1.0.0",
+  "description": "A music project to generate and manipulate music using music theory and math.",
+  "main": "start.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "music",
+    "theory"
+  ],
+  "author": "Seanitzel",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.3"
+  }
+}
