@@ -1,1 +1,3 @@
 # Musitelligence
+
+Musical Programming Tool
