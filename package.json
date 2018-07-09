@@ -17,6 +17,7 @@
     },
     "homepage": "https://github.com/Seanitzel/Musitelligence#readme",
     "dependencies": {
+        "babel": "^6.23.0",
         "express": "^4.16.3"
     }
 }

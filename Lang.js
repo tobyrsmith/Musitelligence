@@ -27,7 +27,7 @@ const notes = {
     'b': ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B']
 };
 
-export class Scale {
+class Scale {
     constructor(tonic, formula) {
         this.tonic = new Note(tonic);
         this.formula = formula;
@@ -74,11 +74,12 @@ function toString(data) {
     return formatted_data;
 }
 
-export class Note {
+class Note {
     constructor(note = 'A', octave = 3) {
         this.octave = octave;
-
-        if (note.indexOf('#') > 0)
+        if (notes["#"].indexOf(note) < 0 && notes.b.indexOf(note) < 0)
+            note = 'A';
+        if (note.indexOf('b') > -1)
             this.lang = 'b';
         else
             this.lang = '#';
