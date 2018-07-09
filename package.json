@@ -1,19 +1,22 @@
 {
-  "name": "musicproj",
-  "version": "1.0.0",
-  "description": "A music project to generate and manipulate music using music theory and math.",
-  "main": "start.js",
-  "scripts": [
-    "client.js"
-  ],
-  "keywords": [
-    "music",
-    "theory"
-  ],
-  "author": "Seanitzel",
-  "license": "ISC",
-  "dependencies": {
-    "ejs": "^2.6.1",
-    "express": "^4.16.3"
-  }
+    "name": "musitelligence",
+    "version": "1.0.0",
+    "description": "A music project to generate and manipulate music using music theory and math.",
+    "main": "start.js",
+    "scripts": {
+        "test": "none"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Seanitzel/Musitelligence.git"
+    },
+    "author": "Seanitzel",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Seanitzel/Musitelligence/issues"
+    },
+    "homepage": "https://github.com/Seanitzel/Musitelligence#readme",
+    "dependencies": {
+        "express": "^4.16.3"
+    }
 }
