@@ -24,10 +24,21 @@ A Music project to generate and manipulate music using music theory and math.
 | Whole, Half Diminished | W, H, W, H, W, H, W, H | [2, 1, 2, 1, 2, 1, 2, 1] | [2, 3, 5, 6, 8, 9, 11, 12] |
 | Half, Whole Diminished | H, W, H, W, H, W, H, W | [1, 2, 1, 2, 1, 2, 1, 2] | [1, 3, 4, 6, 7, 9, 10, 12] |
 
-
-
-
-
 ## Chords
+
+### Major Chords
+|	Chord Type	|	Symbol	|	Formula	|
+|	:-----:	|	:-----:	|	:-----:	|
+|	Major	|	M, Maj	|	[1, 3, 5]	|
+|	Added Fourth	|	add4	|	[1, 3, 4, 5]	|
+|	Sixth	|	6	|	[1, 3, 5, 6]	|
+|	Six Nine	|	06/09/18	|	[1, 3, 5, 6, 9]	|
+|	Major 7th	|	Maj7	|	[1, 3, 5, 7]	|
+|	Major Ninth	|	Maj9	|	[1, 3, 5, 7, 9]	|
+|	Major Eleventh	|	Maj11	|	[1, 3, 5, 7,  (9), 11]	|
+|	Major Thirteenth	|	Maj13	|	[1, 3, 5, 7, (9), (11), 13]	|
+|	Major sevensharp eleventh	|	Maj7#11	|	[1, 3, 5, 7,  #11]	|
+|	Major Flat Five	|	-	|	[1, 3, b5]	|
+
 
 
