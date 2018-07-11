@@ -21,8 +21,3 @@ Blues scale 		=	WH-W-H-H-WH-W	=	[3-2-1-1-3-2]\
 Whole tone scale 	=	W-W-W-W-W-W	=	[2-2-2-2-2-2]\
 Whole-Half Diminished	=	W-H-W-H-W-H-W-H	=	[2-1-2-1-2-1-2-1]\
 Half-Whole Diminished	=	H-W-H-W-H-W-H-W	=	[1-2-1-2-1-2-1-2]\
-
-
-
-
-
