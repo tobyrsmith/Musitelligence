@@ -2,7 +2,7 @@
 
 A Music project to generate and manipulate music using music theory and math.
 
-#Scales:
+## Scales:
 
 Major scale = W-W-H-W-W-W-H [2-2-1-2-2-2-1]\
 Natuaral Minor scale = W-H-W-W-H-W-W [2-1-2-2-1-2-2]\
