@@ -25,3 +25,4 @@ Half-Whole Diminished	=	H-W-H-W-H-W-H-W	=	[1-2-1-2-1-2-1-2]\
 
 
 
+
