@@ -7,6 +7,7 @@ A Music project to generate and manipulate music using music theory and math.
 | Scale | W/H Note | Semi - Tones(from interval) | Semi Tones(from Tonic) |
 | :-: | :---------------: | :---------------: | :---------------: |
 | Major scale | W, W, H, W, W, W, H | [2, 2, 1, 2, 2, 2, 1] | [2, 4, 5, 7, 9, 11, 12] |
+
 Natuaral Minor scale 	= 	W, H, W, W, H, W, W		=	[2, 1, 2, 2, 1, 2, 2] 	=	[2, 3, 5, 7, 8, 10, 12]
 Harmonic Minor scale 	= 	W, H, W, W, H, WH, H  	=	[2, 1, 2, 2, 1, 3, 1]
 Melodic Minor scale 	= 	W, H, W, W, W, W, H 	=	[2, 1, 2, 2, 2, 2, 1]
