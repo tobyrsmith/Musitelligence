@@ -4,6 +4,7 @@ A Music project to generate and manipulate music using music theory and math.
 
 ## Scales:
 
+<pre>
 Major scale 		= 	W-W-H-W-W-W-H	=	[2-2-1-2-2-2-1]\
 Natuaral Minor scale 	= 	W-H-W-W-H-W-W	=	[2-1-2-2-1-2-2]\
 Harmonic Minor scale 	= 	W-H-W-W-H-WH-H  =	[2-1-2-2-1-3-1]\
@@ -21,3 +22,5 @@ Blues scale 		=	WH-W-H-H-WH-W	=	[3-2-1-1-3-2]\
 Whole tone scale 	=	W-W-W-W-W-W	=	[2-2-2-2-2-2]\
 Whole-Half Diminished	=	W-H-W-H-W-H-W-H	=	[2-1-2-1-2-1-2-1]\
 Half-Whole Diminished	=	H-W-H-W-H-W-H-W	=	[1-2-1-2-1-2-1-2]\
+</pre>
+
