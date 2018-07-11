@@ -4,10 +4,10 @@ A Music project to generate and manipulate music using music theory and math.
 
 #Scales:
 
-Major scale = W-W-H-W-W-W-H [2-2-1-2-2-2-1]
-Natuaral Minor scale = W-H-W-W-H-W-W [2-1-2-2-1-2-2]
-Harmonic Minor scale = W-H-W-W-H-WH-H [2-1-2-2-1-3-1]
-Melodic Minor scale = W-H-W-W-W-W-H [2-1-2-2-2-2-1]
+Major scale = W-W-H-W-W-W-H [2-2-1-2-2-2-1]/
+Natuaral Minor scale = W-H-W-W-H-W-W [2-1-2-2-1-2-2]/
+Harmonic Minor scale = W-H-W-W-H-WH-H [2-1-2-2-1-3-1]/
+Melodic Minor scale = W-H-W-W-W-W-H [2-1-2-2-2-2-1]/
 Ionian scale = W-W-H-W-W-W-H [2-2-1-2-2-2-1]
 Dorian scale = W-H-W-W-W-H-W [2-1-2-2-2-1-2]
 Phrygian scale = H-W-W-W-H-W-W [1,2,2,2,1,2,2]

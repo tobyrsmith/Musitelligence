@@ -20,9 +20,6 @@ const major_scale = [2, 4, 5, 7, 9, 11, 12];
 const minor_scale = [2, 3, 5, 7, 8, 10, 12];
 const Harmonic_Minor_scale = [2, 3, 5, 7, 8, 11, 12];
 const Melodic_Minor_scale = [2, 3, 5, 7, 9, 11, 12];
-const Minor_pentatonic_scale = [3, 5, 7, 10, 12];
-const Blues_scale = [3, 5, 6, 7, 10, 12];
-const Major_pentatonic_scale = [2, 4, 7, 9, 12];
 const Ionian_scale = major_scale;
 const Dorian_scale = [2, 3, 5, 7, 9, 10, 12];
 const Phrygian_scale = [1, 3, 5, 7, 8, 10, 12];
@@ -30,6 +27,9 @@ const Lydian_scale = [2, 4, 6, 7, 9, 11, 12];
 const Mixolydian_scale = [2, 4, 5, 7, 9, 10, 12];
 const Aeolian_scale = [2, 3, 5, 7, 8, 10, 12];
 const Locrian_scale = [1, 3, 5, 6, 8, 10, 12];
+const Major_pentatonic_scale = [2, 4, 7, 9, 12];
+const Minor_pentatonic_scale = [3, 5, 7, 10, 12];
+const Blues_scale = [3, 5, 6, 7, 10, 12];
 const Whole_tone_scale = [2, 4, 6, 8, 10, 12];
 const Whole_Half_Diminished = [2, 3, 5, 6, 8, 9, 11, 12];
 const Half_Whole_Diminished = [1, 3, 4, 6, 7, 9, 10, 12];
@@ -50,16 +50,26 @@ const add = (a, b) => a + b;
 
 function toString(data) {
     let formatted_data = "";
-    for (let i = 0; i < data.length - 2; ++i)
+    for (let i = 0; i < data.length - 1; ++i)
         formatted_data += data[i] + ', ';
     formatted_data += data[data.length - 1];
     return formatted_data;
 }
 
+class MusicalPatter {
+    constructor(pattern) {
+        this.pattern = new Array(pattern);
+
+    }
+    getInterval(interval) {
+        return this.tonic.getInterval(this.formula[interval - 2]);
+    }
+}
+
 class Scale {
     constructor(tonic, formula) {
         this.tonic = new Note(tonic);
-        this.formula = formula;
+        this.formula = new Array(formula);
         this.notes = [tonic];
         for (let i of formula) {
             this.notes.push(this.tonic.getInterval(i));
@@ -74,30 +84,6 @@ class Scale {
         } else {
             return this.tonic.getInterval(this.formula[interval - 2]);
         }
-    }
-    unison() {
-        return this.tonic.getInterval(0);
-    }
-    second() {
-        return this.tonic.getInterval(this.formula[0]);
-    }
-    third() {
-        return this.tonic.getInterval(this.formula[2]);
-    }
-    fourth() {
-        return this.tonic.getInterval(this.formula[3]);
-    }
-    fifth() {
-        return this.tonic.getInterval(this.formula[4]);
-    }
-    sixth() {
-        return this.tonic.getInterval(this.formula[5]);
-    }
-    seventh() {
-        return this.tonic.getInterval(this.formula[6]);
-    }
-    eighth() {
-        return this.tonic.getInterval(this.formula[7]);
     }
 }
 
