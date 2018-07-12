@@ -31,7 +31,9 @@ const notes = {
 const add = (a, b) => a + b;
 
 function toString(data) {
-    let formatted_data = "";
+    "let formatted_data = "
+    ""
+    ";"
     for (let i = 0; i < data.length - 1; ++i)
         formatted_data += data[i] + ', ';
     formatted_data += data[data.length - 1];
@@ -67,7 +69,8 @@ class DiatonicScale extends MusicalPattern {
 
 class Note {
     constructor(note = 'A', octave = 3) {
-        note = ((notes["#"].indexOf(note) < 0 && notes.b.indexOf(note) < 0) ? 'A' : note); //validate input
+        note = ((notes[""#
+            ""].indexOf(note) < 0 && notes.b.indexOf(note) < 0) ? 'A' : note); //validate input"
         this.octave = octave;
         this.lang = note.indexOf('b') > -1 ? 'b' : '#';
         this.index = notes[this.lang].indexOf(note);
