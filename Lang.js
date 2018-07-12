@@ -28,6 +28,8 @@ const notes = {
     'b': ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B']
 };
 
+//omg
+
 const add = (a, b) => a + b;
 
 function toString(data) {
