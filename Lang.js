@@ -1,21 +1,3 @@
-// const major_scale = [2, 2, 1, 2, 2, 2, 1];
-// const minor_scale = [2, 1, 2, 2, 1, 2, 2];
-// const Minor_pentatonic_scale = [3, 2, 2, 3, 2];
-// const Blues_scale = [3, 2, 1, 1, 3, 2];
-// const Major_pentatonic_scale = [2, 2, 3, 2, 3];
-// const Harmonic_Minor_scale = [2, 1, 2, 2, 1, 3, 1];
-// const Melodic_Minor_scale = [2, 1, 2, 2, 2, 2, 1];
-// const Ionian_scale = [2, 2, 1, 2, 2, 2, 1];
-// const Dorian_scale = [2, 1, 2, 2, 2, 1, 2];
-// const Phrygian_scale = [1, 2, 2, 2, 1, 2, 2];
-// const Lydian_scale = [2, 2, 2, 1, 2, 2, 1];
-// const Mixolydian_scale = [2, 2, 1, 2, 2, 1, 2];
-// const Aeolian_scale = [2, 1, 2, 2, 1, 2, 2];
-// const Locrian_scale = [1, 2, 2, 1, 2, 2, 2];
-// const Whole_tone_scale = [2, 2, 2, 2, 2, 2];
-// const Whole_Half_Diminished = [2, 1, 2, 1, 2, 1, 2, 1];
-// const Half_Whole_Diminished = [1, 2, 1, 2, 1, 2, 1, 2];
-
 const major_scale = [2, 4, 5, 7, 9, 11, 12];
 const minor_scale = [2, 3, 5, 7, 8, 10, 12];
 const Harmonic_Minor_scale = [2, 3, 5, 7, 8, 11, 12];
@@ -56,22 +38,12 @@ function toString(data) {
     return formatted_data;
 }
 
-class MusicalPatter {
-    constructor(pattern) {
-        this.pattern = new Array(pattern);
-
-    }
-    getInterval(interval) {
-        return this.tonic.getInterval(this.formula[interval - 2]);
-    }
-}
-
-class Scale {
-    constructor(tonic, formula) {
+class MusicalPattern {
+    constructor(tonic, pattern) {
         this.tonic = new Note(tonic);
-        this.formula = new Array(formula);
+        this.pattern = pattern;
         this.notes = [tonic];
-        for (let i of formula) {
+        for (let i of pattern) {
             this.notes.push(this.tonic.getInterval(i));
         }
     }
@@ -79,23 +51,25 @@ class Scale {
         return toString(this.notes);
     }
     getInterval(interval) {
-        if (typeof(interval) == "string") {
+        return this.tonic.getInterval(this.formula[interval - 2]);
+    }
+}
 
-        } else {
-            return this.tonic.getInterval(this.formula[interval - 2]);
-        }
+class DiatonicScale extends MusicalPattern {
+    constructor(tonic, formula) {
+        super(tonic, formula);
+        this.chords = [];
+    }
+    getChord(chord) {
+
     }
 }
 
 class Note {
     constructor(note = 'A', octave = 3) {
+        note = ((notes["#"].indexOf(note) < 0 && notes.b.indexOf(note) < 0) ? 'A' : note); //validate input"
         this.octave = octave;
-        if (notes["#"].indexOf(note) < 0 && notes.b.indexOf(note) < 0)
-            note = 'A';
-        if (note.indexOf('b') > -1)
-            this.lang = 'b';
-        else
-            this.lang = '#';
+        this.lang = note.indexOf('b') > -1 ? 'b' : '#';
         this.index = notes[this.lang].indexOf(note);
         this.note = note;
     }
