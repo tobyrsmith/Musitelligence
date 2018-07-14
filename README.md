@@ -1,6 +1,21 @@
 # Musitelligence
 
-A Music project to generate and manipulate music using music theory and math.
+Music is a highly versatile art that originates in nature, and has been taken up by mankind as a way of expression and also as an art.
+Now, it's going to be taken up by machines as well.
+-
+This project aims to create a library that implements all of music theory(in all it's forms) in code, then create AI that will use that theory, math, and neuroscience to compose music in different styles and genres.
+
+----------------------------------------------------------------------
+##### TO DO:
+1. 
+
+> “Everything is determined … by forces over which we have no
+> control. It is determined for the insects as well as for the star.
+> Human beings, vegetables, or cosmic dust – we all dance to a
+> mysterious tune, intoned in the distance by an invisible piper.”
+> – Albert Einstein
+
+
 
 ## Scales:
 
@@ -12,11 +27,11 @@ A Music project to generate and manipulate music using music theory and math.
 | Melodic Minor scale | W, H, W, W, W, W, H | [2, 1, 2, 2, 2, 2, 1] | [2, 3, 5, 7, 9, 11, 12] |
 | Ionian scale | W, W, H, W, W, W, H | [2, 2, 1, 2, 2, 2, 1] | [2, 4, 5, 7, 9, 11, 12] |
 | Dorian scale | W, H, W, W, W, H, W | [2, 1, 2, 2, 2, 1, 2] | [2, 3, 5, 7, 9, 10, 12] |
-| Phrygian scale | H, W, W, W, H, W, W | [1, 2, 2, 2, 1, 2, 2] | [1, 3, 5, 7, 8, 10, 12] |
-| Lydian scale | W, W, W, H, W, W, W | [2, 2, 2, 1, 2, 2, 1] | [2, 4, 6, 7, 9, 11, 12] |
-| Mixolydian scale | W, W, H, W, W, H, W	| [2, 2, 1, 2, 2, 1, 2] | [2, 4, 5, 7, 9, 10, 12] |
+| Phrygian scale | H, W, W, W, H, W, W | [1,2,2,2,1,2,2] | [1, 3, 5, 7, 8, 10, 12] |
+| Lydian scale | W, W, W, H, W, W, W | [2,2,2,1,2,2,1] | [2, 4, 6, 7, 9, 11, 12] |
+| Mixolydian scale | W, W, H, W, W, H, W	| [2,2,1,2,2,1,2] | [2, 4, 5, 7, 9, 10, 12] |
 | Aeolian scale | W, H, W, W, H, W, W	| [2, 1, 2, 2, 1, 2, 2] | [2, 3, 5, 7, 8, 10, 12] |
-| Locrian scale | H, W, W, H, W, W, W | [1, 2, 2, 1, 2, 2, 2] | [1, 3, 5, 6, 8, 10, 12] |
+| Locrian scale | H, W, W, H, W, W, W | [1,2,2,1,2,2,2] | [1, 3, 5, 6, 8, 10, 12] |
 | Major pentatonic scale | W, W, WH, W, WH	| [2, 2, 3, 2, 3] | [2, 4, 7, 9, 12] |
 | Minor pentatonic scale |	WH, W, W, WH, W	| [3, 2, 2, 3, 2] | [3, 5, 7, 10, 12] |
 | Blues scale | WH, W, H, H, WH, W | [3, 2, 1, 1, 3, 2] | [3, 5, 6, 7, 10, 12] |
