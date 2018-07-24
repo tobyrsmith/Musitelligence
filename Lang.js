@@ -28,6 +28,8 @@ const notes = {
     'b': ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B']
 };
 
+//omg
+
 const add = (a, b) => a + b;
 
 function toString(data) {
@@ -97,7 +99,7 @@ class Note {
 }
 
 let n = new Note('A', '5');
-let c = new Scale('C', major_scale);
+// let c = new MusicalPattern('C', major_scale);
 // console.log(a.frequency(), a.getMajorChord(), (new Note('C', '3')).getMajorScale());
 // console.log((new Note('C', '3')).getMajorScale());
-console.log(c.getInterval(5));
+// console.log(c.getInterval(5));
