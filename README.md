@@ -1,4 +1,28 @@
-# Musitelligence
+# musitelligence
+
+> ML Music Composition Project
+
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+
+# run unit tests
+npm run unit
+
+# run all tests
+npm test
+```
 
 Music is a highly versatile art that originates in nature, and has been taken up by mankind as a way of expression and also as an art.
 Now, it's going to be taken up by machines as well.
@@ -14,8 +38,6 @@ This project aims to create a library that implements all of music theory(in all
 > Human beings, vegetables, or cosmic dust – we all dance to a
 > mysterious tune, intoned in the distance by an invisible piper.”
 > – Albert Einstein
-
-
 
 ## Scales:
 
@@ -91,6 +113,4 @@ This project aims to create a library that implements all of music theory(in all
 |	Seven flat five sharp nine	|	7b5#9	|	[1, 3, b5, b7, #9]	|
 |	Seven flat five flat nine	|	7b5b9	|	[1, 3, b5, b7, b9]	|
 |	Seven sharp eleven	|	7#11	|	[1, 3, 5, b7, #11]	|
-
-
 
