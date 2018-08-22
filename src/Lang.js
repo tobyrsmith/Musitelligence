@@ -28,6 +28,20 @@ export const scale_intervals        = [
 	"tenth",
 	"eleventh"
 ];
+export const diatonic_scales = {
+	"Major"                : major_scale,
+	"Minor"                : minor_scale,
+	"harmonic Minor"       : Harmonic_Minor_scale,
+	"Melodic Minor"        : Melodic_Minor_scale,
+	"Ionian"               : Ionian_scale,
+	"Dorian"               : Dorian_scale,
+	"Phrygian"             : Phrygian_scale,
+	"Lydian"               : Lydian_scale,
+	"Mixolydian"           : Mixolydian_scale,
+	"Aeolian"              : Aeolian_scale,
+	"Locrian"              : Locrian_scale,
+};
+
 export const scales = {
 	"Major"                : major_scale,
 	"Minor"                : minor_scale,
@@ -70,7 +84,7 @@ export const add = (a, b) => a + b;
 function toString(data) {
 	let formatted_data                                        = "";
 	for (let i = 0; i < data.length - 1; ++i) formatted_data += data[i] + ", ";
-	    formatted_data                                       += data[data.length - 1];
+		formatted_data                                       += data[data.length - 1];
 	return formatted_data;
 }
 
@@ -78,48 +92,16 @@ export class MusicalPattern {
 	constructor(tonic, pattern) {
 		this.tonic       = new Note(tonic);
 		this.pattern     = pattern;
-		this.scale_notes = [tonic];
-		// let c = 0;
+		this.scale_notes = [this.tonic];
 		for (let j of pattern) {
 			this.scale_notes.push(this.tonic.getInterval(j));
 		}
-			// if(c>0)
-			// 	if(this.tonic.lang == "#")
-			// 		if(note_letters.indexOf(this.scale_notes[c][0]) != note_letters.indexOf(this.scale_notes[c-1][0])+1){
-			// 			let k = (note_letters.indexOf(this.scale_notes[c])-1) > 0 ? (note_letters.indexOf(this.scale_notes[c])-1) : note_letters.indexOf("B");
-			// 			this.scale_notes[c] = note_letters[k] + "#";
-			// 		}
-			// 	else
-			// 		if(note_letters.indexOf(this.scale_notes[c][0]) != note_letters.indexOf(this.scale_notes[c-1][0])+1){
-			// 			let k = (note_letters.indexOf(this.scale_notes[c])-1) > 0 ? (note_letters.indexOf(this.scale_notes[c])-1) : note_letters.indexOf("B");
-			// 			this.scale_notes[c] = note_letters[k] + "b";
-			// 		}
-			// 	c++;
-			// 	}
-		// let tmp = [];
-		// if(this.tonic.lang == "#")
-		// 	for(let i = 1;i < this.scale_notes.length;++i)
-		// 		if(note_letters.indexOf(this.scale_notes[i][0]) != note_letters.indexOf(this.scale_notes[i-1][0])+1){
-		// 			tmp.push("0");
-		// 			let k = (note_letters.indexOf(this.scale_notes[i])-1) > 0 ? (note_letters.indexOf(this.scale_notes[i])-1) : note_letters.indexOf("B");
-		// 				this.scale_notes[i] = note_letters[k] + "#";
-		// 		}
-		// 			else
-		// 			tmp.push(this.scale_notes[i]);
-		// console.log(tmp);
-		// 		if(note_letters.indexOf(this.scale_notes[i][0]) == 
-		// 				(note_letters.indexOf(this.scale_notes[i-1][0])+2)%this.pattern.length-1)
-		// 				console.log("OMG");
-		// 						this.scale_notes[i] = notes[tonic.lang][notes[tonic.lang].indexOf(this.scale_notes[i])-1];
-		// 		else
-		// 			this.scale_notes[i+1] = notes[tonic.lang][notes[tonic.lang].indexOf(this.scale_notes[i+1])+1];
 	}
 	getNotes() {
 		return toString(this.scale_notes);
 	}
 	getInterval(interval) {
 		return this.tonic.getInterval(this.formula[interval - 2]);
-
 	}
 }
 
@@ -127,8 +109,22 @@ export class DiatonicScale extends MusicalPattern {
 	constructor(tonic, formula) {
 		super(tonic, formula);
 		this.chords = [];
+		this.show = false;
+		for(let i in this.scale_notes.slice(0,7))
+			this.chords.push("[" + this.scale_notes[i] + ", " + this.scale_notes[(parseInt(i)+2)%7] + ", " + this.scale_notes[(parseInt(i)+4)%7] + "]");
 	}
-	getChord(chord) {}
+	getChord(chord) {
+		return(this.chords[chord]);
+	}
+	getChords(){
+		return this.chords;
+	}
+}
+
+export class Chord{
+	constructor(){
+
+	}
 }
 
 export class Note {
@@ -147,8 +143,8 @@ export class Note {
 
 	getInterval(interval) {
 		if(notes[this.lang][(this.index)][0] != notes[this.lang][(this.index + interval) % 12][0])
-			return notes[this.lang][(this.index + interval) % 12];
-		return notes[this.lang][(this.index + interval) % 12];
+			return new Note(notes[this.lang][(this.index + interval) % 12], this.octave);
+		return new Note(notes[this.lang][(this.index + interval) % 12], this.octave);
 	}
 	getMajorChord() {
 		let chord = [this.note];
@@ -163,6 +159,11 @@ export class Note {
 		return toString(scale);
 	}
 	toString() {
+		return this.note;
+	}
+
+	print(){
 		return "{Note: " + this.note + ", Octave: " + this.octave + "}";
 	}
+	
 }

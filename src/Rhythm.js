@@ -1,34 +1,46 @@
-class Bar {
+export class Bar {
     constructor() {
 
     }
 }
 
-class Rhythm {
+export class Rhythm {
     constructor(bpm, time_signature) {
-        this.bpm = bpm;
-        this.beats_per_measure = time_signature[0];
-        this.beat_length = time_signature[1];
+        this.bpm = bpm
+        this.beats_per_measure = time_signature[0]
+        this.beat_length = time_signature[1]
     }
 }
-
-function g() {
-    let s = new Audio("song.wav");
+let lastPlay = "0"
+export function g() {
+    let s = new Audio("/home/seanitzel/Documents/Programming/Musitelligence");
+    let pl = s.play()
     setInterval(function() {
         if (lastPlay != "1") {
-            s.play();
+            if (pl !== undefined) {
+                pl.then(function() {
+                }).catch(function(error) {
+                  console.log("failed to play");
+                });
+            }
             lastPlay = "1";
         } else if (lastPlay != "0") {
-            s.play();
+            if (pl !== undefined) {
+                pl.then(function() {
+                }).catch(function(error) {
+                  console.log("failed to play");
+                });
+            }
             lastPlay = "0";
         }
     }, 1000);
-}
+} 
 
-class Measure {
+
+export class Measure {
     constructor(rhythm) {
-        this.rhythm = rhythm;
+        this.rhythm = rhythm
     }
 }
 
-let r = new Rhythm(80, "24");
+let r = new Rhythm(80, "24")
