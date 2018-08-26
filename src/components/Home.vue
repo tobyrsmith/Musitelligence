@@ -7,17 +7,17 @@
 	</div>
 	<p>{{note_output}}</p>
     <!-- <p>{{scale_output}}</p> -->
-	<transition-group name="fade" >
-    <div class="diatonic_scales" v-for="(s, i) in scale" :key="i">
+	<transition-group name="fade" tag="span">
+    <p class="diatonic_scales" v-for="(s, i) in scale" :key="i">
       <v-btn round class = "scale_btn" color="secondary" @click="g(s)">{{i+1}}. {{Object.keys(diatonic_scales)[i]}} : {{s.getNotes()}}</v-btn>
       <template v-if="s.show == true">
-		<transition-group name="fade">
-        <div v-for="c in s.chords" :key="c" class="chords">
-          {{c[1]}} : {{c}}
-        </div>
-		</transition-group>
+		<!-- <transition-group name="fade"> -->
+        <span v-for="c in s.chords" :key="c.toString()" class="chords">
+          {{c.toString()}}
+        </span>
+		<!-- </transition-group> -->
       </template>
-    </div>
+    </p>
 	</transition-group>
   </div>
 </template>
@@ -41,7 +41,7 @@ export default {
       note_output : "",
       scale_output: "",
       scale       : [],
-      diatonic_scales      : diatonic_scales
+	  diatonic_scales      : diatonic_scales,
     };
   },
   computed: {
@@ -64,6 +64,7 @@ export default {
     },
     g(s){
         s.show = !s.show
+        // console.log((new Note('C')).getInterval(4).isEqual((new Note('E'))))
     }
   }
 };
@@ -107,22 +108,32 @@ a {
 	font-family: sans-serif;
 	color:cyan;
 	background-color: coral;
+	display: inline-block;
 }
-.scale_btn{
-	/* display: inline; */
+.diatonic_scales{
+	display: block;
 }
 .chords{
-	display: list-item;
+	display: block;
 }
-.fade-move{
-	transition: transform .5s;
-	opacity: 5%;
+/* moving */
+.fade-move {
+  transition: all 200ms ease-in;
 }
-.fade-enter-active, .fade-leave-active {
-  transition: transform .5s;
+
+/* appearing */
+.fade-enter-active {
+  transition: all 200ms ease-in;
 }
-.fade-enter, .fade-leave-to{
-  opacity: 0;
-	transition: transform .5s;
+
+/* disappearing */
+.fade-leave-active {
+  transition: all 200ms ease-in;
+}
+
+/* appear at / disappear to */
+.fade-enter,
+.fade-leave-to {
+  transition: all 200ms ease-in;
 }
 </style>

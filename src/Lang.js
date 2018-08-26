@@ -111,7 +111,7 @@ export class DiatonicScale extends MusicalPattern {
 		this.chords = [];
 		this.show = false;
 		for(let i in this.scale_notes.slice(0,7))
-			this.chords.push("[" + this.scale_notes[i] + ", " + this.scale_notes[(parseInt(i)+2)%7] + ", " + this.scale_notes[(parseInt(i)+4)%7] + "]");
+			this.chords.push(new Chord(this.scale_notes[i], this.scale_notes[(parseInt(i)+2)%7], this.scale_notes[(parseInt(i)+4)%7]));
 	}
 	getChord(chord) {
 		return(this.chords[chord]);
@@ -122,11 +122,160 @@ export class DiatonicScale extends MusicalPattern {
 }
 
 export class Chord{
-	constructor(){
+	constructor(root, third, fifth, note4 = null, note5 = null){
+		this.root = root;
+		this.third = third;
+		this.fifth = fifth;
+		this.isChord = true;
+		if(this.root.getInterval(4).isEqual(this.third)){
+			if(this.root.getInterval(7).isEqual(this.fifth)){
+				if(note4 == null){
+					this.type = "Major";
+					this.symbol = "";
+				}
+				else{
+					this.note4 = note4;
+					if(this.root.getInterval(5).isEqual(this.note4)){
+						this.type = "Added Fourth";
+						this.symbol = "add4";
+					}
+					else if(this.root.getInterval(9).isEqual(this.note4)){
+						if(note5 == null){
+							this.note5 = note5;
+							this.type = "Sixth";
+							this.symbol = "6";
+						}
+						else{
+							if(this.root.getInterval(14).isEqual(this.note5)){
+								this.type = "Six Nine";
+								this.symbol = "6/9";
+							}
+							else{
+								this.isChord = false;
+							}
+						}
+					}
+					else if(this.root.getInterval(11).isEqual(this.note4)){
+						if(note5 == null){
+							this.type = "Major 7th";
+							this.symbol = "Maj7";
+						}
+						else{
+							this.note5 = note5;
+							if(this.root.getInterval(14).isEqual(note5)){
+								this.type = "Major Ninth";
+								this.symbol = "Maj9";
+							}
+							else if(this.root.getInterval(17).isEqual(note5)){
+								this.type = "Major Eleventh";
+								this.symbol = "Maj11";
+							}
+							else if(this.root.getInterval(21).isEqual(note5)){
+								this.type = "Major Thirteenth";
+								this.symbol = "Maj13";
+							}
+							else if(this.root.getInterval(18).isEqual(note5)){
+								this.type = "Major Seven Sharp Eleventh";
+								this.symbol = "Maj7#11";
+							}
+							else{
+								this.isChord = false;
+							}
+						}
+					}
+					else if(this.root.getInterval(10).isEqual(this.note4)){
+						if(note5 == null){
+							this.type = "Seventh";
+							this.symbol = "7";
+						}
+						else{
+							this.note5 = note5;
+							if(this.root.getInterval(14).isEqual(note5)){
+								this.type = "Ninth";
+								this.symbol = "9";
+							}
+							else if(this.root.getInterval(17).isEqual(note5)){
+								this.type = "Eleventh";
+								this.symbol = "11";
+							}
+							else if(this.root.getInterval(21).isEqual(note5)){
+								this.type = "Thirteenth";
+								this.symbol = "13";
+							}
+						}
+					}
+				}
+			}
+			else if(this.root.getInterval(6).isEqual(this.fifth)){
+				this.type = "Major Flat Fifth";
+				this.symbol = "b5";
+			}
 
+		}
+		else if(this.root.getInterval(3).isEqual(this.third)){
+			if(this.root.getInterval(7).isEqual(this.fifth)){
+				if(note4 == null){
+					this.type = "Minor";
+					this.symbol = "m";
+				}
+				else{
+					this.note4 = note4;
+					if(this.root.getInterval(5).isEqual(this.note4)){
+						this.type = "Minor Added Fourth";
+						this.symbol = "madd4";
+					}
+					else if(this.root.getInterval(9).isEqual(this.note4)){
+						if(note5 == null){
+							this.note5 = note5;
+							this.type = "Minor Sixth";
+							this.symbol = "m6";
+						}
+						else{
+							if(this.root.getInterval(14).isEqual(this.note5)){
+								this.type = "Minor Six Nine";
+								this.symbol = "m6/9";
+							}
+							else{
+								this.isChord = false;
+							}
+						}
+					}
+					else if(this.root.getInterval(10).isEqual(this.note4)){
+						if(note5 == null){
+							this.type = "Minor Seventh";
+							this.symbol = "m7";
+						}
+						else{
+							this.note5 = note5;
+							if(this.root.getInterval(14).isEqual(note5)){
+								this.type = "Minor Ninth";
+								this.symbol = "m9";
+							}
+							else if(this.root.getInterval(17).isEqual(note5)){
+								this.type = "Minor Eleventh";
+								this.symbol = "m11";
+							}
+							else if(this.root.getInterval(21).isEqual(note5)){
+								this.type = "Minor Thirteenth";
+								this.symbol = "m13";
+							}
+							else{
+								this.isChord = false;
+							}
+						}
+					}
+				}
+			}
+			else if(this.root.getInterval(6).isEqual(this.fifth)){
+				this.type = "Diminished";
+				this.symbol = "dim";
+			}
+		}
+	}
+	toString(){
+		return this.root + this.symbol + " {" + this.root + ", " + this.third + ", " + this.fifth + "}";
 	}
 }
-
 export class Note {
 	constructor(note = "A", octave = 3) {
 		note = 
@@ -160,6 +309,11 @@ export class Note {
 	}
 	toString() {
 		return this.note;
+	}
+	isEqual(n){
+		if(this.note == n.note && this.octave == n.octave)
+			return true;
+		return false;
 	}
 
 	print(){
