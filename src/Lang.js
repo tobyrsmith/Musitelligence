@@ -95,7 +95,10 @@ function toString(data) {
 
 export class MusicalPattern {
 	constructor(tonic, pattern) {
-		this.tonic       = new Note(tonic);
+		if(tonic instanceof Note)
+			this.tonic = tonic.clone();
+		else
+			this.tonic       = new Note(tonic);
 		this.pattern     = pattern;
 		this.scale_notes = [this.tonic];
 		for (let j of pattern) {
@@ -106,7 +109,10 @@ export class MusicalPattern {
 		return toString(this.scale_notes);
 	}
 	getInterval(interval) {
-		return this.tonic.getInterval(this.formula[interval - 2]);
+		let counter = 0;
+		for(let i = 0;i < interval; i++)
+			counter += this.pattern[i];
+		return this.tonic.getInterval(counter);
 	}
 	loadSound(){
 		for(let n of this.scale_notes)
@@ -123,8 +129,8 @@ export class MusicalPattern {
 }
 
 export class DiatonicScale extends MusicalPattern {
-	constructor(tonic, formula) {
-		super(tonic, formula);
+	constructor(tonic, pattern) {
+		super(tonic, pattern);
 		this.chords = [];
 		this.show = false;
 		for(let i in this.scale_notes.slice(0,7))
@@ -134,20 +140,23 @@ export class DiatonicScale extends MusicalPattern {
 		return(this.chords[chord]);
 	}
 	getChords(){
+		console.log(this.chords);
 		return this.chords;
 	}
 }
 
 export class Chord{
 	constructor(root, third, fifth, note4 = null, note5 = null){
-		this.root = root;
-		this.third = third;
-		this.fifth = fifth;
+		this.root = root.clone();
+		this.third = third.clone();;
+		this.fifth = fifth.clone();;
 		this.isChord = true;
+		this.third.octave = this.root.octave;
+		this.fifth.octave = this.root.octave;
 		if(this.root.index>this.third.index)
-			this.third.octave +=1;		
+			this.third.octave = this.root.octave + 1;		
 		if(this.root.index>this.fifth.index)
-			this.fifth.octave += 1;		
+			this.fifth.octave = this.root.octave + 1;		
 		if(this.root.getInterval(4).isEqual(this.third)){
 			if(this.root.getInterval(7).isEqual(this.fifth)){
 				if(note4 == null){
@@ -243,7 +252,7 @@ export class Chord{
 					this.symbol = "m";
 				}
 				else{
-					this.note4 = note4;
+					this.note4 = note4.clone();
 					if(this.root.getInterval(5).isEqual(this.note4)){
 						this.type = "Minor Added Fourth";
 						this.symbol = "madd4";
@@ -270,7 +279,7 @@ export class Chord{
 							this.symbol = "m7";
 						}
 						else{
-							this.note5 = note5;
+							this.note5 = note5.clone();
 							if(this.root.getInterval(14).isEqual(note5)){
 								this.type = "Minor Ninth";
 								this.symbol = "m9";
@@ -464,12 +473,12 @@ export class Chord{
 			}
 		}
 		if(this.note4 == null)
-			this.chord_notes = [root, third, fifth];
+			this.chord_notes = [this.root, this.third, this.fifth];
 		else{
 			if(this.note5 == null)
-				this.chord_notes = [root, third, fifth, note4];
+				this.chord_notes = [this.root, this.third, this.fifth, this.note4];
 			else
-				this.chord_notes = [root, third, fifth, note4, note5];
+				this.chord_notes = [this.root, this.third, this.fifth, this.note4, this.note5];
 		}
 	}
 	loadSound(){
@@ -483,6 +492,7 @@ export class Chord{
 				self.chord_notes[i].playNote();
 			}, i*500 );
 		}
+		console.log(this.chord_notes);
 	}
 	playNotesHarmony(){
 		for (let i=0; i<this.chord_notes.length; i++) 
@@ -515,14 +525,19 @@ export class Note {
 		this.track = null;
 		this.sound = null;
 	}
+	clone(){
+		return new Note(this.note, this.octave);
+	}
 	get octave(){
 		return this._octave;
 	}
 	set octave(octave){
 		this._octave = octave;
+		if(this.sound)
+			this.loadSound();
 	}
 	loadSound(){
-		this.track = 'http://0.0.0.0:8000/' + this.instrument + '/' + 'FF_' + notes['b'][notes[this.lang].indexOf(this.note)] + this.octave + '.mp3';
+		this.track = 'http://0.0.0.0:8000/' + this.instrument + '/' + 'FF_' + notes['b'][notes[this.lang].indexOf(this.note)] + this._octave + '.mp3';
 		this.sound = new Howl({
 			src: [this.track],
 		  });
@@ -564,6 +579,7 @@ export class Note {
 	}
 	playNote(){
 	this.loadSound();
+	console.log(this.track);
 		if(this.sound)
 			this.sound.play();
 		else
@@ -573,6 +589,18 @@ export class Note {
 
 export class NotesHash{
 	constructor(){
-
+		this.loaded = [];
+	}
+	set(note){
+		let n = note;
+		if(this.loaded[n.instrument] == undefined)
+			this.loaded[n.instrument] = n.instrument;
+		if(this.loaded[n.instrument][n.note] == undefined)
+			this.loaded[n.instrument][n.note] = n.note;
+		if(this.loaded[n.instrument][n.note][n.octave] == undefined)
+			this.loaded[n.instrument][n.note][n.octave];
+	}
+	get(note){
+		return this.loaded[n.instrument][n.note][n.octave];
 	}
 }

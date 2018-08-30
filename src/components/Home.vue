@@ -36,7 +36,7 @@
     </transition-group>
     <div class="chords">
       <input v-model="chrd" type="text" class="in" />
-      <v-btn color="success" style="background-color:grey;" @click="getChord">Get Chord</v-btn>
+      <v-btn color="success" style="background-color:grey;" @click="test">Get Chord</v-btn>
       <span>
         {{xchord.toString()}}
       </span>
@@ -50,7 +50,8 @@ import {
   notes,
   DiatonicScale,
   diatonic_scales,
-  Chord
+  Chord,
+MusicalPattern
 } from "/home/seanitzel/Documents/Programming/Web/Musitelligence/src/Lang.js";
 
 function firstToUpper(str) {
@@ -92,10 +93,14 @@ export default {
     g(s) {
       s.show = !s.show
       // console.log((new Note('C')).getInterval(4).isEqual((new Note('E'))))
-	},
-	getChord(){
-    console.log(this.chrd[0]);
-		  this.xchord = new Chord(new Note(this.chrd[0]),new Note(this.chrd[1]),new Note(this.chrd[2]),new Note(this.chrd[3]));
+  },
+
+	test(){
+		// console.log((new Note('C')) === (new Note('C')));
+		// console.log((new MusicalPattern('C', [2,2,1,2,2,2,1])).getInterval(4));
+		// console.log(new Chord(new Note('A'), new Note('C'), new Note('E')))
+		let b = new Note('b');
+		console.log(b);
 	  }
   }
 };
