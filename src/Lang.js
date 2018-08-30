@@ -1,3 +1,8 @@
+import {
+    Howl,
+    Howler
+  } from 'howler';
+
 export const major_scale            = [2, 4, 5, 7, 9, 11, 12];
 export const minor_scale            = [2, 3, 5, 7, 8, 10, 12];
 export const Harmonic_Minor_scale   = [2, 3, 5, 7, 8, 11, 12];
@@ -103,6 +108,18 @@ export class MusicalPattern {
 	getInterval(interval) {
 		return this.tonic.getInterval(this.formula[interval - 2]);
 	}
+	loadSound(){
+		for(let n of this.scale_notes)
+			n.loadSound();
+	}
+	playNotes(){
+		let self = this;
+		for (let i=0; i<this.scale_notes.length; i++) {
+			setTimeout( function timer(){
+				self.scale_notes[i].playNote();
+			}, i*500 );
+		}
+	}
 }
 
 export class DiatonicScale extends MusicalPattern {
@@ -127,6 +144,10 @@ export class Chord{
 		this.third = third;
 		this.fifth = fifth;
 		this.isChord = true;
+		if(this.root.index>this.third.index)
+			this.third.octave +=1;		
+		if(this.root.index>this.fifth.index)
+			this.fifth.octave += 1;		
 		if(this.root.getInterval(4).isEqual(this.third)){
 			if(this.root.getInterval(7).isEqual(this.fifth)){
 				if(note4 == null){
@@ -442,6 +463,30 @@ export class Chord{
 				}
 			}
 		}
+		if(this.note4 == null)
+			this.chord_notes = [root, third, fifth];
+		else{
+			if(this.note5 == null)
+				this.chord_notes = [root, third, fifth, note4];
+			else
+				this.chord_notes = [root, third, fifth, note4, note5];
+		}
+	}
+	loadSound(){
+		for(let n of this.chord_notes)
+			n.loadSound();
+	}
+	playNotesMelody(){
+		let self = this;
+		for (let i=0; i<this.chord_notes.length; i++) {
+			setTimeout( function timer(){
+				self.chord_notes[i].playNote();
+			}, i*500 );
+		}
+	}
+	playNotesHarmony(){
+		for (let i=0; i<this.chord_notes.length; i++) 
+			this.chord_notes[i].playNote();
 	}
 	toString(){
 		if(this.symbol == undefined){
@@ -461,11 +506,26 @@ export class Chord{
 export class Note {
 	constructor(note = "A", octave = 3) {
 		note = 
-			notes["#"].indexOf(note) < 0 && notes.b.indexOf(note) < 0 ? "A": note;  //validate input"
+			!notes["#"].includes(note) && !notes.b.includes(note) ? "A": note;  //validate input"
 		this.octave = octave;
-		this.lang   = circle_of_fourths.indexOf(note) > -1 ? "b" : "#";
+		this.lang   = circle_of_fourths.includes(note) ? "b" : "#";
 		this.index  = notes[this.lang].indexOf(note);
 		this.note   = note;
+		this.instrument = "Piano";
+		this.track = null;
+		this.sound = null;
+	}
+	get octave(){
+		return this._octave;
+	}
+	set octave(octave){
+		this._octave = octave;
+	}
+	loadSound(){
+		this.track = 'http://0.0.0.0:8000/' + this.instrument + '/' + 'FF_' + notes['b'][notes[this.lang].indexOf(this.note)] + this.octave + '.mp3';
+		this.sound = new Howl({
+			src: [this.track],
+		  });
 	}
 	frequency() {
 		let octave_interval = this.octave - 4;  //calculate octave difference
@@ -473,9 +533,10 @@ export class Note {
 	}
 
 	getInterval(interval) {
+		let oct_diff = (this.index + interval) / 12;
 		if(notes[this.lang][(this.index)][0] != notes[this.lang][(this.index + interval) % 12][0])
-			return new Note(notes[this.lang][(this.index + interval) % 12], this.octave);
-		return new Note(notes[this.lang][(this.index + interval) % 12], this.octave);
+			return new Note(notes[this.lang][(this.index + interval) % 12], parseInt(this.octave) + parseInt(oct_diff));
+		return new Note(notes[this.lang][(this.index + interval) % 12], parseInt(this.octave) + parseInt(oct_diff));
 	}
 	getMajorChord() {
 		let chord = [this.note];
@@ -501,5 +562,17 @@ export class Note {
 	print(){
 		return "{Note: " + this.note + ", Octave: " + this.octave + "}";
 	}
-	
+	playNote(){
+	this.loadSound();
+		if(this.sound)
+			this.sound.play();
+		else
+			console.log('Sound not loaded! please make sure you load with x.loadSound()');
+	}
+}
+
+export class NotesHash{
+	constructor(){
+
+	}
 }
