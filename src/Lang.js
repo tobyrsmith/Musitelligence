@@ -501,16 +501,16 @@ export class Chord{
 	toString(){
 		if(this.symbol == undefined){
 			if(this.note4 == null)
-			return this.root + " {" + this.root + ", " + this.third + ", " + this.fifth + "}";
+			return this.root.note + " {" + this.root + ", " + this.third + ", " + this.fifth + "}";
 		else if(this.note5 == null)
-			return this.root + " {" + this.root + ", " + this.third + ", " + this.fifth + ", " + this.note4 + "}";
-		return this.root + " {" + this.root + ", " + this.third + ", " + this.fifth + ", " + this.note4 + ", " + this.note5 + "}";
+			return this.root.note + " {" + this.root + ", " + this.third + ", " + this.fifth + ", " + this.note4 + "}";
+		return this.root.note + " {" + this.root + ", " + this.third + ", " + this.fifth + ", " + this.note4 + ", " + this.note5 + "}";
 		}
 		else if(this.note4 == null)
-			return this.root + this.symbol + " {" + this.root + ", " + this.third + ", " + this.fifth + "}";
+			return this.root.note + this.symbol + " {" + this.root + ", " + this.third + ", " + this.fifth + "}";
 		else if(this.note5 == null)
-			return this.root + this.symbol + " {" + this.root + ", " + this.third + ", " + this.fifth + ", " + this.note4 + "}";
-		return this.root + this.symbol + " {" + this.root + ", " + this.third + ", " + this.fifth + ", " + this.note4 + ", " + this.note5 + "}";
+			return this.root.note + this.symbol + " {" + this.root + ", " + this.third + ", " + this.fifth + ", " + this.note4 + "}";
+		return this.root.note + this.symbol + " {" + this.root + ", " + this.third + ", " + this.fifth + ", " + this.note4 + ", " + this.note5 + "}";
 	}
 }
 export class Note {
@@ -566,7 +566,7 @@ export class Note {
 		return toString(scale);
 	}
 	toString() {
-		return this.note;
+		return this.note + this._octave;
 	}
 	isEqual(n){
 		if(this.note == n.note)

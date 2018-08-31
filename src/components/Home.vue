@@ -6,14 +6,14 @@
       <v-btn @click="f" round color="primary green">get Scale</v-btn>
     </div>
     <p>{{note_output}}</p>
-    <v-btn color="blue" flat icon @click="note.playSound()" style="background-color: yellow;">
+    <v-btn color="blue" flat icon @click="" style="background-color: yellow;">
       <v-icon>music_note</v-icon>
     </v-btn>
     <!-- <p>{{scale_output}}</p> -->
     <transition-group name="fade" tag="span">
       <p class="diatonic_scales" v-for="(s, i) in scale" :key="i">
         <v-btn round class="scale_btn" color="secondary" @click="g(s)">{{i+1}}. {{Object.keys(diatonic_scales)[i]}} :
-          {{s.getNotes()}}</v-btn>
+          {{s.toString()}}</v-btn>
     <v-btn color="blue" flat icon @click="s.playNotes()" style="background-color: yellow;">
       <v-icon>music_note</v-icon>
     </v-btn>
@@ -45,14 +45,10 @@
 </template>
 
 <script>
-import {
-  Note,
-  notes,
-  DiatonicScale,
-  diatonic_scales,
-  Chord,
-MusicalPattern
-} from "/home/seanitzel/Documents/Programming/Web/Musitelligence/src/Lang.js";
+import {Note} from '../Classes/Base/Note'
+import {DiatonicScale} from '../Classes/Base/Scale'
+import {Chord} from '../Classes/Base/Chord'
+import {diatonic_scales, notes} from '../Classes/Base/Patterns'
 
 function firstToUpper(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -66,7 +62,7 @@ export default {
     	note_output: "",
     	scale_output: "",
     	scale: [],
-      	diatonic_scales: diatonic_scales,
+      	diatonic_scales,
 		chrd: "",
 		xchord: "",
     };
@@ -83,7 +79,6 @@ export default {
         this.scale = [];
       } else {
         this.note = new Note(this.n);
-        this.note.loadSound();
         this.note_output = "Note: " + this.note;
         this.scale = [];
         for (let s in diatonic_scales)
