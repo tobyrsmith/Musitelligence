@@ -1,17 +1,19 @@
-export class NotesHash{
+import {notes} from './Patterns'
+import {Howl, Howler} from 'howler';
+
+export default class NotesHash{
 	constructor(){
 		this.loaded = [];
 	}
-	set(note){
-		let n = note;
-		if(this.loaded[n.instrument] == undefined)
-			this.loaded[n.instrument] = n.instrument;
-		if(this.loaded[n.instrument][n.note] == undefined)
-			this.loaded[n.instrument][n.note] = n.note;
-		if(this.loaded[n.instrument][n.note][n.octave] == undefined)
-			this.loaded[n.instrument][n.note][n.octave];
+	set(instrument, note, octave){
+		if(!this.loaded[instrument + note + octave]){
+			let path = 'http://0.0.0.0:8000/' + instrument + '/' + 'FF_' + note + octave+ '.mp3'
+			this.loaded[instrument + note + octave] = new Howl({
+				src: [path]
+			  });
+		}
 	}
 	get(note){
-		return this.loaded[n.instrument][n.note][n.octave];
+		return this.loaded[note.instrument + notes['b'][notes[note.lang].indexOf(note.note)] + note.octave]
 	}
 }

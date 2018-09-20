@@ -1,4 +1,4 @@
-import { Note } from "../../Lang";
+import {Note} from './Note'
 
 /**
  * represents a Chord.

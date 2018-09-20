@@ -3,9 +3,8 @@ import {
     circle_of_fourths,
     semitone
 } from './Patterns'
-import {
-    Howl
-} from 'howler';
+import NotesHash from './NotesHash'
+let sound_data = new NotesHash()
 /**
  * Represents a single musical note.
  * @class
@@ -18,7 +17,7 @@ export class Note {
      * @constructor
      */
     constructor(note = "A", octave = 3, instrument = 'Piano') {
-        note = !notes["#"].includes(note) && !notes.b.includes(note) ? "A" : note //validate input"
+        note = !notes["#"].includes(note) && !notes.b.includes(note) ? "A" : note
         this.octave = octave
         this.lang = circle_of_fourths.includes(note) ? "b" : "#"
         this.index = notes[this.lang].indexOf(note)
@@ -26,6 +25,13 @@ export class Note {
         this.instrument = "Piano"
         this.path = null
         this.sound = null
+        Note.setSoundData(this.instrument, notes['b'][notes[this.lang].indexOf(this.note)], this._octave)
+    }
+    static setSoundData(instrument, note, octave){
+        sound_data.set(instrument, note, octave)
+    }
+    static getSoundData(note){
+        return sound_data.get(note)
     }
     /**
      * returns a clone of the note(new instance).
@@ -128,10 +134,8 @@ export class Note {
      * plays the note.
      */
     playNote() {
-        this.loadSound()
-        console.log(this.path)
-        if (this.sound)
-            this.sound.play()
+        if (Note.getSoundData(this))
+            Note.getSoundData(this).play()
         else
             console.log('Sound not loaded! please make sure you load with x.loadSound()')
     }
