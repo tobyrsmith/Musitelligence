@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <Home></Home>
-    <Play></Play>
   </div>
 </template>
 

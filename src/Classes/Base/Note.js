@@ -63,19 +63,17 @@ export class Note {
      */
     set octave(octave) {
         this._octave = octave
-        if (this.sound)
-            this.loadSound()
     }
-    /**
-     * load the sound file to the instance.
-     * the path to the file is constructed by the instrument, the note and the octave automatically.
-     */
-    loadSound() {
-        this.path = 'http://0.0.0.0:8000/' + this.instrument + '/' + 'FF_' + notes['b'][notes[this.lang].indexOf(this.note)] + this._octave + '.mp3'
-        this.sound = new Howl({
-            src: [this.path],
-        })
-    }
+    // /**
+    //  * load the sound file to the instance.
+    //  * the path to the file is constructed by the instrument, the note and the octave automatically.
+    //  */
+    // loadSound() {
+    //     this.path = 'http://0.0.0.0:8000/' + this.instrument + '/' + 'FF_' + notes['b'][notes[this.lang].indexOf(this.note)] + this._octave + '.mp3'
+    //     this.sound = new Howl({
+    //         src: [this.path],
+    //     })
+    // }
     /**
      * get the frequancy of a note.
      */
@@ -120,7 +118,7 @@ export class Note {
      * @param {Note} note
      */
     isEqual(note) {
-        if (this.note == note.note)
+        if (this.note == note.note && this._octave == note._octave)
             return true
         return false
     }

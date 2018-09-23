@@ -14,8 +14,8 @@ export class Chord{
      */
 	constructor(root, third, fifth, note4 = null, note5 = null){
 		this.root = root.clone();
-		this.third = third.clone();;
-		this.fifth = fifth.clone();;
+		this.third = third.clone();
+		this.fifth = fifth.clone();
 		this.isChord = true;
 		this.third.octave = this.root.octave;
 		this.fifth.octave = this.root.octave;
@@ -347,13 +347,13 @@ export class Chord{
 				this.chord_notes = [this.root, this.third, this.fifth, this.note4, this.note5];
 		}
     }
-    /**
-     * load all the sound files of the notes in the chord.
-     */
-	loadSound(){
-		for(let n of this.chord_notes)
-			n.loadSound();
-    }
+    // /**
+    //  * load all the sound files of the notes in the chord.
+    //  */
+	// loadSound(){
+	// 	for(let n of this.chord_notes)
+	// 		n.loadSound();
+    // }
     /**
      * play all the notes in the chord as a melody.
      */
@@ -372,7 +372,30 @@ export class Chord{
 	playNotesHarmony(){
 		for (let i=0; i<this.chord_notes.length; i++) 
 			this.chord_notes[i].playNote();
-    }
+	}
+	/**
+    * Transforms the chord into its root position.
+    */
+	rootPosition(){
+		this.third._octave = this.root._octave
+		this.fifth._octave = this.root._octave
+		return this
+	}
+	/**
+     * Transforms the chord into its 1st-inversion.
+     */
+	inversionFirst(){
+		this.root._octave = this.root._octave + 1
+		return this
+	}
+	/**
+     * Transforms the chord into its 2st-inversion.
+     */
+	inversionSecond(){
+		this.root._octave = this.root._octave + 1
+		this.third._octave = this.third._octave + 1
+		return this
+	}
     /**
      * returns string of the name of the chord and all the notes it contains.
      */

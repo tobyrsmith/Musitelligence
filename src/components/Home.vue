@@ -1,47 +1,45 @@
 <template>
-  <div class="home">
-    <h1>Scales!</h1>
-    <div>
-      <input class="in" type="text" v-model="n">
-      <v-btn @click="f" round color="primary green">get Scale</v-btn>
-    </div>
-    <p>{{note_output}}</p>
-    <v-btn color="blue" flat icon @click="" style="background-color: yellow;">
-      <v-icon>music_note</v-icon>
-    </v-btn>
-    <!-- <p>{{scale_output}}</p> -->
-    <transition-group name="fade" tag="span">
-      <p class="diatonic_scales" v-for="(s, i) in scale" :key="i">
-        <v-btn round class="scale_btn" color="secondary" @click="g(s)">{{i+1}}. {{Object.keys(diatonic_scales)[i]}} :
-          {{s.toString()}}</v-btn>
-    <v-btn color="blue" flat icon @click="s.playNotes()" style="background-color: yellow;">
-      <v-icon>music_note</v-icon>
-    </v-btn>
-        <template v-if="s.show == true">
-          <!-- <transition-group name="fade"> -->
-          <span v-for="c in s.chords" :key="c.toString()" class="chords">
-            {{c.toString()}}
-					     <v-btn color="blue" flat icon @click="c.playNotesHarmony()" style="background-color: yellow;">
-      <v-icon>music_note</v-icon>
-    </v-btn>
-						     <v-btn color="blue" flat icon @click="c.playNotesMelody()" style="background-color: yellow;">
-      <v-icon>music_note</v-icon>
-    </v-btn>
-          </span>
+    <div class="home">
+        <h1>Scales!</h1>
+        <v-btn color="success green" @click="test.playNotesHarmony()">{{test.toString()}}</v-btn>
+        
+        <div>
+            <input class="in" type="text" v-model="n">
+            <v-btn @click="f" round color="primary green">get Scale</v-btn>
+        </div>
+        <p>{{note_output}}</p>
+        <v-btn color="blue" flat icon @click="" style="background-color: yellow;">
+            <v-icon>music_note</v-icon>
+        </v-btn>
+        <!-- <p>{{scale_output}}</p> -->
+        <transition-group name="fade" tag="span">
+            <div class="diatonic_scales" v-for="(s, i) in scale" :key="i">
+                <v-btn round class="scale_btn" color="secondary orange" @click="g(s)">{{i+1}}. {{Object.keys(diatonic_scales)[i]}} :
+                    {{s.toString()}}</v-btn>
+                <v-btn color="blue" flat icon @click="s.playNotes()" style="background-color: yellow;">
+                    <v-icon>music_note</v-icon>
+                </v-btn>
+                <template v-if="s.show == true">
+                    <!-- <transition-group name="fade"> -->
+                    <span v-for="c in s.chords" :key="c.toString()" class="chords">
 
-          <!-- </transition-group> -->
-        </template>
+                        <v-card
+                            color="success blue">{{c.toString()}}
+                        </v-card>
 
-      </p>
-    </transition-group>
-    <div class="chords">
-      <input v-model="chrd" type="text" class="in" />
-      <v-btn color="success" style="background-color:grey;" @click="test">Get Chord</v-btn>
-      <span>
-        {{xchord.toString()}}
-      </span>
+                        <v-btn color="blue" flat icon @click="c.playNotesHarmony()" style="background-color: yellow;">
+                            <v-icon>music_note</v-icon>
+                        </v-btn>
+                        <v-btn color="blue" flat icon @click="c.playNotesMelody()" style="background-color: yellow;">
+                            <v-icon>music_note</v-icon>
+                        </v-btn>
+                    </span>
+
+                    <!-- </transition-group> -->
+                </template>
+            </div>
+        </transition-group>
     </div>
-  </div>
 </template>
 
 <script>
@@ -51,54 +49,42 @@ import {Chord} from '../Classes/Base/Chord'
 import {diatonic_scales, notes} from '../Classes/Base/Patterns'
 
 function firstToUpper(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
+    return str.charAt(0).toUpperCase() + str.slice(1);
 }
 export default {
-  name: "Home",
-  data() {
-    return {
-    	n: "",
-    	note: "",
-    	note_output: "",
-    	scale_output: "",
-    	scale: [],
-      	diatonic_scales,
-		chrd: "",
-		xchord: "",
-    };
-  },
-  computed: {
-
-  },
-  methods: {
-    f() {
-      if (this.n != null) this.n = firstToUpper(this.n);
-      if (!notes["#"].includes(this.n) && !notes["b"].includes(this.n)) {
-        this.note = "";
-        this.note_output = "NOT A NOTE!";
-        this.scale = [];
-      } else {
-        this.note = new Note(this.n);
-        this.note_output = "Note: " + this.note;
-        this.scale = [];
-        for (let s in diatonic_scales)
-          this.scale.push(new DiatonicScale(this.n, diatonic_scales[s]));
-      }
+    name: "Home",
+    data() {
+        return {
+            n: "",
+            note: "",
+            note_output: "",
+            scale_output: "",
+            scale: [],
+            diatonic_scales,
+            chord_types: ["root", "1st Inversion", "second Inversion"],
+            test: (new Chord(new Note('C'), new Note('E'), new Note('G'))).inversionFirst()
+        };
     },
-    g(s) {
-      s.show = !s.show
-      // console.log((new Note('C')).getInterval(4).isEqual((new Note('E'))))
-  },
-
-	test(){
-		// console.log((new Note('C')) === (new Note('C')));
-		// console.log((new MusicalPattern('C', [2,2,1,2,2,2,1])).getInterval(4));
-		// console.log(new Chord(new Note('A'), new Note('C'), new Note('E')))
-		let b = new Note('b');
-		console.log(b);
-	  }
-  }
-};
+    methods: {
+        f() {
+            if (this.n != null) this.n = firstToUpper(this.n);
+            if (!notes["#"].includes(this.n) && !notes["b"].includes(this.n)) {
+                this.note = "";
+                this.note_output = "NOT A NOTE!";
+                this.scale = [];
+            } else {
+                this.note = new Note(this.n);
+                this.note_output = "Note: " + this.note;
+                this.scale = [];
+                for (let s in diatonic_scales)
+                    this.scale.push(new DiatonicScale(this.n, diatonic_scales[s]));
+            }
+        },
+        g(s) {
+            s.show = !s.show
+        },
+    }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

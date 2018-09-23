@@ -16,10 +16,6 @@
   function firstToUpper(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
-  const track = 'http://0.0.0.0:8000/Grand%20Piano/piano-f-a1.wav'
-  const sound = new Howl({
-    src: [track],
-  })
   export default {
     name: "Play",
     data() {
