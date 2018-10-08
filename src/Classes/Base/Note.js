@@ -3,7 +3,7 @@ import {
     circle_of_fourths,
     semitone
 } from './Patterns'
-import NotesHash from './NotesHash'
+import {NotesHash} from './NotesHash'
 let sound_data = new NotesHash()
 /**
  * Represents a single musical note.
@@ -11,9 +11,9 @@ let sound_data = new NotesHash()
  */
 export class Note {
     /**
-     * @param {String} note 
-     * @param {number} octave 
-     * @param {String} instrument 
+     * @param {String} note Musical Note
+     * @param {number} octave Octave
+     * @param {String} instrument Piano/Guitar/etc...
      * @constructor
      */
     constructor(note = "A", octave = 3, instrument = 'Piano') {
@@ -27,9 +27,21 @@ export class Note {
         this.sound = null
         Note.setSoundData(this.instrument, notes['b'][notes[this.lang].indexOf(this.note)], this._octave)
     }
+    /**
+     * Class function for adding notes to the note hash table.
+     * @static
+     * @param {string} instrument 
+     * @param {string} note 
+     * @param {number} octave 
+     */
     static setSoundData(instrument, note, octave){
         sound_data.set(instrument, note, octave)
     }
+    /**
+     * Class function for retrieving a note sound from the note hash table.
+     * @static
+     * @param {Note} note Note Instance
+     */
     static getSoundData(note){
         return sound_data.get(note)
     }
@@ -48,6 +60,7 @@ export class Note {
     /**
      * set new value to note.
      * if value is not a note nothing happens.
+     * @param {string} note Musical Note
      */
     set note(note) {
         this._note = !notes["#"].includes(note) && !notes.b.includes(note) ? this._note : note
@@ -60,6 +73,7 @@ export class Note {
     }
     /**
      * set octave of note.
+     * @param {number} octave Octave Number
      */
     set octave(octave) {
         this._octave = octave
@@ -84,10 +98,10 @@ export class Note {
     /**
      * gets a number as interval and returns a new instance of a note 
      * which is constructed by the musical interval formula.
-     * for example, a if the note is a 'C' in octave 3, 
-     * calling the function with the number 4 will return
-     * a note with the alphabetical 'E' in octave 3 with the same instrument.
-     * @param {number} interval 
+     * for example, if the note is a 'C' in octave 3, 
+     * calling the function with the number 4(which is a major third) will return
+     * a Note instance with the musical note 'E' in octave 3 with the same instrument.
+     * @param {number} interval Musical Interval
      */
     getInterval(interval) {
         let oct_diff = (this.index + interval) / 12

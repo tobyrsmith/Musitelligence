@@ -1,9 +1,7 @@
-export class Bar {
-    constructor() {
-
-    }
-}
-
+/**
+ * Creates a rhythm instance which holds bpm and time signature information.
+ * @class 
+ */
 export class Rhythm {
     constructor(bpm, time_signature) {
         this.bpm = bpm
@@ -11,10 +9,3 @@ export class Rhythm {
         this.beat_length = time_signature[1]
     }
 }
-export class Measure {
-    constructor(rhythm) {
-        this.rhythm = rhythm
-    }
-}
-
-let r = new Rhythm(80, "24")

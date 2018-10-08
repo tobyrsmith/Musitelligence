@@ -8,8 +8,8 @@ import {Chord} from './Chord'
 export class DiatonicScale extends MusicalPattern {
     /**
      * 
-     * @param {Note/String} tonic 
-     * @param {Array} pattern 
+     * @param {Note/String} tonic Root of the Scale
+     * @param {Array} pattern Intervals for the other notes(from the tonic).
      */
 	constructor(tonic, pattern) {
 		super(tonic, pattern)
@@ -20,10 +20,10 @@ export class DiatonicScale extends MusicalPattern {
     }
     /**
      * returns the x chord of the scale.
-     * @param {number} chord 
+     * @param {number} chord Chord Number
      */
 	getChord(chord) {
-		return(this.chords[chord])
+		return this.chords[chord-1] != undefined ? this.chords[chord-1] : null
     }
     /**
      * returns array with all the chords in the scale.
