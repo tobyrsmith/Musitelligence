@@ -3,7 +3,8 @@ import {
     circle_of_fourths,
     semitone
 } from './Patterns'
-import {NotesHash} from './NotesHash'
+import NotesHash from './NotesHash'
+import {firstToUpper} from './../Addons'
 let sound_data = new NotesHash()
 /**
  * Represents a single musical note.
@@ -17,6 +18,7 @@ export class Note {
      * @constructor
      */
     constructor(note = "A", octave = 3, instrument = 'Piano') {
+        note = firstToUpper(note)
         note = !notes["#"].includes(note) && !notes.b.includes(note) ? "A" : note
         this.octave = octave
         this.lang = circle_of_fourths.includes(note) ? "b" : "#"
@@ -152,3 +154,5 @@ export class Note {
             console.log('Sound not loaded! please make sure you load with x.loadSound()')
     }
 }
+
+export default Note

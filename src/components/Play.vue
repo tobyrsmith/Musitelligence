@@ -8,31 +8,45 @@
 </template>
 
 <script>
-  import {
+import {
     Howl,
     Howler
-  } from 'howler';
-
-  function firstToUpper(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-  export default {
+} from 'howler'
+import Rhythm from './../Classes/Base/Rhythm'
+import Measure from './../Classes/Measure'
+export default {
     name: "Play",
     data() {
-      return {
-        sound,
-      }
-    },
-    computed: {
-      output: function () {}
+        const notes = [{
+                notes: ['a', 'c', 'e'],
+                length: 'q'
+            },
+            {
+                notes: ['a', 'c', 'e'],
+                length: 'q'
+            },
+            {
+                notes: ['c', 'g', 'b'],
+                length: 'q'
+            },
+                       {
+                notes: ['c', 'g', 'b'],
+                length: 'q'
+            },
+        ]
+        return {
+            notes,
+            meas: new Measure(new Rhythm(60, [4, 4]), notes),
+        }
     },
     methods: {
-      g() {
-        console.log(this.sound)
-        this.sound.play();
-      }
+        g() {
+            setInterval(()=> {
+                this.meas.play()
+            }, this.meas.rhythm.bpm/60*4*1000)
+        }
     }
-  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -1,6 +1,6 @@
 import {notes} from './Patterns'
-import {Howl, Howler} from 'howler';
-import { Note } from './Note';
+import {Howl} from 'howler';
+import Note from './Note'
 /**
  * A hash table for holding all the note sounds and playing them efficiently.
  * @class
@@ -31,3 +31,4 @@ export class NotesHash{
 		return this.loaded[note.instrument + notes['b'][notes[note.lang].indexOf(note.note)] + note.octave]
 	}
 }
+export default NotesHash

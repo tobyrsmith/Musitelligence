@@ -1,5 +1,4 @@
-import {Note} from './Note'
-
+import Note from './Note'
 /**
  * represents a Chord.
  */
@@ -414,3 +413,4 @@ export class Chord{
 		return this.root.note + this.symbol + " {" + this.root + ", " + this.third + ", " + this.fifth + ", " + this.note4 + ", " + this.note5 + "}";
 	}
 }
+export default Chord

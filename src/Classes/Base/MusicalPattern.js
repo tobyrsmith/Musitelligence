@@ -1,4 +1,4 @@
-import {Note} from './Note'
+import Note from './Note'
 /**
  * Represents a musical pattern.
  */
@@ -65,3 +65,4 @@ export class MusicalPattern {
         }
     }
 }
+export default MusicalPattern

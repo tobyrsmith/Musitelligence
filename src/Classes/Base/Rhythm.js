@@ -9,3 +9,4 @@ export class Rhythm {
         this.beat_length = time_signature[1]
     }
 }
+export default Rhythm
