@@ -1,6 +1,6 @@
-# musitelligence
+# Musitelligence
 
-> Music Composition Project
+> Musical Project By Sean Dvir
 
 ### A Work in progress!
 Music is a highly versatile art that originates in nature, and has been taken up by mankind as a way of expression and also as an art.
