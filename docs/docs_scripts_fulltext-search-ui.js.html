@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Musitelligence Class: exports</title>
+	<title>Musitelligence Source: docs/scripts/fulltext-search-ui.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -33,14 +33,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Chord.html">Chord</a></li><li><a href="DiatonicScale.html">DiatonicScale</a></li><li><a href="Key.html">Key</a></li><li><a href="module.exports.html">module.exports</a></li><li><a href="MusicalPattern.html">MusicalPattern</a></li><li><a href="NotesHash.html">NotesHash</a></li><li><a href="Rhythm.html">Rhythm</a></li>
-				</ul>
-			</li>
-			
-			<li class="dropdown">
-				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="global.html#clone">clone</a></li><li><a href="global.html#frequency">frequency</a></li><li><a href="global.html#getInterval">getInterval</a></li><li><a href="global.html#getSoundData">getSoundData</a></li><li><a href="global.html#isEqual">isEqual</a></li><li><a href="global.html#note">note</a></li><li><a href="global.html#octave">octave</a></li><li><a href="global.html#playNote">playNote</a></li><li><a href="global.html#print">print</a></li><li><a href="global.html#setSoundData">setSoundData</a></li><li><a href="global.html#toString">toString</a></li>
+					<li><a href="Chord.html">Chord</a></li><li><a href="DiatonicScale.html">DiatonicScale</a></li><li><a href="Key.html">Key</a></li><li><a href="MusicalPattern.html">MusicalPattern</a></li><li><a href="Note.html">Note</a></li><li><a href="NotesHash.html">NotesHash</a></li><li><a href="Rhythm.html">Rhythm</a></li>
 				</ul>
 			</li>
 			
@@ -67,253 +60,109 @@
 <div class="row">
 
 	
-	<div class="col-md-8">
+	<div class="col-md-12">
 	
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: exports</h1>
+		<h1 class="page-title">Source: docs/scripts/fulltext-search-ui.js</h1>
+    
 <section>
-
-<header>
-    
-        <h2>
-        exports
-        </h2>
-        
-            <div class="class-description"><p>Represents a single musical note.</p></div>
-        
-    
-</header>
-
-
-<article>
-    <div class="container-overview">
-    
-        
-<hr>
-<dt>
-    <h4 class="name" id="exports"><span class="type-signature"></span>new exports(note, octave, instrument)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>note</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                    A
-                
-                </td>
-            
-
-            <td class="description last"><p>Musical Note</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>octave</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                    3
-                
-                </td>
-            
-
-            <td class="description last"><p>Octave</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>instrument</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                    Piano
-                
-                </td>
-            
-
-            <td class="description last"><p>Piano/Guitar/etc...</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="src_Classes_Base_Note.js.html">src/Classes/Base/Note.js</a>,
-				 <a href="src_Classes_Base_Note.js.html#sunlight-1-line-12">line 12</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">window.SearcherDisplay = (function($) {
+    /**
+     * This class provides support for displaying quick search text results to users.
+     */
+    function SearcherDisplay() { }
+
+    SearcherDisplay.prototype.init = function() {
+        this._displayQuickSearch();
+    };
+
+    /**
+     * This method creates the quick text search entry in navigation menu and wires all required events.
+     */
+    SearcherDisplay.prototype._displayQuickSearch = function() {
+            var quickSearch = $(document.createElement("iframe")),
+                   body = $("body"),
+                   self = this;
+
+            quickSearch.attr("src", "quicksearch.html");
+            quickSearch.css("width", "0px");
+            quickSearch.css("height", "0px");
+
+            body.append(quickSearch);
+
+            $(window).on("message", function(msg) {
+                var msgData = msg.originalEvent.data;
+
+                if (msgData.msgid != "docstrap.quicksearch.done") {
+                    return;
+                }
+
+                var results = msgData.results || [];
+
+                self._displaySearchResults(results);
+            });
+
+            function startSearch() {
+              var searchTerms = $('#search-input').prop("value");
+              if (searchTerms) {
+                quickSearch[0].contentWindow.postMessage({
+                  "searchTerms": searchTerms,
+                  "msgid": "docstrap.quicksearch.start"
+                }, "*");
+              }
+            }
+
+            $('#search-input').on('keyup', function(evt) {
+              if (evt.keyCode != 13) {
+                return;
+              }
+              startSearch();
+              return false;
+            });
+            $('#search-submit').on('click', function() {
+              startSearch();
+              return false;
+            });
+    };
+
+    /**
+     * This method displays the quick text search results in a modal dialog.
+     */
+    SearcherDisplay.prototype._displaySearchResults = function(results) {
+            var resultsHolder = $($("#searchResults").find(".modal-body")),
+                  fragment = document.createDocumentFragment(),
+                  resultsList = document.createElement("ul");
+
+            resultsHolder.empty();
+
+            for (var idx = 0; idx &lt; results.length; idx++) {
+                var result = results[idx],
+                       item = document.createElement("li"),
+                       link = document.createElement("a");
+
+                link.href = result.id;
+                link.innerHTML = result.title;
+
+                item.appendChild(link)
+                resultsList.appendChild(item);
+            }
+
+            fragment.appendChild(resultsList);
+            resultsHolder.append(fragment);
+
+            $("#searchResults").modal({"show": true});
+    };
+
+    return new SearcherDisplay();
+})($);
+</pre>
+    </article>
 </section>
+
 
 
 
@@ -323,10 +172,6 @@
 
 	<div class="clearfix"></div>
 
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
 	
 
 </div>
@@ -359,7 +204,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on Mon Oct 8th 2018
+		on Wed Oct 10th 2018
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

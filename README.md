@@ -1,10 +1,22 @@
 # musitelligence
 
-> ML Music Composition Project
+> Music Composition Project
+
+### A Work in progress!
+Music is a highly versatile art that originates in nature, and has been taken up by mankind as a way of expression and also as an art.
+Now, it's going to be taken up by machines as well.
+-
+This project aims to create a library that implements all of music theory(in all it's forms) in code, then create AI that will use that theory, math, and neuroscience to compose music in different styles and genres.
+It will also be used to create multiple tools for people to practice, learn, enjoy and compose.
 
 ## Build Setup
 
 ``` bash
+To run it on your local device:
+Clone or fork the repo
+# go to folder
+cd Musitelligence
+
 # install dependencies
 npm install
 
@@ -24,14 +36,7 @@ npm run unit
 npm test
 ```
 
-Music is a highly versatile art that originates in nature, and has been taken up by mankind as a way of expression and also as an art.
-Now, it's going to be taken up by machines as well.
--
-This project aims to create a library that implements all of music theory(in all it's forms) in code, then create AI that will use that theory, math, and neuroscience to compose music in different styles and genres.
-
 ----------------------------------------------------------------------
-##### TO DO:
-1. 
 
 > “Everything is determined … by forces over which we have no
 > control. It is determined for the insects as well as for the star.
@@ -39,6 +44,7 @@ This project aims to create a library that implements all of music theory(in all
 > mysterious tune, intoned in the distance by an invisible piper.”
 > – Albert Einstein
 
+# Music formula tables for reference
 ## Scales:
 
 | Scale | W/H Note | Semi - Tones(from interval) | Semi Tones(from Tonic) |
