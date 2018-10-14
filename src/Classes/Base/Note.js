@@ -51,7 +51,7 @@ export class Note {
      * returns a clone of the note(new instance).
      */
     clone() {
-        return new Note(this.note, this.octave)
+        return new Note(this.note, this.octave, this.instrument)
     }
     /**
      * returns the note alphabet representation as a string.
