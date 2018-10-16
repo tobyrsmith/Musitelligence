@@ -1,11 +1,12 @@
 <template>
   <div class="hello">
     <h1>Bit!</h1>
-    <input name="bpm" id="bpm" type="range" min="60" max="180" value="120" step="1" />
-	<span id="bpmval">120</span>
+    <input name="bpm" id="bpm" type="range" min="60" max="180"  step="1" v-model="bpm" @change="updateBPM"/>
+	<span id="bpmval">{{bpm}}</span>
     <v-btn slot="activator" @click="g">
       <v-icon>help</v-icon>
     </v-btn>
+    <p v-if="r">{{meas.rhythm.getBeat()}}</p>
   </div>
 </template>
 
@@ -16,30 +17,41 @@ import {
 } from 'howler'
 import Rhythm from './../Classes/Base/Rhythm'
 import Measure from './../Classes/Measure'
+import Chord from './../Classes/Base/Chord'
+import { Note } from '../Classes/Base/Note'
+import { DiatonicScale } from '../Classes/Base/Scale'
+import { major_scale } from '../Classes/Base/Patterns';
 export default {
     name: "Play",
     data() {
-        const notes = [{
-                notes: ['a', 'c', 'e'],
+        const C = new DiatonicScale('C', major_scale),
+        c =            {
+                notes: [C.getChord(1)],
                 length: 'q'
             },
-            {
-                notes: ['a', 'c', 'e'],
+            G = {
+                notes: [C.getChord(5)],
                 length: 'q'
             },
-            {
-                notes: ['c', 'g', 'b'],
+            F = {
+                notes: [C.getChord(4)],
                 length: 'q'
             },
-                       {
-                notes: ['c', 'g', 'b'],
+            Am = {
+                notes: [C.getChord(6)],
                 length: 'q'
             },
-        ]
+        notes = []
+        for(let i = 0; i < 100; i++)
+            notes.push(c,c,c,c,G,G,G,G,F,F,F,F,G,G,G,G)
+        console.log(notes)
+        let bpm = 60
         return {
             notes,
-            meas: new Measure(new Rhythm(60, [4, 4]), notes),
-            r: new Rhythm(60, [4,4])
+            bpm,
+            meas: new Measure(new Rhythm(bpm, [4, 4]), notes),
+            r: new Rhythm(bpm, [4,4]),
+            beat: null,
         }
     },
     methods: {
@@ -47,7 +59,12 @@ export default {
             // setInterval(()=> {
             //     this.meas.play()
             // }, this.meas.rhythm.bpm/60*4*1000)
-            this.r.toggle()
+            
+            this.meas.play()
+            this.beat = this.meas.rhythm.getBeat()
+        },
+        updateBPM(){
+            this.meas.rhythm.bpm = this.bpm
         }
     }
 }

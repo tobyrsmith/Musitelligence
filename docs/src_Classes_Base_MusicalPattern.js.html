@@ -128,11 +128,11 @@ export class MusicalPattern {
     /**
      * play all the notes in the pattern one after the other.
      */
-    playNotes() {
+    plays() {
         let self = this
         for (let i = 0; i &lt; this.notes.length; i++) {
             setTimeout(function timer() {
-                self.notes[i].playNote()
+                self.notes[i].play()
             }, i * 500)
         }
     }

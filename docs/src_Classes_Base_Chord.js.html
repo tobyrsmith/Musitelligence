@@ -428,11 +428,11 @@ export class Chord{
     /**
      * play all the notes in the chord as a melody.
      */
-	playNotesMelody(){
+	playsMelody(){
 		let self = this;
 		for (let i=0; i&lt;this.chord_notes.length; i++) {
 			setTimeout( function timer(){
-				self.chord_notes[i].playNote();
+				self.chord_notes[i].play();
 			}, i*500 );
 		}
 		console.log(this.chord_notes);
@@ -440,9 +440,9 @@ export class Chord{
     /**
      * play all the notes in the chord as a harmony.
      */
-	playNotesHarmony(){
+	playsHarmony(){
 		for (let i=0; i&lt;this.chord_notes.length; i++) 
-			this.chord_notes[i].playNote();
+			this.chord_notes[i].play();
 	}
 	/**
     * Transforms the chord into its root position.

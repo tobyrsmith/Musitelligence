@@ -219,7 +219,7 @@ export class Note {
     /**
      * plays the note.
      */
-    playNote() {
+    play() {
         if (Note.getSoundData(this))
             Note.getSoundData(this).play()
         else

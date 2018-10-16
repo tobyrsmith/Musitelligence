@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <h1>Scales!</h1>
-        <!-- <v-btn color="success green" @click="test.playNotesHarmony()">{{test.toString()}}</v-btn>
+        <!-- <v-btn color="success green" @click="test.playsHarmony()">{{test.toString()}}</v-btn>
          -->
         <div>
             <input class="in" type="text" v-model="n">
@@ -9,7 +9,7 @@
             <v-btn @click="f" round color="primary green">get Scale</v-btn>
         </div>
         
-        <v-btn color="blue" flat @click="note.playNote()" style="background-color: yellow;">
+        <v-btn color="blue" flat @click="note.play()" style="background-color: yellow;">
             {{note_output}}<v-icon>music_note</v-icon>
         </v-btn>
         <v-btn color="blue" flat @click="oct" style="background-color: yellow;">
@@ -19,7 +19,7 @@
             <div class="diatonic_scales" v-for="(s, i) in scale" :key="i">
                 <v-btn round class="scale_btn" color="secondary orange" @click="g(s)">{{i+1}}. {{Object.keys(diatonic_scales)[i]}} :
                     {{s.toString()}}</v-btn>
-                <v-btn color="blue" flat icon @click="s.playNotes()" style="background-color: yellow;">
+                <v-btn color="blue" flat icon @click="s.plays()" style="background-color: yellow;">
                     <v-icon>music_note</v-icon>
                 </v-btn>
                 <template v-if="s.show == true">
@@ -27,10 +27,10 @@
                         <v-card
                             color="success blue">{{c.toString()}}
                         </v-card>
-                        <v-btn color="blue" flat icon @click="c.playNotesHarmony()" style="background-color: yellow;">
+                        <v-btn color="blue" flat icon @click="c.play()" style="background-color: yellow;">
                             <v-icon>music_note</v-icon>
                         </v-btn>
-                        <v-btn color="blue" flat icon @click="c.playNotesMelody()" style="background-color: yellow;">
+                        <v-btn color="blue" flat icon @click="c.playsMelody()" style="background-color: yellow;">
                             <v-icon>music_note</v-icon>
                         </v-btn>
                     </span>
@@ -88,7 +88,7 @@ export default {
             this.foo = tmp
             let timerId = setInterval(() => {
                 let i = Math.floor(Math.random() * 7)
-                this.foo[i].playNote()
+                this.foo[i].play()
             }, 2000)
             setTimeout(() => { clearInterval(timerId)
             }, 

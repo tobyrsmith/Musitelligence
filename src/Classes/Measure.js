@@ -1,4 +1,5 @@
 import Note from "./Base/Note"
+import Rhythm from './Base/Rhythm'
 const note_lengths = {
     'w': 1,
     'h': 1 / 2,
@@ -14,26 +15,8 @@ export class Measure {
         this.data = data
     }
     play() {
-        // for (let i of this.data) {
-        //     for (let note of i['notes']) {
-        //         let tmp = new Note(note)
-        //         tmp.playNote()
-        //         setTimeout(() => {
-        //         }, i['length'] * this.rhythm.beats_per_measure * 1000)
-        //     }
-        // }
-        (function playMeasure (measure, i) {
-            setTimeout(function () {
-                for (let note of measure.data[i]['notes']) {
-                    let tmp = new Note(note)
-                    tmp.playNote()
-                }
-                if (++i < measure.data.length) {                  // If i > 0, keep going
-                    console.log(measure.data[i]['length'], " " , measure.noteLengthToTime(measure.data[i]['length']))
-                    playMeasure(measure, i)  // Call the loop again
-                }
-            }, measure.noteLengthToTime(measure.data[i]['length']) * measure.rhythm.beats_per_measure * 1000 * (measure.rhythm.bpm/60))
-          })(this, 0)
+        this.rhythm.addNotes(this.data)
+        this.rhythm.toggle()
     }
     noteLengthToTime(length) {
         return note_lengths[length[0]]

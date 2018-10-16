@@ -5,6 +5,7 @@ import {
 } from './Patterns'
 import NotesHash from './NotesHash'
 import {firstToUpper} from './../Addons'
+import Chord from './Chord'
 let sound_data = new NotesHash()
 /**
  * Represents a single musical note.
@@ -51,7 +52,7 @@ export class Note {
      * returns a clone of the note(new instance).
      */
     clone() {
-        return new Note(this.note, this.octave, this.instrument)
+        return (new Note(this.note, this.octave, this.instrument))
     }
     /**
      * returns the note alphabet representation as a string.
@@ -112,9 +113,7 @@ export class Note {
         return new Note(notes[this.lang][(this.index + interval) % 12], parseInt(this.octave) + parseInt(oct_diff), this.instrument)
     }
     getMajorChord() {
-        let chord = [this.note]
-        for (let i of major_chord) chord.push(this.getInterval(i))
-        return chord
+        return new Chord(this, this.getInterval(4), this.getInterval(7))
     }
     getMajorScale() {
         let scale = [this.note]
@@ -147,7 +146,8 @@ export class Note {
     /**
      * plays the note.
      */
-    playNote() {
+    play() {
+        console.log(this._note)
         if (Note.getSoundData(this))
             Note.getSoundData(this).play()
         else
