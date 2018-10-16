@@ -1,6 +1,8 @@
 <template>
   <div class="hello">
     <h1>Bit!</h1>
+    <input name="bpm" id="bpm" type="range" min="60" max="180" value="120" step="1" />
+	<span id="bpmval">120</span>
     <v-btn slot="activator" @click="g">
       <v-icon>help</v-icon>
     </v-btn>
@@ -37,13 +39,15 @@ export default {
         return {
             notes,
             meas: new Measure(new Rhythm(60, [4, 4]), notes),
+            r: new Rhythm(60, [4,4])
         }
     },
     methods: {
         g() {
-            setInterval(()=> {
-                this.meas.play()
-            }, this.meas.rhythm.bpm/60*4*1000)
+            // setInterval(()=> {
+            //     this.meas.play()
+            // }, this.meas.rhythm.bpm/60*4*1000)
+            this.r.toggle()
         }
     }
 }
