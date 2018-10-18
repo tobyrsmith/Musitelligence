@@ -27,7 +27,7 @@ export default {
         const C = new DiatonicScale('C', major_scale),
         c =            {
                 notes: [C.getChord(1)],
-                length: 'q'
+                length: 'h'
             },
             G = {
                 notes: [C.getChord(5)],
@@ -39,12 +39,11 @@ export default {
             },
             Am = {
                 notes: [C.getChord(6)],
-                length: 'q'
+                length: 'h'
             },
         notes = []
         for(let i = 0; i < 100; i++)
-            notes.push(c,c,c,c,G,G,G,G,F,F,F,F,G,G,G,G)
-        console.log(notes)
+            notes.push(c,G,G,Am,G,G)
         let bpm = 60
         return {
             notes,
@@ -59,7 +58,7 @@ export default {
             // setInterval(()=> {
             //     this.meas.play()
             // }, this.meas.rhythm.bpm/60*4*1000)
-            
+
             this.meas.play()
             this.beat = this.meas.rhythm.getBeat()
         },

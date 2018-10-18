@@ -147,7 +147,6 @@ export class Note {
      * plays the note.
      */
     play() {
-        console.log(this._note)
         if (Note.getSoundData(this))
             Note.getSoundData(this).play()
         else
