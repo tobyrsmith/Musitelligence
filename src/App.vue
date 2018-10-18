@@ -10,7 +10,7 @@ import Home from './components/Home'
 import Play from './components/Play'
 export default {
   name: "App",
-  components: { Home, Play}
+  components: { Home, Play},
 };
 </script>
 

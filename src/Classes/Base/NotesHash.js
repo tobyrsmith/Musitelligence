@@ -17,7 +17,8 @@ export class NotesHash{
      */
 	set(instrument, note, octave){
 		if(!this.loaded[instrument + note + octave]){
-			let path = 'http://0.0.0.0:8000/' + instrument + '/' + 'FF_' + note + octave+ '.mp3'
+            let path = '/static/Media/' + instrument + '/' + 'FF_' + note + octave+ '.mp3'
+            console.log(path)
 			this.loaded[instrument + note + octave] = new Howl({
 				src: [path]
 			  });
