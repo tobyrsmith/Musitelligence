@@ -3,10 +3,9 @@ import {
     circle_of_fourths,
     semitone
 } from './Patterns'
-import NotesHash from './NotesHash'
 import {firstToUpper} from './../Addons'
 import Chord from './Chord'
-let sound_data = new NotesHash()
+const sounds = new Map()
 /**
  * Represents a single musical note.
  * @class
@@ -28,7 +27,7 @@ export class Note {
         this.instrument = "Piano"
         this.path = null
         this.sound = null
-        Note.setSoundData(this.instrument, notes['b'][notes[this.lang].indexOf(this.note)], this._octave)
+        Note.setSound(this)
     }
     /**
      * Class function for adding notes to the note hash table.
@@ -37,8 +36,14 @@ export class Note {
      * @param {string} note 
      * @param {number} octave 
      */
-    static setSoundData(instrument, note, octave){
-        sound_data.set(instrument, note, octave)
+    static setSound(note){
+        const key = note.instrument + notes['b'][notes[note.lang].indexOf(note.note)] + note._octave
+        if (!sounds.has(key)) {
+            const path = '/static/Media/' + note.instrument + '/' + 'FF_' + notes['b'][notes[note.lang].indexOf(note.note)] + note._octave + '.mp3'
+            sounds.set(key, new Howl({
+				src: [path]
+			  }))
+        }
     }
     /**
      * Class function for retrieving a note sound from the note hash table.
@@ -81,16 +86,6 @@ export class Note {
     set octave(octave) {
         this._octave = octave
     }
-    // /**
-    //  * load the sound file to the instance.
-    //  * the path to the file is constructed by the instrument, the note and the octave automatically.
-    //  */
-    // loadSound() {
-    //     this.path = 'http://0.0.0.0:8000/' + this.instrument + '/' + 'FF_' + notes['b'][notes[this.lang].indexOf(this.note)] + this._octave + '.mp3'
-    //     this.sound = new Howl({
-    //         src: [this.path],
-    //     })
-    // }
     /**
      * get the frequancy of a note.
      */
@@ -123,13 +118,13 @@ export class Note {
         return toString(scale)
     }
     /**
-     * returns only the letter of the note and the octave.
+     * Returns only the letter of the note and the octave.
      */
     toString() {
         return this.note + this.octave
     }
     /**
-     * check if 2 notes are equal in letter and octave.
+     * Check if 2 notes are equal in letter and octave.
      * @param {Note} note
      */
     isEqual(note) {
@@ -138,17 +133,17 @@ export class Note {
         return false
     }
     /**
-     * returns string of of the note fields formatted as an object.
+     * Returns string of of the note fields formatted as an object.
      */
     print() {
         return "{Note: " + this.note + ", Octave: " + this.octave + "}"
     }
     /**
-     * plays the note.
+     * Play the note.
      */
     play() {
-        if (Note.getSoundData(this))
-            Note.getSoundData(this).play()
+        if (sounds.get(this.instrument + notes['b'][notes[this.lang].indexOf(this._note)] + this._octave))
+            sounds.get(this.instrument + notes['b'][notes[this.lang].indexOf(this._note)] + this._octave).play()
         else
             console.log('Sound not loaded! please make sure you load with x.loadSound()')
     }

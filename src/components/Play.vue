@@ -7,7 +7,10 @@
       <v-icon>help</v-icon>
     </v-btn>
     <p v-if="r">{{meas.rhythm.getBeat()}}</p>
+      <input name="volume" id="vol" type="range" min="0" max="1"  step="0.01" v-model="vol" @change="updateVol"/>
+      	<span>{{Math.floor(vol*100)}}</span>
   </div>
+
 </template>
 
 <script>
@@ -27,23 +30,23 @@ export default {
         const C = new DiatonicScale('C', major_scale),
         c =            {
                 notes: [C.getChord(1)],
-                length: 'h'
+                length: 'q'
             },
             G = {
                 notes: [C.getChord(5)],
-                length: 'q'
+                length: 'e'
             },
             F = {
                 notes: [C.getChord(4)],
-                length: 'q'
+                length: 'e'
             },
             Am = {
                 notes: [C.getChord(6)],
-                length: 'h'
+                length: 'e'
             },
         notes = []
         for(let i = 0; i < 100; i++)
-            notes.push(c,G,G,Am,G,G)
+            notes.push(c,G,G,c,F,F)
         let bpm = 60
         return {
             notes,
@@ -51,6 +54,7 @@ export default {
             meas: new Measure(new Rhythm(bpm, [4, 4]), notes),
             r: new Rhythm(bpm, [4,4]),
             beat: null,
+            vol:1,
         }
     },
     methods: {
@@ -64,6 +68,9 @@ export default {
         },
         updateBPM(){
             this.meas.rhythm.bpm = this.bpm
+        },
+        updateVol(){
+            Howler.volume([this.vol])
         }
     }
 }

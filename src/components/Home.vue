@@ -17,8 +17,8 @@
         </v-btn>
         <transition-group name="fade" tag="span">
             <div class="diatonic_scales" v-for="(s, i) in scale" :key="i">
-                <v-btn round class="scale_btn" color="secondary orange" @click="g(s)">{{i+1}}. {{Object.keys(diatonic_scales)[i]}} :
-                    {{s.toString()}}</v-btn>
+                <v-btn round class="scale_btn" color="secondary orange" @click="g(s)">{{i+1}}. {{n}} {{Object.keys(diatonic_scales)[i]}}
+                    </v-btn>
                 <v-btn color="blue" flat icon @click="s.plays()" style="background-color: yellow;">
                     <v-icon>music_note</v-icon>
                 </v-btn>
@@ -105,6 +105,9 @@ h2 {
   font-weight: normal;
   font-size: 50pt;
 }
+button{
+    max-width: 100%;
+}
 ul {
   list-style-type: none;
   padding        : 0;
@@ -129,7 +132,7 @@ a {
     background-color: chartreuse;
     font-size: 30pt;
 	color: black;
-    width: 4%;
+    width: 15%;
 }
 .scale_btn{
 	text-transform: none !important;

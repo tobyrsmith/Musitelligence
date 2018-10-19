@@ -12,7 +12,27 @@ VTooltip.options.defaultTemplate =
 Vue.use(Vuetify)
 Vue.config.productionTip = false
 
+import Home from './components/Home'
+import Play from './components/Play'
+
+const routes = {
+    '/': Home,
+    '/about': Play
+  }
+
 /* eslint-disable no-new */
+// new Vue({
+//     el: '#app',
+//     data: {
+//       currentRoute: window.location.pathname
+//     },
+//     computed: {
+//       ViewComponent () {
+//         return routes[this.currentRoute] || Play
+//       }
+//     },
+//     render (h) { return h(this.ViewComponent) }
+//   })
 new Vue({
     el: '#app',
     router,
