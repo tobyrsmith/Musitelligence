@@ -1,16 +1,26 @@
 <template>
-  <div class="hello">
-    <h1>Bit!</h1>
-    <input name="bpm" id="bpm" type="range" min="60" max="180"  step="1" v-model="bpm" @change="updateBPM"/>
-	<span id="bpmval">{{bpm}}</span>
-    <v-btn slot="activator" @click="g">
-      <v-icon>help</v-icon>
-    </v-btn>
-    <p v-if="r">{{meas.rhythm.getBeat()}}</p>
-      <input name="volume" id="vol" type="range" min="0" max="1"  step="0.01" v-model="vol" @change="updateVol"/>
-      	<span>{{Math.floor(vol*100)}}</span>
-  </div>
+    <div id="app">
+        <v-app id="inspire">
+            <v-container fluid grid-list-lg>
+                <h1 class="st">Fur Elise!</h1>
+                <br><br><br>
 
+                <span id="bpmval">BPM: {{bpm}}</span>
+                <v-slider name="bpm" type="range" :min="60" :max="180" step="1" v-model="bpm" @change="updateBPM" thumb-label="always" class="slider" height="70"></v-slider>
+                <br><br><br>
+
+                <p v-if="r">Current Beat: {{meas.rhythm.getBeat()}}</p>
+                <br><br><br>
+                <span>Volume: {{Math.floor(vol*100)}}</span>
+                <!-- <input name="volume" type="range" id="vol" min="0" max="1" step="0.01" v-model="vol" @change="updateVol" class="slider"/> -->
+                <v-slider name="volume" prepend-icon="volume_up" min="0" max="1" step="0.01" v-model="vol" @change="updateVol" class="slider"></v-slider>
+                <br><br><br>
+                <v-btn color="success" round large @click="g" class="btn">
+                    <v-icon>music_note</v-icon>Press Me!<v-icon>music_note</v-icon>
+                </v-btn>
+            </v-container>
+        </v-app>
+    </div>
 </template>
 
 <script>
@@ -21,40 +31,35 @@ import {
 import Rhythm from './../Classes/Base/Rhythm'
 import Measure from './../Classes/Measure'
 import Chord from './../Classes/Base/Chord'
-import { Note } from '../Classes/Base/Note'
-import { DiatonicScale } from '../Classes/Base/Scale'
-import { major_scale } from '../Classes/Base/Patterns';
+import {
+    Note
+} from '../Classes/Base/Note'
+import {
+    DiatonicScale
+} from '../Classes/Base/Scale'
+import {
+    major_scale
+} from '../Classes/Base/Patterns';
 export default {
     name: "Play",
     data() {
-        const C = new DiatonicScale('C', major_scale),
-        c =            {
-                notes: [C.getChord(1)],
-                length: 'q'
-            },
-            G = {
-                notes: [C.getChord(5)],
-                length: 'e'
-            },
-            F = {
-                notes: [C.getChord(4)],
-                length: 'e'
-            },
-            Am = {
-                notes: [C.getChord(6)],
-                length: 'e'
-            },
-        notes = []
-        for(let i = 0; i < 100; i++)
-            notes.push(c,G,G,c,F,F)
-        let bpm = 60
+        const e = new Note('e', 5, 'e'),
+            ds = new Note('d#', 5, 'e'),
+            b = new Note('b', 4, 'e'),
+            d = new Note('d', 5, 'e'),
+            c = new Note('c', 5, 'e'),
+            a = new Note('a', 4, 'q'),
+            notes = []
+        for(let i = 0; i < 20; i++)
+            notes.push(e, ds, e, ds, e, b, d, c, [a, new Note('a', '2', 'e')], e.newOctave(3).newLength('e'), a.newOctave(3).newLength('e'), c.newOctave(4), e.newOctave(4), a.newLength('e'), [b.newLength('q'), e.newOctave(2).newLength('e')], e.newOctave(3).newLength('e'), new Note('g#', 3, 'e'), new Note('e', 4, 'e'), new Note('g#', 4, 'e'), new Note('b', 4, 'e'), [c.newLength('q'), new Note('a', 2, 'e')], new Note('e', 3, 'e'), new Note('a', 3, 'e'), new Note('e', 4, 'e'), e, ds, e, ds, e, b, d, c, [a, new Note('a', '2', 'e')],e.newOctave(3).newLength('e'), a.newOctave(3).newLength('e'), c.newOctave(4), e.newOctave(4), a.newLength('e'), [b.newLength('q'), e.newOctave(2).newLength('e')], e.newOctave(3).newLength('e'), new Note('g#', 3, 'e'), new Note('e', 4, 'e'),c,b,[a, new Note('a', 2, 'h'),])
+        let bpm = 120
         return {
             notes,
             bpm,
-            meas: new Measure(new Rhythm(bpm, [4, 4]), notes),
-            r: new Rhythm(bpm, [4,4]),
+            meas: new Measure(new Rhythm(bpm, [3, 4]), notes),
+            r: new Rhythm(bpm, [4, 4]),
             beat: null,
-            vol:1,
+            vol: 1,
         }
     },
     methods: {
@@ -66,10 +71,10 @@ export default {
             this.meas.play()
             this.beat = this.meas.rhythm.getBeat()
         },
-        updateBPM(){
+        updateBPM() {
             this.meas.rhythm.bpm = this.bpm
         },
-        updateVol(){
+        updateVol() {
             Howler.volume([this.vol])
         }
     }
@@ -78,28 +83,28 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#app{
+    text-align: center;
+}
   h1,
   h2 {
     font-weight: normal;
+          font-size: 40pt;
+      background-color: aqua;
   }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
+  p, span{
+      font-size: 30pt;
+      color: red;
+      /* background-color: lightcoral; */
+      display: inline;
   }
-
-  li {
-    display: inline-block;
-    margin: 0 10px;
+  .slider{
+      background-color: lavender;
   }
-
-  a {
-    color: #42b983;
-  }
-
-  .scales {
-    color: red;
-    margin: 2%;
-  }
+.v-btn {
+  min-width: 0;
+  width: 200pt;
+  height: 100pt;
+}
 
 </style>

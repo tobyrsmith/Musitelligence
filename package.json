@@ -19,7 +19,7 @@
     "v-tooltip": "^2.0.0-rc.33",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
-    "vuetify": "^1.2.4"
+    "vuetify": "^1.1.17"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

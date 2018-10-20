@@ -3,7 +3,9 @@ import {
     circle_of_fourths,
     semitone
 } from './Patterns'
-import {firstToUpper} from './../Addons'
+import {
+    firstToUpper
+} from './../Addons'
 import Chord from './Chord'
 const sounds = new Map()
 /**
@@ -17,47 +19,31 @@ export class Note {
      * @param {String} instrument Piano/Guitar/etc...
      * @constructor
      */
-    constructor(note = "A", octave = 3, instrument = 'Piano') {
+    constructor(note = "A", octave = 3, length = 'q', instrument = 'Piano') {
         note = firstToUpper(note)
         note = !notes["#"].includes(note) && !notes.b.includes(note) ? "A" : note
-        this.octave = octave
+        this._octave = octave
+        this._length = length
         this.lang = circle_of_fourths.includes(note) ? "b" : "#"
         this.index = notes[this.lang].indexOf(note)
-        this.note = note
+        this._note = note
         this.instrument = "Piano"
         this.path = null
         this.sound = null
         Note.setSound(this)
     }
     /**
-     * Class function for adding notes to the note hash table.
-     * @static
-     * @param {string} instrument 
-     * @param {string} note 
-     * @param {number} octave 
+     * gets a note and creates it's active Howl player so we can play it
+     * @param {*} note 
      */
-    static setSound(note){
-        const key = note.instrument + notes['b'][notes[note.lang].indexOf(note.note)] + note._octave
+    static setSound(note) {
+        const key = note.instrument + notes['b'][notes[note.lang].indexOf(note._note)] + note._octave
         if (!sounds.has(key)) {
-            const path = '/static/Media/' + note.instrument + '/' + 'FF_' + notes['b'][notes[note.lang].indexOf(note.note)] + note._octave + '.mp3'
+            const path = '/static/Media/' + note.instrument + '/' + 'FF_' + notes['b'][notes[note.lang].indexOf(note._note)] + note._octave + '.mp3'
             sounds.set(key, new Howl({
-				src: [path]
-			  }))
+                src: [path]
+            }))
         }
-    }
-    /**
-     * Class function for retrieving a note sound from the note hash table.
-     * @static
-     * @param {Note} note Note Instance
-     */
-    static getSoundData(note){
-        return sound_data.get(note)
-    }
-    /**
-     * returns a clone of the note(new instance).
-     */
-    clone() {
-        return (new Note(this.note, this.octave, this.instrument))
     }
     /**
      * returns the note alphabet representation as a string.
@@ -80,18 +66,43 @@ export class Note {
         return this._octave
     }
     /**
-     * set octave of note.
+     * set octave of _note.
      * @param {number} octave Octave Number
      */
     set octave(octave) {
         this._octave = octave
     }
+    newOctave(octave) {
+        return new Note(this.note, octave, this.length)
+    }
+    /**
+     * get the length of a note
+     */
+    get length() {
+        return this._length
+    }
+    /**
+     * set the length of a note
+     * @param {length} String
+     */
+    set length(length){
+        this._length = length
+    }
+    newLength(length){
+        return new Note(this.note, this.octave, length)
+    }
     /**
      * get the frequancy of a note.
      */
     get frequency() {
-        let octave_interval = this.octave - 4 //calculate octave difference
+        let octave_interval = this._octave - 4 //calculate octave difference
         return Math.pow(semitone, this.index - 9 + octave_interval * 12) * 440
+    }
+    /**
+     * returns a clone of the note(new instance).
+     */
+    clone() {
+        return (new Note(this._note, this._octave, this.instrument))
     }
     /**
      * gets a number as interval and returns a new instance of a note 
@@ -136,14 +147,14 @@ export class Note {
      * Returns string of of the note fields formatted as an object.
      */
     print() {
-        return "{Note: " + this.note + ", Octave: " + this.octave + "}"
+        return "{Note: " + this.note + ", Octave: " + this._octave + "}"
     }
     /**
      * Play the note.
      */
     play() {
-        if (sounds.get(this.instrument + notes['b'][notes[this.lang].indexOf(this._note)] + this._octave))
-            sounds.get(this.instrument + notes['b'][notes[this.lang].indexOf(this._note)] + this._octave).play()
+        if (sounds.get(this.instrument + notes['b'][notes[this.lang].indexOf(this.note)] + this._octave))
+            sounds.get(this.instrument + notes['b'][notes[this.lang].indexOf(this.note)] + this._octave).play()
         else
             console.log('Sound not loaded! please make sure you load with x.loadSound()')
     }

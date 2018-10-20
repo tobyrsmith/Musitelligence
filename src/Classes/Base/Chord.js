@@ -335,8 +335,8 @@ export class Chord {
      * Transforms the chord into its 2st-inversion.
      */
     inversionSecond() {
-        this.root._octave = this.root._octave + 1
-        this.third._octave = this.third._octave + 1
+        this.root.octave = this.root.octave + 1
+        this.third.octave = this.third.octave + 1
         return this
     }
     /**
