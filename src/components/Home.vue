@@ -1,8 +1,9 @@
 <template>
     <div class="home">
+        <v-app id="inspire">
+            <v-container fluid grid-list-lg>
+        <navigation></navigation>
         <h1>Scales!</h1>
-        <!-- <v-btn color="success green" @click="test.playsHarmony()">{{test.toString()}}</v-btn>
-         -->
         <div>
             <input class="in" type="text" v-model="n">
             <input class="in" type="text" v-model="octave">
@@ -39,6 +40,8 @@
         </transition-group>
         <br><br>
 <piano></piano>
+            </v-container>
+        </v-app>
     </div>
 </template>
 
@@ -47,9 +50,8 @@ import {Note} from '../Classes/Base/Note'
 import {DiatonicScale} from '../Classes/Base/Scale'
 import {Chord} from '../Classes/Base/Chord'
 import {diatonic_scales, notes} from '../Classes/Base/Patterns'
-import keys1 from './../assets/keys1.svg'
-import piano from './../Classes/Piano'
 import Piano from './Piano'
+import navigation from './Navigation'
 function firstToUpper(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
@@ -68,7 +70,8 @@ export default {
         };
     },
     components: {
-        Piano
+        navigation,
+        Piano,
     },
     methods: {
         f() {

@@ -8,12 +8,12 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: () => import('@/components/fur')
+      component: () => import('@/components/Home')
     },
     {
-        path: '/notes',
-        name: 'Notes',
-        component: () => import('@/components/Home')
+        path: '/demo',
+        name: 'Demo',
+        component: () => import('@/components/fur')
       },
       {
         path: '/fur',

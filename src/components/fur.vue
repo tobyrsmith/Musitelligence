@@ -2,6 +2,7 @@
     <div id="app">
         <v-app id="inspire">
             <v-container fluid grid-list-lg>
+                <navigation></navigation>
                 <h1 class="st">Fur Elise!</h1>
                 <br><br><br>
 
@@ -46,6 +47,8 @@ import {
 import Piece from './../Classes/Piece'
 import Sequence from './../Classes/Sequence'
 import piano from './../Classes/Piano'
+import navigation from './Navigation'
+
 export default {
     name: "Play",
     data() {
@@ -74,6 +77,9 @@ export default {
             piece: new Piece(bpm, [3,4], [ms1, sq1, sq2, sq1, sq2,sq1, sq2]),
             piano: piano.note('E5')
         }
+    },
+    components: {
+        navigation
     },
     methods: {
         g() {
