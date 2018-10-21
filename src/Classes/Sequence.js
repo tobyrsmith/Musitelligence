@@ -1,22 +1,21 @@
-class Sequence{
-    constructor(measures)
-    {
+class Sequence {
+    constructor(measures) {
         this._measures = measures
     }
-    get measures(){
+    get measures() {
         return this._measures
     }
-    set measures(measures){
+    set measures(measures) {
         this._measures = measures
     }
-    getData(){
+    getData() {
         const data = new Array()
-        for(const i of this._measures)
-            for(const j of i.data)
+        for (const i of this._measures)
+            for (const j of i.data)
                 data.push(j)
         return data
     }
-    length(){
+    length() {
         return this._measures.length;
     }
 }

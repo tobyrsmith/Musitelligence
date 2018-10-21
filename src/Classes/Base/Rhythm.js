@@ -5,9 +5,10 @@ import {
 import Chord from './Chord'
 import PIece from './../Piece'
 import Measure from '../Measure'
-import {note_lengths} from './Patterns'
+import {
+    note_lengths
+} from './Patterns'
 var rhythm;
-
 
 const time_signature_note_types = {
     4: 1 / 4,
@@ -78,19 +79,17 @@ export class Rhythm {
                 this.scheduleNoteHelper(this.data[0])
                 this.data.splice(0, 1)
             }
-        } 
-        else {
+        } else {
             // rhythm.toggle()
             this.reload_data = true
         }
     }
     scheduleNoteHelper(data) {
-        if (data instanceof Note || data instanceof Chord){
+        if (data instanceof Note || data instanceof Chord) {
             this.next_note = this.data.length ? note_lengths[data.length] : null
             console.log(data.toString())
             data.play()
-        }
-        else if (isArray(data)) {
+        } else if (isArray(data)) {
             let min_length = note_lengths[data.length],
                 playNow = [],
                 curr_notes_playing = ""

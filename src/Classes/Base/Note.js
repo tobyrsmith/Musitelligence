@@ -7,7 +7,10 @@ import {
     firstToUpper
 } from './../Addons'
 import Chord from './Chord'
-import {Howl, Howler} from 'howler'
+import {
+    Howl,
+    Howler
+} from 'howler'
 const sounds = new Map()
 /**
  * Represents a single musical note.
@@ -86,10 +89,10 @@ export class Note {
      * set the length of a note
      * @param {length} String
      */
-    set length(length){
+    set length(length) {
         this._length = length
     }
-    newLength(length){
+    newLength(length) {
         return new Note(this.note, this.octave, length)
     }
     /**

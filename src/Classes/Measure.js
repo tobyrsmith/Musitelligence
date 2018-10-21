@@ -4,19 +4,19 @@ export class Measure {
     constructor(data) {
         this._data = data
     }
-    get data(){
+    get data() {
         return this._data
     }
-    set data(data){
+    set data(data) {
         this._data = data
     }
-    getData(){
+    getData() {
         const data = new Array()
-        for(const i of this.data)
+        for (const i of this.data)
             data.push(i)
         return data
     }
-    mutate(i, new_notes){
+    mutate(i, new_notes) {
         const newData = JSON.parse(JSON.stringify(this.data))
         newData[i] = new_notes
         return new Measure(newData)

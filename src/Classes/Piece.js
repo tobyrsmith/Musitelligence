@@ -16,7 +16,7 @@ class Piece {
         const data = new Array()
         for (const i of this.data) {
             for (const j of i.getData()) {
-                    data.push(j)
+                data.push(j)
             }
         }
         return data

@@ -2,55 +2,66 @@
     <div class="home">
         <v-app id="inspire">
             <v-container fluid grid-list-lg>
-        <navigation></navigation>
-        <h1>Scales!</h1>
-        <div>
-            <input class="in" type="text" v-model="n">
-            <input class="in" type="text" v-model="octave">
-            <v-btn @click="f" round color="primary green">get Scale</v-btn>
-        </div>
-        
-        <v-btn color="blue" flat @click="note.play()" style="background-color: yellow;">
-            {{note_output}}<v-icon>music_note</v-icon>
-        </v-btn>
-        <v-btn color="blue" flat @click="oct" style="background-color: yellow;">
-            Study Note:<v-icon>music_note</v-icon>
-        </v-btn>
-        <transition-group name="fade" tag="span">
-            <div class="diatonic_scales" v-for="(s, i) in scale" :key="i">
-                <v-btn round class="scale_btn" color="secondary orange" @click="g(s)">{{i+1}}. {{n}} {{Object.keys(diatonic_scales)[i]}}
-                    </v-btn>
-                <v-btn color="blue" flat icon @click="s.plays()" style="background-color: yellow;">
+                <navigation></navigation>
+                <br>
+                <h1>Scales!</h1>
+                <div>
+                    <input class="in" type="text" v-model="n">
+                    <input class="in" type="text" v-model="octave">
+                    <v-btn @click="f" round color="primary green">get Scale</v-btn>
+                </div>
+
+                <v-btn color="blue" flat @click="note.play()" style="background-color: yellow;">
+                    {{note_output}}
                     <v-icon>music_note</v-icon>
                 </v-btn>
-                <template v-if="s.show == true">
-                    <span v-for="c in s.chords" :key="c.toString()" class="chords">
-                        <v-card
-                            color="success blue">{{c.toString()}}
-                        </v-card>
-                        <v-btn color="blue" flat icon @click="c.play()" style="background-color: yellow;">
+                <v-btn color="blue" flat @click="oct" style="background-color: yellow;">
+                    Study Note:<v-icon>music_note</v-icon>
+                </v-btn>
+                <transition-group name="fade" tag="span">
+                    <div class="diatonic_scales" v-for="(s, i) in scale" :key="i">
+                        <v-btn round class="scale_btn" color="secondary orange" @click="g(s)">{{i+1}}. {{n}} {{Object.keys(diatonic_scales)[i]}}
+                        </v-btn>
+                        <v-btn color="blue" flat icon @click="s.plays()" style="background-color: yellow;">
                             <v-icon>music_note</v-icon>
                         </v-btn>
-                        <v-btn color="blue" flat icon @click="c.playsMelody()" style="background-color: yellow;">
-                            <v-icon>music_note</v-icon>
-                        </v-btn>
-                    </span>
-                </template>
-            </div>
-        </transition-group>
-        <br><br>
+                        <template v-if="s.show == true">
+                            <span v-for="c in s.chords" :key="c.toString()" class="chords">
+                                <v-card color="success blue">{{c.toString()}}
+                                </v-card>
+                                <v-btn color="blue" flat icon @click="c.play()" style="background-color: yellow;">
+                                    <v-icon>music_note</v-icon>
+                                </v-btn>
+                                <v-btn color="blue" flat icon @click="c.playsMelody()" style="background-color: yellow;">
+                                    <v-icon>music_note</v-icon>
+                                </v-btn>
+                            </span>
+                        </template>
+                    </div>
+                </transition-group>
+                <br><br>
             </v-container>
         </v-app>
     </div>
 </template>
 
 <script>
-import {Note} from '../Classes/Base/Note'
-import {DiatonicScale} from '../Classes/Base/Scale'
-import {Chord} from '../Classes/Base/Chord'
-import {diatonic_scales, notes} from '../Classes/Base/Patterns'
+import {
+    Note
+} from '../Classes/Base/Note'
+import {
+    DiatonicScale
+} from '../Classes/Base/Scale'
+import {
+    Chord
+} from '../Classes/Base/Chord'
+import {
+    diatonic_scales,
+    notes
+} from '../Classes/Base/Patterns'
 import Piano from './Piano'
 import navigation from './Navigation'
+
 function firstToUpper(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
@@ -98,9 +109,10 @@ export default {
                 let i = Math.floor(Math.random() * 7)
                 this.foo[i].play()
             }, 2000)
-            setTimeout(() => { clearInterval(timerId)
-            }, 
-            20000)
+            setTimeout(() => {
+                    clearInterval(timerId)
+                },
+                20000)
         },
     }
 }

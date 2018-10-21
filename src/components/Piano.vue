@@ -3,10 +3,10 @@
         <div class="in" v-for="(k, i) in keys" :key="k.id">
             <img :src="k" alt="" :usemap="'#piano-map'+i">
             <map :name="'piano-map' + i">
-    <area target="" alt="k" title="k" @click="piano.note('c' + parseInt(i+1) + 'q').play()" @keyup.67="piano.note('c1q').play()" coords="0,2,37,125" shape="rect">
+                <area target="" alt="k" title="k" @click="piano.note('c' + parseInt(i+1) + 'q').play()" @keyup.67="piano.note('c1q').play()" coords="0,2,37,125" shape="rect">
                 <area target="" alt="" title="" @click="piano.note('c' + parseInt(i+1) + 'q').play()" coords="2,126,49,217" shape="rect">
 
-                <area target="" alt="" title="" @click="piano.note('c#' + parseInt(i+1) + 'q').play()" coords="38,3,64,125"  shape="rect">
+                <area target="" alt="" title="" @click="piano.note('c#' + parseInt(i+1) + 'q').play()" coords="38,3,64,125" shape="rect">
 
                 <area target="" alt="" title="" @click="piano.note('d' + parseInt(i+1) + 'q').play()" coords="63,1,87,125" shape="rect">
                 <area target="" alt="" title="" @click="piano.note('d' + parseInt(i+1) + 'q').play()" coords="52,125,101,217" shape="0">
@@ -46,7 +46,7 @@
     import keys5 from './../assets/keys5.jpg'
     import keys6 from './../assets/keys6.jpg'
     import keys7 from './../assets/keys7.jpg'
-import piano from './../Classes/Piano'
+    import piano from './../Classes/Piano'
         export default {
             name: "Piano",
             data() {
@@ -56,12 +56,12 @@ import piano from './../Classes/Piano'
                 }
             },
             methods: {
-                g(i){
-                console.log(this.piano.note('c'+i+'q') + " " + 'c'+i+'q')
-                this.piano.note('c'+i+'q').play()
+                g(i) {
+                    console.log(this.piano.note('c' + i + 'q') + " " + 'c' + i + 'q')
+                    this.piano.note('c' + i + 'q').play()
+                }
             }
-            }
-}
+        }
 </script>
  <style>
  .in{

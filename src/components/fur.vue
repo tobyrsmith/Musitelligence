@@ -5,11 +5,9 @@
                 <navigation></navigation>
                 <h1 class="st">Fur Elise!</h1>
                 <br><br><br>
-
                 <span id="bpmval">BPM: {{bpm}}</span>
                 <v-slider name="bpm" type="range" :min="40" :max="300" step="5" v-model="bpm" @change="updateBPM" thumb-label="always" class="slider" height="70"></v-slider>
                 <br><br><br>
-
                 <p v-if="r">Current Beat: {{piece.rhythm.getBeat()}}
                     <v-btn color="primary" fab @click="piece.rhythm.toggleMetronome">Toggle Metronome</v-btn>
                 </p>
@@ -59,22 +57,32 @@ export default {
             c = new Note('c', 5, 'e'),
             a = new Note('a', 4, 'q'),
             notes = []
-        const ms1 = new Measure([piano.note('e5e'), piano.note('d#5e')]), 
-        ms2 = new Measure([piano.note('e5e'), piano.note('d#5e'), piano.note('e5e'), piano.note('b4e'), piano.note('d5e'), piano.note('c5e')]),
-        ms3 = new Measure([[piano.note('a4q'),piano.note('a2e')],piano.note('e3e'),piano.note('a3e'),piano.note('c4e'),piano.note('e4e'),piano.note('a4e')]),
-        ms4 = new Measure([[b.newLength('q'), e.newOctave(2).newLength('e')], e.newOctave(3).newLength('e'), new Note('g#', 3, 'e'), new Note('e', 4, 'e'), new Note('g#', 4, 'e'), new Note('b', 4, 'e')]),
-        ms5 = new Measure([[c.newLength('q'), new Note('a', 2, 'e')], new Note('e', 3, 'e'), new Note('a', 3, 'e'), new Note('e', 4, 'e'), e, ds]),
-        ms6 = new Measure([[b.newLength('q'), e.newOctave(2).newLength('e')], e.newOctave(3).newLength('e'), new Note('g#', 3, 'e'), new Note('e', 4, 'e'),c,b]),
-        ms7 = new Measure([[a, new Note('a', 2, 'h'),], new Note('e', 3, 'e'), new Note('a', 3, 'q'), e, ds])
+        const ms1 = new Measure([piano.note('e5e'), piano.note('d#5e')]),
+            ms2 = new Measure([piano.note('e5e'), piano.note('d#5e'), piano.note('e5e'), piano.note('b4e'), piano.note('d5e'), piano.note('c5e')]),
+            ms3 = new Measure([
+                [piano.note('a4q'), piano.note('a2e')], piano.note('e3e'), piano.note('a3e'), piano.note('c4e'), piano.note('e4e'), piano.note('a4e')
+            ]),
+            ms4 = new Measure([
+                [b.newLength('q'), e.newOctave(2).newLength('e')], e.newOctave(3).newLength('e'), new Note('g#', 3, 'e'), new Note('e', 4, 'e'), new Note('g#', 4, 'e'), new Note('b', 4, 'e')
+            ]),
+            ms5 = new Measure([
+                [c.newLength('q'), new Note('a', 2, 'e')], new Note('e', 3, 'e'), new Note('a', 3, 'e'), new Note('e', 4, 'e'), e, ds
+            ]),
+            ms6 = new Measure([
+                [b.newLength('q'), e.newOctave(2).newLength('e')], e.newOctave(3).newLength('e'), new Note('g#', 3, 'e'), new Note('e', 4, 'e'), c, b
+            ]),
+            ms7 = new Measure([
+                [a, new Note('a', 2, 'h'), ], new Note('e', 3, 'e'), new Note('a', 3, 'q'), e, ds
+            ])
         const sq1 = new Sequence([ms2, ms3, ms4, ms5]),
-        sq2 = new Sequence([ms2, ms3, ms6, ms7])
+            sq2 = new Sequence([ms2, ms3, ms6, ms7])
         let bpm = 120
         return {
             bpm,
             r: new Rhythm(bpm, [4, 4]),
             beat: null,
             vol: 1,
-            piece: new Piece(bpm, [3,4], [ms1, sq1, sq2, sq1, sq2,sq1, sq2]),
+            piece: new Piece(bpm, [3, 4], [ms1, sq1, sq2, sq1, sq2, sq1, sq2]),
             piano: piano.note('E5')
         }
     },
@@ -83,9 +91,6 @@ export default {
     },
     methods: {
         g() {
-            // setInterval(()=> {
-            //     this.meas.play()
-            // }, this.meas.rhythm.bpm/60*4*1000)
             this.piece.play()
             this.beat = this.piece.rhythm.getBeat()
         },
