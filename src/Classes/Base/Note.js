@@ -7,6 +7,7 @@ import {
     firstToUpper
 } from './../Addons'
 import Chord from './Chord'
+import {Howl, Howler} from 'howler'
 const sounds = new Map()
 /**
  * Represents a single musical note.
@@ -153,7 +154,7 @@ export class Note {
      * Play the note.
      */
     play() {
-        if (sounds.get(this.instrument + notes['b'][notes[this.lang].indexOf(this.note)] + this._octave))
+        if (sounds.get(this.instrument + notes['b'][notes[this.lang].indexOf(this.note)] + this._octave) instanceof Howl)
             sounds.get(this.instrument + notes['b'][notes[this.lang].indexOf(this.note)] + this._octave).play()
         else
             console.log('Sound not loaded! please make sure you load with x.loadSound()')

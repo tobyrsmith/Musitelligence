@@ -37,6 +37,8 @@
                 </template>
             </div>
         </transition-group>
+        <br><br>
+<piano></piano>
     </div>
 </template>
 
@@ -45,6 +47,9 @@ import {Note} from '../Classes/Base/Note'
 import {DiatonicScale} from '../Classes/Base/Scale'
 import {Chord} from '../Classes/Base/Chord'
 import {diatonic_scales, notes} from '../Classes/Base/Patterns'
+import keys1 from './../assets/keys1.svg'
+import piano from './../Classes/Piano'
+import Piano from './Piano'
 function firstToUpper(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
@@ -60,8 +65,10 @@ export default {
             scale: [],
             diatonic_scales,
             chord_types: ["root", "1st Inversion", "second Inversion"],
-            // test: (new Chord(new Note('C', 4), new Note('E'), new Note('G')))
         };
+    },
+    components: {
+        Piano
     },
     methods: {
         f() {

@@ -9,7 +9,7 @@
                 <v-slider name="bpm" type="range" :min="60" :max="180" step="1" v-model="bpm" @change="updateBPM" thumb-label="always" class="slider" height="70"></v-slider>
                 <br><br><br>
 
-                <p v-if="r">Current Beat: {{meas.rhythm.getBeat()}}</p>
+                <p v-if="r">Current Beat: {{r.getBeat()}}</p>
                 <br><br><br>
                 <span>Volume: {{Math.floor(vol*100)}}</span>
                 <!-- <input name="volume" type="range" id="vol" min="0" max="1" step="0.01" v-model="vol" @change="updateVol" class="slider"/> -->
@@ -56,7 +56,6 @@ export default {
         return {
             notes,
             bpm,
-            meas: new Measure(new Rhythm(bpm, [3, 4]), notes),
             r: new Rhythm(bpm, [4, 4]),
             beat: null,
             vol: 1,
@@ -67,12 +66,12 @@ export default {
             // setInterval(()=> {
             //     this.meas.play()
             // }, this.meas.rhythm.bpm/60*4*1000)
-
-            this.meas.play()
+            this.r.addNotes(this.notes)
+            this.r.play()
             this.beat = this.meas.rhythm.getBeat()
         },
         updateBPM() {
-            this.meas.rhythm.bpm = this.bpm
+            this.r.bpm = this.bpm
         },
         updateVol() {
             Howler.volume([this.vol])
@@ -106,5 +105,4 @@ export default {
   width: 200pt;
   height: 100pt;
 }
-
 </style>

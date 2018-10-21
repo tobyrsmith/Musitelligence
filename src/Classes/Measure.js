@@ -1,25 +1,25 @@
 import Note from "./Base/Note"
 import Rhythm from './Base/Rhythm'
 export class Measure {
-    constructor(rhythm, data) {
-        this.rhythm = rhythm
-        this.data = data
+    constructor(data) {
+        this._data = data
     }
-    play() {
-        this.rhythm.addNotes(this.data)
-        this.rhythm.toggle()
+    get data(){
+        return this._data
     }
-    noteLengthToTime(length) {
-        return note_lengths[length[0]]
+    set data(data){
+        this._data = data
+    }
+    getData(){
+        const data = new Array()
+        for(const i of this.data)
+            data.push(i)
+        return data
+    }
+    mutate(i, new_notes){
+        const newData = JSON.parse(JSON.stringify(this.data))
+        newData[i] = new_notes
+        return new Measure(newData)
     }
 }
 export default Measure
-let notes = [{
-        notes: ['a', 'b'],
-        length: 'h'
-    },
-    {
-        notes: ['c', 'd'],
-        length: 'h'
-    },
-]

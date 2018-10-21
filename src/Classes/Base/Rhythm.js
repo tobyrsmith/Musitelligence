@@ -1,21 +1,14 @@
 import Note from './Note'
 import {
     isArray
-} from 'util';
-import Chord from './Chord';
-import { notesCopy } from '../Addons';
-
+} from 'util'
+import Chord from './Chord'
+import PIece from './../Piece'
+import Measure from '../Measure'
+import {note_lengths} from './Patterns'
 var rhythm;
 
-const note_lengths = {
-    'w': 1,
-    'h': 1 / 2,
-    'q': 1 / 4,
-    'e': 1 / 8,
-    's': 1 / 16,
-    't': 1 / 32,
-    'sf': 1 / 64
-}
+
 const time_signature_note_types = {
     4: 1 / 4,
     8: 1 / 8,
@@ -50,6 +43,12 @@ export class Rhythm {
         this.dataKeeper = null
         this.reload_data = false
 
+        this.metronome_sound = new Howl({
+            src: ['/static/Media/Metronome/1.wav']
+        })
+
+        this.metronome = false
+
         this.timerID = null
         this.lookahead = 25.0 // How frequently to call scheduling function (in milliseconds)
         this.scheduleAheadTime = 0.1 // How far ahead to schedule audio (sec)
@@ -76,30 +75,36 @@ export class Rhythm {
         // console.log(this.notesInQueue)
         if (this.data.length) {
             if (this.data[0]) {
-                if (this.data[0] instanceof Note || this.data[0] instanceof Chord) {
-                    this.next_note = this.data.length ? note_lengths[this.data[0].length] : null
-                    console.log(this.data[0].toString())
-                    this.data[0].play()
-                } else {
-                    let min_length = note_lengths[this.data[0][0].length],
-                        playNow = [],
-                        n,
-                        curr_notes_playing = ""
-                    for (n of this.data[0]) {
-                        min_length = min_length < note_lengths[n.length] ? min_length : note_lengths[n.length]
-                        playNow.push(n)
-                        curr_notes_playing += n.toString() + ' '
-                    }
-                    console.log(curr_notes_playing)
-                    for (n of playNow)
-                        n.play()
-                    this.next_note = this.data.length ? min_length : null
-                }
+                this.scheduleNoteHelper(this.data[0])
                 this.data.splice(0, 1)
             }
-        }
-        else
+        } 
+        else {
+            // rhythm.toggle()
             this.reload_data = true
+        }
+    }
+    scheduleNoteHelper(data) {
+        if (data instanceof Note || data instanceof Chord){
+            this.next_note = this.data.length ? note_lengths[data.length] : null
+            console.log(data.toString())
+            data.play()
+        }
+        else if (isArray(data)) {
+            let min_length = note_lengths[data.length],
+                playNow = [],
+                curr_notes_playing = ""
+            for (const n of data) {
+                min_length = min_length < note_lengths[n.length] ? min_length : note_lengths[n.length]
+                playNow.push(n)
+                curr_notes_playing += n.toString() + ' '
+            }
+            console.log(curr_notes_playing)
+            for (const n of playNow)
+                n.play()
+            this.next_note = this.data.length ? min_length : null
+        }
+
     }
     nextNote() {
         var secondsPerBeat = 60 / this.bpm // tempo
@@ -108,6 +113,8 @@ export class Rhythm {
         // Advance the beat number, wrap to zero
         this.beat_check += secondsPerBeat * min_interval
         if (this.beat_check >= secondsPerBeat) {
+            if (this.metronome)
+                this.metronome_sound.play()
             this.beat_check = 0
             this.currentNote++
             if (this.currentNote === this.beats_per_measure + 1) {
@@ -141,7 +148,7 @@ export class Rhythm {
     }
     toggle() {
         rhythm = this
-        if (this.reload_data){
+        if (this.reload_data) {
             this.reload_data = false
             this.data = this.dataKeeper
         }
@@ -165,6 +172,10 @@ export class Rhythm {
     addNotes(data) {
         this.data = data
         this.dataKeeper = JSON.parse(JSON.stringify(data))
+    }
+    toggleMetronome() {
+        if (rhythm)
+            rhythm.metronome = !rhythm.metronome
     }
 }
 export default Rhythm
