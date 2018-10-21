@@ -39,7 +39,6 @@
             </div>
         </transition-group>
         <br><br>
-<piano></piano>
             </v-container>
         </v-app>
     </div>
@@ -71,7 +70,6 @@ export default {
     },
     components: {
         navigation,
-        Piano,
     },
     methods: {
         f() {

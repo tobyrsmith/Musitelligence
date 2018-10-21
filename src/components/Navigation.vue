@@ -1,7 +1,8 @@
 <template>
-    <div>
-                <router-link to="/">Home</router-link>
-                <router-link to="/demo">Demo</router-link>
+    <div id="links">
+                <router-link class="spacing" to="/">Home</router-link>
+                <router-link class="spacing" to="/piano">Piano</router-link>
+                <router-link class="spacing" to="/demo">Demo</router-link>
     </div>
 </template>
 
@@ -10,3 +11,11 @@ export default {
     name: "navigation"
 }
 </script>
+<style> 
+  .spacing { 
+    Margin-right: 10px; 
+  } 
+  #links{
+      float: left;
+  }
+</style>

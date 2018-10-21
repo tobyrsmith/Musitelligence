@@ -16,9 +16,9 @@ export default new Router({
         component: () => import('@/components/fur')
       },
       {
-        path: '/fur',
-        name: 'Notes',
-        component: () => import('@/components/fur')
+        path: '/piano',
+        name: 'Piano',
+        component: () => import('@/components/PianoPage')
       }
   ]
 })
