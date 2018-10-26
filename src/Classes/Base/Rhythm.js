@@ -3,12 +3,11 @@ import {
     isArray
 } from 'util'
 import Chord from './Chord'
-import PIece from './../Piece'
-import Measure from '../Measure'
 import {
     note_lengths
 } from './Patterns'
 var rhythm;
+
 
 const time_signature_note_types = {
     4: 1 / 4,
@@ -19,14 +18,12 @@ const time_signature_note_types = {
 const AudioContext = window.AudioContext || window.webkitAudioContext
 const audioCtx = new AudioContext()
 let min_interval = 1 / 8 //the interval at which the schedualer will be called and data will be able to be played.
-let next_interval = 0.0 //the time at wich the next interval will be called updating with currentTime
+let next_interval = 0.0 //the time at which the next interval will be called updating with currentTime
 let next_note_time = 0.0 // when the next note is due.
 function scheduler() {
     // while there are notes that will need to play before the next interval, schedule them and advance the pointer.
     while (next_interval < audioCtx.currentTime + rhythm.scheduleAheadTime) {
         rhythm.nextNote()
-        // if(rhythm.next_note)
-        //     rhythm.scheduleNote()
     }
     rhythm.timerID = setTimeout(scheduler, rhythm.lookahead)
 }
@@ -40,21 +37,21 @@ export class Rhythm {
         // bpmControl.addEventListener('input', function() {
         //     tempo = Number(this.value)
         // }, false)
-        this.data = null
-        this.dataKeeper = null
-        this.reload_data = false
+        this.data = null // the Sounds that will be played
+        this.dataKeeper = null  //will hold the music to reload it when it reaches the end
+        this.reload_data = false    //variable to dictate whether data needs to be reloaded or not
 
         this.metronome_sound = new Howl({
             src: ['/static/Media/Metronome/1.wav']
         })
 
-        this.metronome = false
+        this.metronome = false  //metronome playing or not
 
-        this.timerID = null
+        this.timerID = null     //the timerID of the setInterval
         this.lookahead = 25.0 // How frequently to call scheduling function (in milliseconds)
         this.scheduleAheadTime = 0.1 // How far ahead to schedule audio (sec)
 
-        this.currentNote = 1
+        this.current_beat = 1    //current beat 
         this.notesInQueue = []
         this.next_note = 1
         this.lastNoteDrawn = 3
@@ -115,9 +112,9 @@ export class Rhythm {
             if (this.metronome)
                 this.metronome_sound.play()
             this.beat_check = 0
-            this.currentNote++
-            if (this.currentNote === this.beats_per_measure + 1) {
-                this.currentNote = 1
+            this.current_beat++
+            if (this.current_beat === this.beats_per_measure + 1) {
+                this.current_beat = 1
             }
         }
         if (next_note_time <= audioCtx.currentTime) {
@@ -143,7 +140,7 @@ export class Rhythm {
         requestAnimationFrame(rhythm.draw)
     }
     getBeat() {
-        return this.currentNote
+        return this.current_beat
     }
     toggle() {
         rhythm = this
@@ -158,11 +155,11 @@ export class Rhythm {
             if (audioCtx.state === 'suspended') {
                 audioCtx.resume()
             }
-            this.currentNote = 0
+            this.current_beat = 0
             this.next_note = audioCtx.currentTime
             next_note_time = audioCtx.currentTime
             scheduler() // kick off scheduling
-            // console.log(this.currentNote)
+            // console.log(this.current_beat)
             requestAnimationFrame(this.draw) // start the drawing loop.
         } else {
             clearTimeout(this.timerID)

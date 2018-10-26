@@ -16,7 +16,7 @@
 import Piano from './Piano'
 import navigation from './Navigation'
 export default {
-    name: "Piano Page",
+    name: "PianoPage",
     components:{
         navigation, 
         Piano
