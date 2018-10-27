@@ -1,3 +1,5 @@
+import { frequent } from "./Addons";
+
 /*
 The MIT License (MIT)
 
@@ -26,74 +28,22 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext
 
 var MAX_SIZE = null
 var audioContext = null
-var isPlaying = false
-var sourceNode = null
 var analyser = null
 var theBuffer = null
-var DEBUGCANVAS = null
 var mediaStreamSource = null
-var detectorElem,
-    canvasElem,
-    waveCanvas,
-    pitchElem,
-    noteElem,
-    detuneElem,
-    detuneAmount,
-    noteElem2
+let sensitivity = 0.04
 
 export const pitch_data = {
-        note: "-",
-        pitch: "-",
-        detune: "-",
+    note: "-",
+    pitch: "-",
+    detune: "-",
+    notes: [],
 }
 
 window.onload = function() {
     audioContext = new AudioContext()
     MAX_SIZE = Math.max(4, Math.floor(audioContext.sampleRate / 5000)) // corresponds to a 5kHz signal
-
-    detectorElem = document.getElementById("detector")
-    canvasElem = document.getElementById("output")
-    DEBUGCANVAS = document.getElementById("waveform")
-
-    if (DEBUGCANVAS) {
-        waveCanvas = DEBUGCANVAS.getContext("2d")
-        waveCanvas.strokeStyle = "black"
-        waveCanvas.lineWidth = 1
-    }
-    pitchElem = document.getElementById("pitch")
-    noteElem = document.getElementById("note")
-    noteElem2 = document.getElementById("note2")
-    detuneElem = document.getElementById("detune")
-    detuneAmount = document.getElementById("detune_amt")
-
-    detectorElem.ondragenter = function() {
-        this.classList.add("droptarget")
-        return false
-    }
-    detectorElem.ondragleave = function() {
-        this.classList.remove("droptarget")
-        return false
-    }
-    detectorElem.ondrop = function(e) {
-        this.classList.remove("droptarget")
-        e.preventDefault()
-        theBuffer = null
-
-        var reader = new FileReader()
-        reader.onload = function(event) {
-            audioContext.decodeAudioData(event.target.result, function(buffer) {
-                theBuffer = buffer
-            }, function() {
-                alert("error loading!")
-            })
-
-        }
-        reader.onerror = function(event) {
-            alert("Error: " + reader.error)
-        }
-        reader.readAsArrayBuffer(e.dataTransfer.files[0])
-        return false
-    }
+    return false
 }
 
 function error() {
@@ -111,6 +61,7 @@ function getUserMedia(dictionary, callback) {
         alert('getUserMedia threw exception :' + e)
     }
 }
+let octave
 
 function gotStream(stream) {
     // Create an AudioNode from the stream.
@@ -124,16 +75,6 @@ function gotStream(stream) {
 }
 
 export function toggleLiveInput() {
-    if (isPlaying) {
-        //stop playing and return
-        sourceNode.stop(0)
-        sourceNode = null
-        analyser = null
-        isPlaying = false
-        if (!window.cancelAnimationFrame)
-            window.cancelAnimationFrame = window.webkitCancelAnimationFrame
-        window.cancelAnimationFrame(rafID)
-    }
     getUserMedia({
         "audio": {
             "mandatory": {
@@ -166,7 +107,9 @@ function frequencyFromNoteNumber(note) {
 function centsOffFromPitch(frequency, note) {
     return Math.floor(1200 * Math.log(frequency / frequencyFromNoteNumber(note)) / Math.log(2))
 }
-
+let new_note = false
+export let cached_notes = []
+export let cached_frequencies = []
 function autoCorrelate(buf, sampleRate) {
     // Implements the ACF2+ algorithm
     var SIZE = buf.length
@@ -177,8 +120,10 @@ function autoCorrelate(buf, sampleRate) {
         rms += val * val
     }
     rms = Math.sqrt(rms / SIZE)
-    if (rms < 0.01) // not enough signal
+    if (rms < sensitivity) { // not enough signal 
+        updateNotes()
         return -1
+    }
 
     var r1 = 0,
         r2 = SIZE - 1,
@@ -196,7 +141,6 @@ function autoCorrelate(buf, sampleRate) {
 
     buf = buf.slice(r1, r2)
     SIZE = buf.length
-
     var c = new Array(SIZE).fill(0)
     for (var i = 0; i < SIZE; i++)
         for (var j = 0; j < SIZE - i; j++)
@@ -219,13 +163,11 @@ function autoCorrelate(buf, sampleRate) {
         x3 = c[T0 + 1],
         a = (x1 + x3 - 2 * x2) / 2,
         b = (x3 - x1) / 2
-    if (a) T0 = T0 - b / (2 * a)
+    if (a)
+        T0 = T0 - b / (2 * a)
 
     return sampleRate / T0
 }
-export let pitch = null
-export let note = null
-export let detune = null
 
 export function updatePitch(time) {
     var cycles = new Array
@@ -233,40 +175,40 @@ export function updatePitch(time) {
         return
     analyser.getFloatTimeDomainData(buf)
     var ac = autoCorrelate(buf, audioContext.sampleRate)
-    // TODO: Paint confidence meter on canvasElem here.
 
-    if (ac == -1) {
-        detectorElem.className = "vague"
-        pitchElem.innerText = "--"
-        noteElem.innerText = "-"
-        detuneElem.className = ""
-        detuneAmount.innerText = "--"
-    } else {
-        detectorElem.className = "confident"
-        pitch = ac
-        pitchElem.innerText = Math.round(pitch)
-        pitch_data.pitch = Math.round(pitch)
-        note = noteFromPitch(pitch)
-        noteElem.innerHTML = noteStrings[note % 12]
+    if (ac != -1) {
+        new_note = true
+        pitch_data.frequency = Math.round(ac)
+        let note = noteFromPitch(ac)
         pitch_data.note = noteStrings[note % 12]
-        detune = centsOffFromPitch(pitch, note)
-        if (detune == 0) {
-            detuneElem.className = ""
-            detuneAmount.innerHTML = "--"
-        } else {
-            if (detune < 0){
-                detuneElem.className = "flat"
-                pitch_data.detune = Math.abs(detune) + "b"
-            }
-            else{
-                detuneElem.className = "sharp"
-                pitch_data.detune = Math.abs(detune) + "#"
-            }
-                detuneAmount.innerHTML = Math.abs(detune)
-        }
+        let detune = centsOffFromPitch(ac, note)
+        pitch_data.detune = detune
+        cached_notes.push(noteStrings[note % 12])
+        cached_frequencies.push(pitch_data.frequency)
     }
-
     if (!window.requestAnimationFrame)
         window.requestAnimationFrame = window.webkitRequestAnimationFrame
     rafID = window.requestAnimationFrame(updatePitch)
+}
+
+function updateNotes(){
+    if (new_note) {
+        let frequency = frequent(cached_frequencies)
+        if (frequency > 33 && frequency < 63)
+            octave = 1
+        else if (frequency >= 63 && frequency <= 126)
+            octave = 2
+        else if (frequency > 126 && frequency < 253)
+            octave = 3
+        else if (frequency >= 253 && frequency <= 510)
+            octave = 4
+        else if (frequency > 510 && frequency < 1075)
+            octave = 5
+        else
+            octave = 6
+        pitch_data.notes.push(frequent(cached_notes) + octave)
+        cached_notes.length = 0
+        cached_frequencies.length = 0
+        new_note = false
+    }
 }
