@@ -1,4 +1,4 @@
-import { frequent } from "./Addons";
+import { frequent, getOctave } from "./Addons";
 
 /*
 The MIT License (MIT)
@@ -61,7 +61,6 @@ function getUserMedia(dictionary, callback) {
         alert('getUserMedia threw exception :' + e)
     }
 }
-let octave
 
 function gotStream(stream) {
     // Create an AudioNode from the stream.
@@ -192,23 +191,37 @@ export function updatePitch(time) {
 }
 
 function updateNotes(){
-    if (new_note) {
-        let frequency = frequent(cached_frequencies)
-        if (frequency > 33 && frequency < 63)
-            octave = 1
-        else if (frequency >= 63 && frequency <= 126)
-            octave = 2
-        else if (frequency > 126 && frequency < 253)
-            octave = 3
-        else if (frequency >= 253 && frequency <= 510)
-            octave = 4
-        else if (frequency > 510 && frequency < 1075)
-            octave = 5
-        else
-            octave = 6
-        pitch_data.notes.push(frequent(cached_notes) + octave)
+    if (new_note){
+        if(cached_notes.length > 5){
+        pitch_data.notes.push(frequent(cached_notes) + frequentFrequency(cached_frequencies))
+        // console.log(cached_notes.length)
+        // console.log(cached_notes)
+        console.log(cached_frequencies)
+        }
         cached_notes.length = 0
         cached_frequencies.length = 0
         new_note = false
     }
+}
+
+function frequentFrequency(frequencies){
+    let counts = {}, 
+        compare = 0,
+        mostFrequent,
+        octave
+    for(var i = 0; i < frequencies.length; i++){
+        octave = getOctave(frequencies[i]);
+        
+        if(counts[octave] === undefined){
+            counts[octave] = 1;
+        }else{
+            counts[octave]++;
+        }
+        if(counts[octave] > compare){
+              compare = counts[octave];
+              mostFrequent = octave;
+        }
+     }
+    console.log(mostFrequent)
+    return parseInt(mostFrequent);
 }

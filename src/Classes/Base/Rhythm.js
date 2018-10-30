@@ -12,7 +12,7 @@ var rhythm;
 // for cross browser compatibility
 const AudioContext = window.AudioContext || window.webkitAudioContext   //web audio api instance
 const audioCtx = new AudioContext()
-let min_interval = 1 / 8 //the interval at which the schedualer will be called and data will be able to be played.
+let min_interval = 1 / 16 //the interval at which the schedualer will be called and data will be able to be played.
 let next_interval = 0.0 //the time at which the next interval will be called updating with currentTime
 let next_note_time = 0.0 // when the next note is due.
 function scheduler() {
@@ -52,6 +52,8 @@ export class Rhythm {
         this.beat_duration = time_signature[1]
         this.isPlaying = false
         this.beat_check = 0
+
+        this.loop = true
     }
     static getRhythm() {
         if (rhythm)

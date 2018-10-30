@@ -90,3 +90,16 @@ export const time_signature_note_types = {
 }
 
 export const semitone = Math.pow(2, 1 / 12)
+
+export const octave_frequencies = {
+    '0': [0, 31],
+    '1': [31, 63],
+    '2': [63, 127],
+    '3': [127, 253],
+    '4': [253, 508],
+    '5': [508, 1017],
+    '6': [1017, 2034],
+    '7': [2034, 4068],
+    '8': [4068, 8137],
+    '9':[8137, 16000]
+}

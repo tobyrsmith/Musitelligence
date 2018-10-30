@@ -1,3 +1,5 @@
+import { octave_frequencies } from "./Base/Patterns";
+
 export function firstToUpper(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
@@ -26,4 +28,13 @@ export function frequent(array){
         }
      }
    return mostFrequent;
+}
+
+export function getOctave(frequency){
+    for(let i in octave_frequencies){
+        let tmp = octave_frequencies[i]
+        if(frequency > tmp[0] && frequency <= tmp[1])
+            return i
+    }
+    return null
 }
