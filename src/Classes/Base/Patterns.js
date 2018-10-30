@@ -74,7 +74,7 @@ export const notes             = {
 }
 export const all_notes = ['C','C#','Db','D','D#','Eb','E','F','F#','Gb','G','G#','Ab','A', 'A#', 'Bb','B']
 
-export const note_lengths = {
+export const note_durations = {
     'w': 1,
     'h': 1 / 2,
     'q': 1 / 4,
@@ -82,6 +82,11 @@ export const note_lengths = {
     's': 1 / 16,
     't': 1 / 32,
     'sf': 1 / 64
+}
+
+export const time_signature_note_types = {
+    4: 1 / 4,
+    8: 1 / 8,
 }
 
 export const semitone = Math.pow(2, 1 / 12)

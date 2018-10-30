@@ -4,15 +4,10 @@ import {
 } from 'util'
 import Chord from './Chord'
 import {
-    note_lengths
+    note_durations,
+    time_signature_note_types
 } from './Patterns'
 var rhythm;
-
-
-const time_signature_note_types = {
-    4: 1 / 4,
-    8: 1 / 8,
-}
 
 // for cross browser compatibility
 const AudioContext = window.AudioContext || window.webkitAudioContext   //web audio api instance
@@ -54,7 +49,7 @@ export class Rhythm {
 
         this.bpm = bpm
         this.beats_per_measure = time_signature[0]
-        this.beat_length = time_signature[1]
+        this.beat_duration = time_signature[1]
         this.isPlaying = false
         this.beat_check = 0
     }
@@ -77,22 +72,22 @@ export class Rhythm {
     }
     scheduleNoteHelper(data) {
         if (data instanceof Note || data instanceof Chord) {
-            this.next_note = this.data.length ? note_lengths[data.length] : null
+            this.next_note = this.data.length ? note_durations[data.duration] : null
             console.log(data.toString())
             data.play()
         } else if (isArray(data)) {
-            let min_length = note_lengths[data.length],
+            let min_duration = note_durations[data.duration],
                 playNow = [],
                 curr_notes_playing = ""
             for (const n of data) {
-                min_length = min_length < note_lengths[n.length] ? min_length : note_lengths[n.length]
+                min_duration = min_duration < note_durations[n.duration] ? min_duration : note_durations[n.duration]
                 playNow.push(n)
                 curr_notes_playing += n.toString() + ' '
             }
             for (const n of playNow)
                 n.play()
             console.log(curr_notes_playing)
-            this.next_note = this.data.length ? min_length : null
+            this.next_note = this.data.length ? min_duration : null
         }
 
     }
@@ -113,7 +108,7 @@ export class Rhythm {
         }
         if (next_note_time <= audioCtx.currentTime) {
             this.scheduleNote()
-            next_note_time += secondsPerBeat * this.next_note * this.beats_per_measure // Add beat length to last beat time
+            next_note_time += secondsPerBeat * this.next_note * this.beats_per_measure // Add beat duration to last beat time
         }
     }
     draw() {

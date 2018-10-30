@@ -11,11 +11,11 @@ export class Chord {
      * @param {Note} note4(optional) 
      * @param {Note} note5(optional)
      */
-    constructor(root, third, fifth, note4 = null, note5 = null, length = 'q') {
+    constructor(root, third, fifth, note4 = null, note5 = null, duration = 'q') {
         this.root = root.clone()
         this.third = third.clone()
         this.fifth = fifth.clone()
-        this.length = length
+        this.duration = duration
         this.isChord = true
         this.third.octave = this.root.octave
         this.fifth.octave = this.root.octave
@@ -291,13 +291,6 @@ export class Chord {
                 this.chord_notes = [this.root, this.third, this.fifth, this.note4, this.note5]
         }
     }
-    // /**
-    //  * load all the sound files of the notes in the chord.
-    //  */
-    // loadSound(){
-    // 	for(let n of this.chord_notes)
-    // 		n.loadSound()
-    // }
     /**
      * play all the notes in the chord as a melody.
      */
@@ -354,6 +347,9 @@ export class Chord {
         else if (this.note5 == null)
             return this.root.note + this.symbol + " {" + this.root + ", " + this.third + ", " + this.fifth + ", " + this.note4 + "}"
         return this.root.note + this.symbol + " {" + this.root + ", " + this.third + ", " + this.fifth + ", " + this.note4 + ", " + this.note5 + "}"
+    }
+    newDuration(duration){
+        return new Chord(this.root, this.third,this.fifth, this.note4, this.note5, duration)
     }
 }
 export default Chord

@@ -7,6 +7,11 @@
         <div v-for="c in scale.chords" :key="c.toString()">
             <v-layout row wrap justify-center>
             <v-btn color="success" @click="addData(c)">{{c.toString()}}</v-btn>
+            <v-select
+                :items="duration_types"
+                v-model="duration"
+                label="Duration"
+            ></v-select>
             <v-btn @click="c.play()" flat icon> <v-icon>music_note</v-icon></v-btn>
             </v-layout>
         </div>
@@ -41,12 +46,15 @@ export default {
         return {
             piece: new Piece(120, [4,4]),
             measure1: new Measure(),
-            seq1: new Sequence()
+            seq1: new Sequence(),
+            duration_types: ['w','h','q','e','s'],
+            duration: 'q',
         }
     },
     methods: {
-        addData(chord){
-            this.measure1.addNotes(chord)
+        addData(chord, duration){
+            console.log(chord.newDuration(duration))
+            this.measure1.addNotes(chord.newDuration(duration))
             this.seq1.measures = [this.measure1]
             this.piece.data = [this.seq1]
         }

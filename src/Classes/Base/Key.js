@@ -11,7 +11,7 @@ export class Key extends DiatonicScale{
         super(tonic, pattern)
     }
     addChordProgression(chords, ){
-
+        
     }
 }
 export default Key

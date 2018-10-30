@@ -23,11 +23,11 @@ export class Note {
      * @param {String} instrument Piano/Guitar/etc...
      * @constructor
      */
-    constructor(note = "A", octave = 3, length = 'q', instrument = 'Piano') {
+    constructor(note = "A", octave = 3, duration = 'q', instrument = 'Piano') {
         note = firstToUpper(note)
         note = !notes["#"].includes(note) && !notes.b.includes(note) ? "A" : note
         this._octave = octave
-        this._length = length
+        this._duration = duration
         this.lang = circle_of_fourths.includes(note) ? "b" : "#"
         this.index = notes[this.lang].indexOf(note)
         this._note = note
@@ -77,23 +77,23 @@ export class Note {
         this._octave = octave
     }
     newOctave(octave) {
-        return new Note(this.note, octave, this.length)
+        return new Note(this.note, octave, this.duration)
     }
     /**
-     * get the length of a note
+     * get the duration of a note
      */
-    get length() {
-        return this._length
+    get duration() {
+        return this._duration
     }
     /**
-     * set the length of a note
-     * @param {length} String
+     * set the duration of a note
+     * @param {String} duration
      */
-    set length(length) {
-        this._length = length
+    set duration(duration) {
+        this._duration = duration
     }
-    newLength(length) {
-        return new Note(this.note, this.octave, length)
+    newDuration(duration) {
+        return new Note(this.note, this.octave, duration)
     }
     /**
      * get the frequancy of a note.

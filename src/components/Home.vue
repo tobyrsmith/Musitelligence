@@ -55,7 +55,6 @@
                                     </v-btn>
                                 </v-flex>
                                 <v-flex xs1>
-
                                     <v-btn color="blue" flat icon @click="c.playMelody()" style="background-color: yellow;">
                                         <v-icon>music_note</v-icon>
                                     </v-btn>
