@@ -15,7 +15,7 @@ const time_signature_note_types = {
 }
 
 // for cross browser compatibility
-const AudioContext = window.AudioContext || window.webkitAudioContext
+const AudioContext = window.AudioContext || window.webkitAudioContext   //web audio api instance
 const audioCtx = new AudioContext()
 let min_interval = 1 / 8 //the interval at which the schedualer will be called and data will be able to be played.
 let next_interval = 0.0 //the time at which the next interval will be called updating with currentTime
@@ -33,10 +33,6 @@ function scheduler() {
  */
 export class Rhythm {
     constructor(bpm, time_signature) {
-        // const bpmControl = document.querySelector('#bpm')
-        // bpmControl.addEventListener('input', function() {
-        //     tempo = Number(this.value)
-        // }, false)
         this.data = null // the Sounds that will be played
         this.dataKeeper = null  //will hold the music to reload it when it reaches the end
         this.reload_data = false    //variable to dictate whether data needs to be reloaded or not
@@ -48,7 +44,7 @@ export class Rhythm {
         this.metronome = false  //metronome playing or not
 
         this.timerID = null     //the timerID of the setInterval
-        this.lookahead = 25.0 // How frequently to call scheduling function (in milliseconds)
+        this.lookahead = 60 / this.bpm * min_interval // How frequently to call scheduling function (in milliseconds)
         this.scheduleAheadTime = 0.1 // How far ahead to schedule audio (sec)
 
         this.current_beat = 1    //current beat 
@@ -70,14 +66,12 @@ export class Rhythm {
     }
     scheduleNote() {
         // push the note on the queue, even if we're not playing.
-        // console.log(this.notesInQueue)
         if (this.data.length) {
             if (this.data[0]) {
                 this.scheduleNoteHelper(this.data[0])
                 this.data.splice(0, 1)
             }
         } else {
-            // rhythm.toggle()
             this.reload_data = true
         }
     }
@@ -95,9 +89,9 @@ export class Rhythm {
                 playNow.push(n)
                 curr_notes_playing += n.toString() + ' '
             }
-            console.log(curr_notes_playing)
             for (const n of playNow)
                 n.play()
+            console.log(curr_notes_playing)
             this.next_note = this.data.length ? min_length : null
         }
 
@@ -159,7 +153,6 @@ export class Rhythm {
             this.next_note = audioCtx.currentTime
             next_note_time = audioCtx.currentTime
             scheduler() // kick off scheduling
-            // console.log(this.current_beat)
             requestAnimationFrame(this.draw) // start the drawing loop.
         } else {
             clearTimeout(this.timerID)

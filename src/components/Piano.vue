@@ -57,10 +57,6 @@
             }
         },
         methods: {
-            g(i) {
-                console.log(this.piano.note('c' + i + 'q') + " " + 'c' + i + 'q')
-                this.piano.note('c' + i + 'q').play()
-            },
             onkey(event) {
                 if (event.key == 'F' || event.key == 'f')
                     this.piano.note('c3q').play()

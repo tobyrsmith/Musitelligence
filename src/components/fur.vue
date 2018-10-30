@@ -1,8 +1,9 @@
 <template>
     <div id="app">
+        <navigation></navigation>
+        <br>
         <v-app id="inspire">
             <v-container fluid grid-list-lg>
-                <navigation></navigation>
                 <h1 class="st">Fur Elise!</h1>
                 <br><br><br>
                 <span id="bpmval">BPM: {{bpm}}</span>

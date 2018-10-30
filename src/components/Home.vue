@@ -1,16 +1,15 @@
 <template>
     <div class="home">
-        <v-app id="inspire">
-            <v-container fluid grid-list-lg>
-                <navigation></navigation>
-                <br>
-                <h1>Scales!</h1>
+        <navigation></navigation>
+        <br>
+        <v-app v-if="!composer_on">
+                <h1>Song Composer</h1>
                 <div>
                     <input class="in" type="text" v-model="n">
                     <input class="in" type="text" v-model="octave">
                     <v-btn @click="f" round color="primary green">get Scale</v-btn>
                 </div>
-
+                <div>
                 <v-btn color="blue" flat @click="note.play()" style="background-color: yellow;">
                     {{note_output}}
                     <v-icon>music_note</v-icon>
@@ -18,30 +17,59 @@
                 <v-btn color="blue" flat @click="oct" style="background-color: yellow;">
                     Study Note:<v-icon>music_note</v-icon>
                 </v-btn>
-                <transition-group name="fade" tag="span">
-                    <div class="diatonic_scales" v-for="(s, i) in scale" :key="i">
-                        <v-btn round class="scale_btn" color="secondary orange" @click="g(s)">{{i+1}}. {{n}} {{Object.keys(diatonic_scales)[i]}}
-                        </v-btn>
-                        <v-btn color="blue" flat icon @click="s.plays()" style="background-color: yellow;">
-                            <v-icon>music_note</v-icon>
-                        </v-btn>
-                        <template v-if="s.show == true">
-                            <span v-for="c in s.chords" :key="c.toString()" class="chords">
-                                <v-card color="success blue">{{c.toString()}}
-                                </v-card>
-                                <v-btn color="blue" flat icon @click="c.play()" style="background-color: yellow;">
-                                    <v-icon>music_note</v-icon>
-                                </v-btn>
-                                <v-btn color="blue" flat icon @click="c.playsMelody()" style="background-color: yellow;">
-                                    <v-icon>music_note</v-icon>
-                                </v-btn>
-                            </span>
-                        </template>
-                    </div>
-                </transition-group>
-                <br><br>
-            </v-container>
+                </div>
+            <transition-group name="fade" tag="span">
+                <div class="diatonic_scales" v-for="(s, i) in scale" :key="i">
+                    <v-layout justify-center>
+                        <v-flex xs4>
+                            {{i+1}}.
+                            <v-btn round class="scale_btn" color="secondary orange" @click="g(s)"> {{note.note}} {{Object.keys(diatonic_scales)[i]}} : {{s.toString()}}
+                            </v-btn>
+                        </v-flex>
+                        <v-flex xs1>
+                            <v-btn color="blue" flat icon @click="s.play()" style="background-color: yellow;">
+                                <v-icon>music_note</v-icon>
+                            </v-btn>
+                        </v-flex>
+                        <v-flex xs1>
+                                                        <v-btn color="blue" flat icon @click="goToComposer(s)" style="background-color: yellow;">
+                                <v-icon>edit</v-icon>
+                            </v-btn>
+                        </v-flex>
+                    </v-layout>
+                    <template v-if="s.show == true">
+                        <br>
+                        <span v-for="(c, j) in s.chords" :key="c.toString()" class="chords">
+                            <v-layout row wrap justify-center>
+                                <v-flex xs1>
+                                    <span>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{j+1}}.
+                                    </span>
+                                </v-flex>
+                                <v-flex xs3>
+                                    {{c.toString()}}
+                                </v-flex>
+                                <v-flex xs1>
+                                    <v-btn color="blue" flat icon @click="c.play()" style="background-color: yellow;">
+                                        <v-icon>music_note</v-icon>
+                                    </v-btn>
+                                </v-flex>
+                                <v-flex xs1>
+
+                                    <v-btn color="blue" flat icon @click="c.playMelody()" style="background-color: yellow;">
+                                        <v-icon>music_note</v-icon>
+                                    </v-btn>
+                                </v-flex>
+                            </v-layout>
+                            <br>
+                        </span>
+                    </template>
+                </div>
+            </transition-group>
+            <br><br>
         </v-app>
+        <compose :scale="chosen_scale" v-if="composer_on" @toggle="composer_on=false">
+        </compose>
     </div>
 </template>
 
@@ -61,7 +89,7 @@ import {
 } from '../Classes/Base/Patterns'
 import Piano from './Piano'
 import navigation from './Navigation'
-
+import Compose from './Compose'
 function firstToUpper(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
@@ -77,10 +105,13 @@ export default {
             scale: [],
             diatonic_scales,
             chord_types: ["root", "1st Inversion", "second Inversion"],
+            composer_on: false,
+            chosen_scale: null,
         };
     },
     components: {
         navigation,
+        Compose
     },
     methods: {
         f() {
@@ -99,6 +130,10 @@ export default {
         },
         g(s) {
             s.show = !s.show
+        },
+        goToComposer(scale){
+            this.composer_on = true
+            this.chosen_scale = scale
         },
         oct() {
             let tmp = []
@@ -125,28 +160,22 @@ h2 {
   font-weight: normal;
   font-size: 50pt;
 }
-button{
-    max-width: 100%;
-}
-ul {
-  list-style-type: none;
-  padding        : 0;
-}
-li {
-  display: inline-block;
-  margin : 0 10px;
-}
 a {
   color: #42b983;
 }
-.diatonic_scales{
-  color : red;
-  margin: 1%;
-  font-size: 20pt;
-}
 .home{
-    /* background-color: black; */
-	color: blueviolet;
+    text-align: center;
+}
+
+.diatonic_scales{
+    text-align: center !important;
+  font-size: 2em;
+}
+@media only screen and (min-width: 768px) {
+    /* For mobile phones: */
+    [class*="diatonic_scales"] {
+        font-size: 30pt;
+    }
 }
 .in{
     background-color: chartreuse;
@@ -156,17 +185,15 @@ a {
 }
 .scale_btn{
 	text-transform: none !important;
-	font-size: 20pt;
-	font-family: sans-serif;
-	color:cyan;
-	background-color: coral;
-	display: inline-block;
+	/* font-size: 20pt; */
+	/* color:cyan !important; */
+	background-color: coral !important;
 }
-.diatonic_scales{
-	display: block;
-}
-.chords{
-	display: block;
+@media only screen and (min-width: 768px) {
+    /* For mobile phones: */
+    [class*="scale_btn"] {
+        font-size: 20pt;
+    }
 }
 /* moving */
 .fade-move {
@@ -187,10 +214,5 @@ a {
 .fade-enter,
 .fade-leave-to {
   transition: all 200ms ease-in;
-}
-.chords{
-	background-color: aqua;
-	color: darkred;
-	font-size: 20pt;
 }
 </style>

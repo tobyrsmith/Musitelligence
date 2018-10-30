@@ -1,8 +1,9 @@
 <template>
     <div>
+                        <navigation></navigation>
+                        <br>
         <v-app id="inspire">
             <v-container fluid grid-list-lg>
-                <navigation></navigation>
                 <br>
                 <div class="n" v-for="note in notes['#']" :key="note.id">
                     <v-btn class="note" color="success" fab @click="pick=new Note(note)">{{note}}</v-btn>

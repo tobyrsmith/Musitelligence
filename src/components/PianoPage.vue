@@ -1,8 +1,9 @@
 <template>
     <div>
+                        <navigation></navigation>
+                        <br>
         <v-app id="inspire">
             <v-container fluid grid-list-lg>
-                <navigation></navigation>
                 <br>
                 <h1 class="head">Piano!</h1>
                 <br><br><br>

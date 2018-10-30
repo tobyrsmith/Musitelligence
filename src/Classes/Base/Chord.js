@@ -11,10 +11,11 @@ export class Chord {
      * @param {Note} note4(optional) 
      * @param {Note} note5(optional)
      */
-    constructor(root, third, fifth, note4 = null, note5 = null) {
+    constructor(root, third, fifth, note4 = null, note5 = null, length = 'q') {
         this.root = root.clone()
         this.third = third.clone()
         this.fifth = fifth.clone()
+        this.length = length
         this.isChord = true
         this.third.octave = this.root.octave
         this.fifth.octave = this.root.octave
@@ -300,14 +301,13 @@ export class Chord {
     /**
      * play all the notes in the chord as a melody.
      */
-    playsMelody() {
+    playMelody() {
         let self = this
         for (let i = 0; i < this.chord_notes.length; i++) {
             setTimeout(function timer() {
                 self.chord_notes[i].play()
             }, i * 500)
         }
-        console.log(this.chord_notes)
     }
     /**
      * play all the notes in the chord as a harmony.
