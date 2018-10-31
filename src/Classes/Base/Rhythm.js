@@ -24,9 +24,14 @@ function scheduler() {
 }
 /**
  * Creates a rhythm instance which holds bpm and time signature information.
- * @class 
+ * @class
  */
 export class Rhythm {
+    /**
+     * Create a new instance of rhythm.
+     * @param {Number} bpm Speed of the rhythm in beats per minute
+     * @param {Array} time_signature the number of notes per measure as an array [number_of_notes, type_of_notes]
+     */
     constructor(bpm, time_signature) {
         this.data = null // the Sounds that will be played
         this.dataKeeper = null  //will hold the music to reload it when it reaches the end
@@ -35,6 +40,8 @@ export class Rhythm {
         this.metronome_sound = new Howl({
             src: ['/static/Media/Metronome/1.wav']
         })
+
+        this.data_with_time = {}
 
         this.metronome = false  //metronome playing or not
 
@@ -55,12 +62,21 @@ export class Rhythm {
 
         this.loop = true
     }
-    static getRhythm() {
+/**
+ * returns a instance of rhythm to avoid creating more than one(a singleton)
+ * @param {Number} bpm Speed of the rhythm in beats per minute
+ * @param {Array} time_signature the number of notes per measure as an array [number_of_notes, type_of_notes]
+ * @static
+ */
+    static getRhythm(bpm = null,time_signature = [4,4] ) {
         if (rhythm)
             return rhythm
         rhythm = new Rhythm(60, [4, 4])
         return rhythm
     }
+    /**
+     * Schedual a note to be played at a specific time
+     */
     scheduleNote() {
         // push the note on the queue, even if we're not playing.
         if (this.data.length) {
@@ -72,6 +88,10 @@ export class Rhythm {
             this.reload_data = true
         }
     }
+    /**
+     * Helps the SchedualNote check what kind of data is dealt with at the moment and handles it.
+     * @param {Array/Note/Chord} data 
+     */
     scheduleNoteHelper(data) {
         if (data instanceof Note || data instanceof Chord) {
             this.next_note = this.data.length ? note_durations[data.duration] : null
@@ -93,6 +113,9 @@ export class Rhythm {
         }
 
     }
+    /**
+     * Advances to the next note and updates the beat
+     */
     nextNote() {
         var secondsPerBeat = 60 / this.bpm // tempo
         next_interval += secondsPerBeat * min_interval
