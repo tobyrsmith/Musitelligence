@@ -23,7 +23,7 @@
                     <v-layout justify-center>
                         <v-flex xs4>
                             {{i+1}}.
-                            <v-btn round class="scale_btn" color="secondary orange" @click="g(s)"> {{note.note}} {{Object.keys(diatonic_scales)[i]}} : {{s.toString()}}
+                            <v-btn round class="scale_btn" color="secondary orange" @click="g(s)"> {{note.note}} {{Object.keys(diatonic_scales)[i]}}
                             </v-btn>
                         </v-flex>
                         <v-flex xs1>
@@ -38,7 +38,7 @@
                         </v-flex>
                     </v-layout>
                     <template v-if="s.show == true">
-                        <br>
+                        <span>{{s.toString()}}</span>
                         <span v-for="(c, j) in s.chords" :key="c.toString()" class="chords">
                             <v-layout row wrap justify-center>
                                 <v-flex xs1>

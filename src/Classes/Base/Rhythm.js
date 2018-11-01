@@ -5,19 +5,19 @@ import {
 import Chord from './Chord'
 import {
     note_durations,
-    time_signature_note_types
 } from './Patterns'
 var rhythm;
 
 // for cross browser compatibility
-const AudioContext = window.AudioContext || window.webkitAudioContext   //web audio api instance
+const AudioContext = window.AudioContext || window.webkitAudioContext //web audio api instance
 const audioCtx = new AudioContext()
 let min_interval = 1 / 16 //the interval at which the schedualer will be called and data will be able to be played.
 let next_interval = 0.0 //the time at which the next interval will be called updating with currentTime
-let next_note_time = 0.0 // when the next note is due.
 function scheduler() {
     // while there are notes that will need to play before the next interval, schedule them and advance the pointer.
     while (next_interval < audioCtx.currentTime + rhythm.scheduleAheadTime) {
+        if (rhythm.data_with_time.length < rhythm.next_note + 50)
+            rhythm.scheduleNote()
         rhythm.nextNote()
     }
     rhythm.timerID = setTimeout(scheduler, rhythm.lookahead)
@@ -34,24 +34,27 @@ export class Rhythm {
      */
     constructor(bpm, time_signature) {
         this.data = null // the Sounds that will be played
-        this.dataKeeper = null  //will hold the music to reload it when it reaches the end
-        this.reload_data = false    //variable to dictate whether data needs to be reloaded or not
+        this.dataKeeper = null //will hold the music to reload it when it reaches the end
+        this.reload_data = false //variable to dictate whether data needs to be reloaded or not
 
         this.metronome_sound = new Howl({
             src: ['/static/Media/Metronome/1.wav']
         })
 
-        this.data_with_time = {}
+        this.data_with_time = [] //Array which contains objects with sounds and time properties
+        this.next_note = 0  //the next note which needs to be played
+        this.next_note_to_schedule = 0 //the next note which needs to be scheduled and inserted to data_with_time
+        this.overall_time = 0 //the overall time that passes when scheduling the notes(sum of start time and every duration of every note scheduled)
 
-        this.metronome = false  //metronome playing or not
+        this.metronome = false //metronome playing or not
 
-        this.timerID = null     //the timerID of the setInterval
-        this.lookahead = 60 / this.bpm * min_interval // How frequently to call scheduling function (in milliseconds)
+        this.timerID = null //the timerID of the setInterval
+        this.lookahead = 10 // How frequently to call scheduling function (in milliseconds)
         this.scheduleAheadTime = 0.1 // How far ahead to schedule audio (sec)
 
-        this.current_beat = 1    //current beat 
-        this.notesInQueue = []
-        this.next_note = 1
+        this.seconds_per_beat = 60 / bpm //beats per second - tempo
+
+        this.current_beat = 1 //current beat 
         this.lastNoteDrawn = 3
 
         this.bpm = bpm
@@ -62,13 +65,13 @@ export class Rhythm {
 
         this.loop = true
     }
-/**
- * returns a instance of rhythm to avoid creating more than one(a singleton)
- * @param {Number} bpm Speed of the rhythm in beats per minute
- * @param {Array} time_signature the number of notes per measure as an array [number_of_notes, type_of_notes]
- * @static
- */
-    static getRhythm(bpm = null,time_signature = [4,4] ) {
+    /**
+     * returns a instance of rhythm to avoid creating more than one(a singleton)
+     * @param {Number} bpm Speed of the rhythm in beats per minute
+     * @param {Array} time_signature the number of notes per measure as an array [number_of_notes, type_of_notes]
+     * @static
+     */
+    static getRhythm(bpm = null, time_signature = [4, 4]) {
         if (rhythm)
             return rhythm
         rhythm = new Rhythm(60, [4, 4])
@@ -79,13 +82,11 @@ export class Rhythm {
      */
     scheduleNote() {
         // push the note on the queue, even if we're not playing.
-        if (this.data.length) {
-            if (this.data[0]) {
-                this.scheduleNoteHelper(this.data[0])
-                this.data.splice(0, 1)
-            }
+        if (this.data[this.next_note_to_schedule]) {
+            this.scheduleNoteHelper(this.data[this.next_note_to_schedule])
+            this.next_note_to_schedule++
         } else {
-            this.reload_data = true
+            this.next_note_to_schedule = 0
         }
     }
     /**
@@ -94,35 +95,37 @@ export class Rhythm {
      */
     scheduleNoteHelper(data) {
         if (data instanceof Note || data instanceof Chord) {
-            this.next_note = this.data.length ? note_durations[data.duration] : null
-            console.log(data.toString())
-            data.play()
+            this.data_with_time.push({
+                sounds: [data],
+                time: this.overall_time
+            })
+            this.overall_time += 60 / this.bpm * note_durations[data.duration] * this.beats_per_measure
         } else if (isArray(data)) {
-            let min_duration = note_durations[data.duration],
-                playNow = [],
-                curr_notes_playing = ""
+            let min_duration = note_durations[data.duration]
             for (const n of data) {
                 min_duration = min_duration < note_durations[n.duration] ? min_duration : note_durations[n.duration]
-                playNow.push(n)
-                curr_notes_playing += n.toString() + ' '
             }
-            for (const n of playNow)
-                n.play()
-            console.log(curr_notes_playing)
-            this.next_note = this.data.length ? min_duration : null
+            this.data_with_time.push({
+                sounds: data,
+                time: this.overall_time
+            })
+            this.overall_time += 60 / this.bpm * min_duration * this.beats_per_measure
         }
-
+    }
+    playSounds() {
+        for (const i of this.data_with_time[this.next_note].sounds) {
+            // console.log(i.toString())
+            i.play()
+        }
     }
     /**
      * Advances to the next note and updates the beat
      */
     nextNote() {
-        var secondsPerBeat = 60 / this.bpm // tempo
-        next_interval += secondsPerBeat * min_interval
-
+        next_interval += this.seconds_per_beat * min_interval
         // Advance the beat number, wrap to zero
-        this.beat_check += secondsPerBeat * min_interval
-        if (this.beat_check >= secondsPerBeat) {
+        this.beat_check += this.seconds_per_beat * min_interval
+        if (this.beat_check >= this.seconds_per_beat) {
             if (this.metronome)
                 this.metronome_sound.play()
             this.beat_check = 0
@@ -131,19 +134,16 @@ export class Rhythm {
                 this.current_beat = 1
             }
         }
-        if (next_note_time <= audioCtx.currentTime) {
-            this.scheduleNote()
-            next_note_time += secondsPerBeat * this.next_note * this.beats_per_measure // Add beat duration to last beat time
-        }
+        if (this.data_with_time[this.next_note])
+            if (this.data_with_time[this.next_note].time <= audioCtx.currentTime) {
+                // console.log(this.data_with_time[this.next_note].time - this.start_time)
+                this.playSounds()
+                this.next_note++
+            }
     }
     draw() {
         let drawNote = rhythm.lastNoteDrawn
         rhythm.currentTime = audioCtx.currentTime
-
-        // while (rhythm.notesInQueue.length && rhythm.notesInQueue[0].time < rhythm.currentTime) {
-        //     drawNote = rhythm.notesInQueue[0].note
-        //     rhythm.notesInQueue.splice(0, 1) // remove note from queue
-        // }
 
         // We only need to draw if the note has moved.
         if (rhythm.lastNoteDrawn != drawNote) {
@@ -156,22 +156,21 @@ export class Rhythm {
     getBeat() {
         return this.current_beat
     }
-    toggle() {
+    toggle(index = 0) {
         rhythm = this
-        if (this.reload_data) {
-            this.reload_data = false
-            this.data = this.dataKeeper
-        }
+
         this.isPlaying = !this.isPlaying
         if (this.isPlaying) { // start playing
-
             // check if context is in suspended state (autoplay policy)
             if (audioCtx.state === 'suspended') {
                 audioCtx.resume()
             }
-            this.current_beat = 0
-            this.next_note = audioCtx.currentTime
-            next_note_time = audioCtx.currentTime
+            this.start_time = audioCtx.currentTime
+            this.overall_time = audioCtx.currentTime
+            this.data_with_time.length = 0
+            this.next_note = index
+            this.current_beat = 1
+            this.next_note_to_schedule = index
             scheduler() // kick off scheduling
             requestAnimationFrame(this.draw) // start the drawing loop.
         } else {
@@ -180,11 +179,18 @@ export class Rhythm {
     }
     addNotes(data) {
         this.data = data
-        this.dataKeeper = JSON.parse(JSON.stringify(data))
     }
     toggleMetronome() {
         if (rhythm)
             rhythm.metronome = !rhythm.metronome
+    }
+    updateBPM(bpm) {
+        this.bpm = bpm
+        this.seconds_per_beat = 60 / bpm
+        const index = this.next_note
+        // console.log(index)
+        this.toggle()
+        this.toggle()
     }
 }
 export default Rhythm

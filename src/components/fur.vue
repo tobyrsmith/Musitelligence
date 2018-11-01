@@ -78,12 +78,13 @@ export default {
         const sq1 = new Sequence([ms2, ms3, ms4, ms5]),
             sq2 = new Sequence([ms2, ms3, ms6, ms7])
         let bpm = 120
+        const fur_elise = [ms1, sq1, sq2,sq1, sq1, sq1, sq2, sq1, sq2]
         return {
             bpm,
             r: new Rhythm(bpm, [4, 4]),
             beat: null,
             vol: 1,
-            piece: new Piece(bpm, [3, 4], [ms1, sq1, sq2, sq1, sq2, sq1, sq2]),
+            piece: new Piece(bpm, [3, 4], fur_elise),
             piano: piano.note('E5')
         }
     },
@@ -96,7 +97,7 @@ export default {
             this.beat = this.piece.rhythm.getBeat()
         },
         updateBPM() {
-            this.piece.rhythm.bpm = this.bpm
+            this.piece.rhythm.updateBPM(this.bpm)
         },
         updateVol() {
             Howler.volume([this.vol])
