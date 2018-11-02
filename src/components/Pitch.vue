@@ -3,6 +3,7 @@
         <navigation></navigation>
         <br><br>
             <v-btn color="orange" @click="toggleLiveInput">use live input</v-btn>
+                        <v-btn color="orange" @click="reset">Reset</v-btn>
 <br><br>
                     <span>Note: {{pitch_data.note}} </span>
                     <br><br><br>
@@ -10,18 +11,18 @@
             <br><br><br>
             <span >Cents: {{pitch_data.detune}}</span>
             <br><br><br>
-            <span >Notes: {{pitch_data.notes}}</span>
+            <span >Notes: {{pitch_data.toString()}}</span>
             <br><br><br><br>
             <span >Cached Notes: {{cached_notes}}</span>
             <br><br><br><br>
             <span >Cached Frequencies: {{cached_frequencies}}</span>
             <br><br>
-                        <v-btn color="green" @click="getNote">Play!</v-btn>
+                        <v-btn color="green" @click="pitch_data.play">Play!</v-btn>
             <v-btn color="red" @click="stop">Stop</v-btn>
     </div>
 </template>
 <script>
-import {pitch_data, toggleLiveInput, cached_notes, cached_frequencies} from './../Classes/PitchDetect'
+import {pitch_data, toggleLiveInput, cached_notes, cached_frequencies, reset} from './../Classes/PitchDetect'
 import piano from './../Classes/Piano'
 import navigation from './Navigation'
 export default {
@@ -32,7 +33,8 @@ export default {
             timer: null,
             pitch_data,
             cached_notes,
-            cached_frequencies
+            cached_frequencies,
+            reset
         }
     },
     components:{
@@ -50,6 +52,9 @@ export default {
         },
         stop() {
             clearInterval(this.timer)
+        },
+        resetData(){
+            this.reset
         }
     }
 }

@@ -1,6 +1,12 @@
 import Note from "./Base/Note"
 import Rhythm from './Base/Rhythm'
-import Chord from "./Base/Chord";
+import Chord from "./Base/Chord"
+import {
+    isArray
+} from 'util'
+import {
+    note_durations
+} from "./Base/Patterns"
 /**
  * Measure - represents a single measure as part of a musical piece.
  * @class
@@ -10,8 +16,11 @@ export class Measure {
      * 
      * @param {Array} data An array which contains notes or chords 
      */
-    constructor(data = []) {
+    constructor(data = [], max_duration = 0) {
         this._data = data
+        this.max_duration = max_duration
+        this._duration = 0
+        this.updateDuration()
     }
     /**
      * Array of all the notes in the measure
@@ -27,12 +36,24 @@ export class Measure {
     }
     /** 
      * Returns a new array with the same notes.
-    */
+     */
     getData() {
         const data = new Array()
         for (const i of this.data)
             data.push(i)
         return data
+    }
+    /**
+     * get the duration
+     */
+    get duration() {
+        return this._duration
+    }
+    /**
+     * set the duration
+     */
+    set duration(duration) {
+        this._duration = duration
     }
     /**
      * Change notes somewhere inside a measure
@@ -48,21 +69,41 @@ export class Measure {
      * Add data to the end of the measure
      * @param {Note/Chord} new_notes 
      */
-    addNotes(new_notes){
+    addNotes(new_notes) {
         this.data.push(new_notes)
     }
-    toString(){
-        let string = "Measure: { "
-        for(const i of this.data)
-            if(i instanceof Note || i instanceof Chord)
-                string += i.toString() + ", "
-            else{
-                string += '[ '
-                for(const j of i)
-                    string += j + ', ' 
-                string += '] '
+    updateDuration() {
+        this.duration = 0
+        let valid = 0
+        for (const notes of this.data) {
+            if (notes instanceof Note || notes instanceof Chord) {
+                this.duration += note_durations[notes.duration]
+            } else if (isArray(notes)) {
+                let min_duration = notes[0].duration
+                notes.forEach((note) => {
+                    min_duration = min_duration < note_durations[note.duration] ? min_duration : note_durations[note.duration]
+                })
+                this.duration += min_duration
             }
-            string += '} '
+            if (this.duration <= this.max_duration || this.max_duration === 0)
+                valid++
+            else
+                break
+        }
+        this.data = this.data.slice(0, valid)
+    }
+    toString() {
+        let string = "Measure: { "
+        for (const i of this.data)
+            if (i instanceof Note || i instanceof Chord)
+                string += i.toString() + ", "
+        else {
+            string += '[ '
+            for (const j of i)
+                string += j + ', '
+            string += '] '
+        }
+        string += '} '
         return string
     }
 }

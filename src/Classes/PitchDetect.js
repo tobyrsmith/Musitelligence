@@ -1,4 +1,8 @@
-import { frequent, getOctave } from "./Addons";
+import {
+    frequent,
+    getOctave
+} from "./Addons"
+import piano from './Piano'
 
 /*
 The MIT License (MIT)
@@ -32,12 +36,40 @@ var analyser = null
 var theBuffer = null
 var mediaStreamSource = null
 let sensitivity = 0.04
-
+let started = false
+let start_time = null
 export const pitch_data = {
     note: "-",
     pitch: "-",
     detune: "-",
     notes: [],
+    play: () => {
+        let note = 0
+        let play_time = audioContext.currentTime
+        const timer = setInterval(() => {
+            if (pitch_data.notes[note].time <= audioContext.currentTime - play_time) {
+                console.log(pitch_data.notes[note].time)
+                piano.note((pitch_data.notes[note].notes) + 'q').play()
+                note++
+            }
+            if (note == pitch_data.notes.length)
+                clearInterval(timer)
+        }, 50)
+    },
+    toString: () => {
+        let str = "{ "
+        for(const i of pitch_data.notes)
+            str+=i.notes.toString() + ", "
+        str+= "}"
+        return str
+    }
+
+    // const timer = setInterval(()=>{
+    //         piano.note(pitch_data.notes[note].notes + "q").play()
+    //         note++
+    //         if(note == pitch_data.notes.length)
+    //             clearInterval(timer)
+    //     }, 500)
 }
 
 window.onload = function() {
@@ -109,6 +141,7 @@ function centsOffFromPitch(frequency, note) {
 let new_note = false
 export let cached_notes = []
 export let cached_frequencies = []
+
 function autoCorrelate(buf, sampleRate) {
     // Implements the ACF2+ algorithm
     var SIZE = buf.length
@@ -176,6 +209,10 @@ export function updatePitch(time) {
     var ac = autoCorrelate(buf, audioContext.sampleRate)
 
     if (ac != -1) {
+        if (started == false) {
+            start_time = audioContext.currentTime
+        }
+        started = true
         new_note = true
         pitch_data.frequency = Math.round(ac)
         let note = noteFromPitch(ac)
@@ -190,38 +227,43 @@ export function updatePitch(time) {
     rafID = window.requestAnimationFrame(updatePitch)
 }
 
-function updateNotes(){
-    if (new_note){
-        if(cached_notes.length > 5){
-        pitch_data.notes.push(frequent(cached_notes) + frequentFrequency(cached_frequencies))
-        // console.log(cached_notes.length)
-        // console.log(cached_notes)
-        console.log(cached_frequencies)
+function updateNotes() {
+    if (new_note) {
+        if (cached_notes.length > 5) {
+            pitch_data.notes.push({
+                notes: frequent(cached_notes) + frequentFrequency(cached_frequencies),
+                time: audioContext.currentTime - start_time
+            })
+            console.log(audioContext.currentTime - start_time)
         }
         cached_notes.length = 0
         cached_frequencies.length = 0
         new_note = false
     }
 }
+export function reset() {
+    started = false
+    pitch_data.notes.length = 0
+}
 
-function frequentFrequency(frequencies){
-    let counts = {}, 
+function frequentFrequency(frequencies) {
+    let counts = {},
         compare = 0,
         mostFrequent,
         octave
-    for(var i = 0; i < frequencies.length; i++){
+    for (var i = 0; i < frequencies.length; i++) {
         octave = getOctave(frequencies[i]);
-        
-        if(counts[octave] === undefined){
+
+        if (counts[octave] === undefined) {
             counts[octave] = 1;
-        }else{
+        } else {
             counts[octave]++;
         }
-        if(counts[octave] > compare){
-              compare = counts[octave];
-              mostFrequent = octave;
+        if (counts[octave] > compare) {
+            compare = counts[octave];
+            mostFrequent = octave;
         }
-     }
+    }
     console.log(mostFrequent)
     return parseInt(mostFrequent);
 }

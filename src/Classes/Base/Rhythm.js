@@ -13,11 +13,15 @@ const AudioContext = window.AudioContext || window.webkitAudioContext //web audi
 const audioCtx = new AudioContext()
 let min_interval = 1 / 16 //the interval at which the schedualer will be called and data will be able to be played.
 let next_interval = 0.0 //the time at which the next interval will be called updating with currentTime
+let calculate_ahead = 10 // how many notes to calculate precise time for ahead
+
 function scheduler() {
     // while there are notes that will need to play before the next interval, schedule them and advance the pointer.
     while (next_interval < audioCtx.currentTime + rhythm.scheduleAheadTime) {
-        if (rhythm.data_with_time.length < rhythm.next_note + 50)
+        if (rhythm.next_note >= rhythm.data_with_time.length - 1){
+        for(let i=0;i<calculate_ahead;i++)
             rhythm.scheduleNote()
+        }
         rhythm.nextNote()
     }
     rhythm.timerID = setTimeout(scheduler, rhythm.lookahead)
@@ -42,11 +46,11 @@ export class Rhythm {
         })
 
         this.data_with_time = [] //Array which contains objects with sounds and time properties
-        this.next_note = 0  //the next note which needs to be played
+        this.next_note = 0 //the next note which needs to be played
         this.next_note_to_schedule = 0 //the next note which needs to be scheduled and inserted to data_with_time
         this.overall_time = 0 //the overall time that passes when scheduling the notes(sum of start time and every duration of every note scheduled)
 
-        this.metronome = false //metronome playing or not
+        this.metronome = true //metronome playing or not
 
         this.timerID = null //the timerID of the setInterval
         this.lookahead = 10 // How frequently to call scheduling function (in milliseconds)
@@ -71,10 +75,10 @@ export class Rhythm {
      * @param {Array} time_signature the number of notes per measure as an array [number_of_notes, type_of_notes]
      * @static
      */
-    static getRhythm(bpm = null, time_signature = [4, 4]) {
+    static getRhythm(bpm = 80, time_signature = [4, 4]) {
         if (rhythm)
             return rhythm
-        rhythm = new Rhythm(60, [4, 4])
+        rhythm = new Rhythm(bpm, time_signature)
         return rhythm
     }
     /**
@@ -102,9 +106,9 @@ export class Rhythm {
             this.overall_time += 60 / this.bpm * note_durations[data.duration] * this.beats_per_measure
         } else if (isArray(data)) {
             let min_duration = note_durations[data.duration]
-            for (const n of data) {
-                min_duration = min_duration < note_durations[n.duration] ? min_duration : note_durations[n.duration]
-            }
+            data.forEach((note) => {
+                min_duration = min_duration < note_durations[note.duration] ? min_duration : note_durations[note.duration]
+            })
             this.data_with_time.push({
                 sounds: data,
                 time: this.overall_time
@@ -125,14 +129,17 @@ export class Rhythm {
         next_interval += this.seconds_per_beat * min_interval
         // Advance the beat number, wrap to zero
         this.beat_check += this.seconds_per_beat * min_interval
-        if (this.beat_check >= this.seconds_per_beat) {
+        if (this.prev_beat_time + this.seconds_per_beat <= audioCtx.currentTime) {
+            // console.log(this.prev_beat_time - this.start_time)
             if (this.metronome)
                 this.metronome_sound.play()
+            // console.log(audioCtx.currentTime - this.start_time)
             this.beat_check = 0
             this.current_beat++
             if (this.current_beat === this.beats_per_measure + 1) {
                 this.current_beat = 1
             }
+            this.prev_beat_time += this.seconds_per_beat
         }
         if (this.data_with_time[this.next_note])
             if (this.data_with_time[this.next_note].time <= audioCtx.currentTime) {
@@ -167,6 +174,7 @@ export class Rhythm {
             }
             this.start_time = audioCtx.currentTime
             this.overall_time = audioCtx.currentTime
+            this.prev_beat_time = audioCtx.currentTime
             this.data_with_time.length = 0
             this.next_note = index
             this.current_beat = 1
@@ -187,10 +195,10 @@ export class Rhythm {
     updateBPM(bpm) {
         this.bpm = bpm
         this.seconds_per_beat = 60 / bpm
-        const index = this.next_note
-        // console.log(index)
-        this.toggle()
-        this.toggle()
+        if(this.isPlaying == true){
+            this.toggle()
+            this.toggle()
+        }
     }
 }
 export default Rhythm
