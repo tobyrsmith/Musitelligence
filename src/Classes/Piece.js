@@ -18,6 +18,9 @@ class Piece {
             this._data = data
         else
             this._data = []
+        this.init()
+    }
+    init(){
         this.duration = 0
         this.playable_data = new Array()
         for (const i of this.data) {
@@ -38,6 +41,7 @@ class Piece {
     }
     set data(data) {
         this._data = data
+        this.init()
     }
     /**
      * get the duration

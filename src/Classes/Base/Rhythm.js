@@ -50,7 +50,7 @@ export class Rhythm {
         this.next_note_to_schedule = 0 //the next note which needs to be scheduled and inserted to data_with_time
         this.overall_time = 0 //the overall time that passes when scheduling the notes(sum of start time and every duration of every note scheduled)
 
-        this.metronome = true //metronome playing or not
+        this.metronome = false //metronome playing or not
 
         this.timerID = null //the timerID of the setInterval
         this.lookahead = 10 // How frequently to call scheduling function (in milliseconds)

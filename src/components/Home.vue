@@ -38,12 +38,13 @@
                         </v-flex>
                     </v-layout>
                     <template v-if="s.show == true">
-                        <span>{{s.toString()}}</span>
+                        <p>Notes : {{s.toString()}}</p>
                         <span v-for="(c, j) in s.chords" :key="c.toString()" class="chords">
                             <v-layout row wrap justify-center>
                                 <v-flex xs1>
                                     <span>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{j+1}}.
+                                        <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+                                        {{j+1}}.
                                     </span>
                                 </v-flex>
                                 <v-flex xs3>
@@ -60,7 +61,6 @@
                                     </v-btn>
                                 </v-flex>
                             </v-layout>
-                            <br>
                         </span>
                     </template>
                 </div>
