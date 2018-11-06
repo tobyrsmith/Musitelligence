@@ -27,6 +27,31 @@ export default new Router({
             path: '/pitch',
             name: 'Pitch',
             component: () => import('@/components/Pitch')
-        }
+        },
+        {
+            path: '/schedule',
+            name: 'Schedule',
+            component: () => import('@/components/Schedule')
+        },
+        {
+            path: '/LearnMenu',
+            name: 'LearnMenu',
+            component: () => import('@/components/LearnMenu')
+        },
+        {
+            path: '/testsetup',
+            name: 'Test Setup',
+            component: () => import('@/components/TestSetup')
+        },
+        {
+            path: '/test',
+            name: 'Test',
+            component: () => import('@/components/Test')
+        },
+        {
+            path: '/mainmenu',
+            name: 'mainmenu',
+            component: () => import('@/components/MainMenu')
+        },
     ]
 })

@@ -2,8 +2,8 @@
     <div>
         <navigation></navigation>
         <br><br>
-            <v-btn color="orange" @click="toggleLiveInput">use live input</v-btn>
-                        <v-btn color="orange" @click="reset">Reset</v-btn>
+            <v-btn class="general-btn" color="orange" @click="toggleLiveInput">use live input</v-btn>
+                        <v-btn class="general-btn" color="orange" @click="reset">Reset</v-btn>
 <br><br>
                     <span>Note: {{pitch_data.note}} </span>
                     <br><br><br>
@@ -17,8 +17,8 @@
             <br><br><br><br>
             <span >Cached Frequencies: {{cached_frequencies}}</span>
             <br><br>
-                        <v-btn color="green" @click="pitch_data.play">Play!</v-btn>
-            <v-btn color="red" @click="stop">Stop</v-btn>
+                        <v-btn class="general-btn" color="green" @click="pitch_data.play">Play!</v-btn>
+            <v-btn class="general-btn" color="red" @click="stop">Stop</v-btn>
     </div>
 </template>
 <script>
@@ -61,17 +61,56 @@ export default {
 </script>
 
 <style>
-			body { font: 14pt 'Alike', sans-serif;}
-			#note { font-size: 164px; }
-			.droptarget { background-color: #348781}
-			div.confident { color: black; }
-			div.vague { color: lightgrey; }
-			#note { display: inline-block; height:180px; text-align: left;}
-			
-			#detector { width: 300px; height: 300px; border: 4px solid gray; border-radius: 8px; text-align: center; padding-top: 10px;}
-			#output { width: 300px; height: 42px; }
-			#flat { display: none; }
-			#sharp { display: none; }
-			.flat #flat { display: inline; }
-			.sharp #sharp { display: inline; }
-		</style>
+#note {
+  font-size: 164px;
+}
+
+.droptarget {
+  background-color: #348781
+}
+
+div.confident {
+  color: black;
+}
+
+div.vague {
+  color: lightgrey;
+}
+
+#note {
+  display: inline-block;
+  height: 180px;
+  text-align: left;
+}
+
+#detector {
+  width: 300px;
+  height: 300px;
+  border: 4px solid gray;
+  border-radius: 8px;
+  text-align: center;
+  padding-top: 10px;
+}
+
+#output {
+  width: 300px;
+  height: 42px;
+}
+
+#flat {
+  display: none;
+}
+
+#sharp {
+  display: none;
+}
+
+.flat #flat {
+  display: inline;
+}
+
+.sharp #sharp {
+  display: inline;
+}
+
+</style>

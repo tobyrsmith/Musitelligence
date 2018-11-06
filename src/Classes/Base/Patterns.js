@@ -61,6 +61,13 @@ export const scales = {
 	"Half Whole Diminished": Half_Whole_Diminished
 }
 
+export const all_scales = require('./Scales.json'); //with path
+
+export const all_diatonic_scales = []
+	for(const s of all_scales)
+		if(s['Length'] == 7)
+		all_diatonic_scales.push(s)
+
 export const major_chord = [4, 7]
 
 export const circle_of_fifths  = ["C", "G", "D", "A", "E", "B", "F#"]

@@ -32,13 +32,11 @@ export class Note {
         this.index = notes[this.lang].indexOf(note)
         this._note = note
         this.instrument = "Piano"
-        this.path = null
-        this.sound = null
         Note.setSound(this)
     }
     /**
      * gets a note and creates it's active Howl player so we can play it
-     * @param {*} note 
+     * @param {Note} note 
      */
     static setSound(note) {
         const key = note.instrument + notes['b'][notes[note.lang].indexOf(note._note)] + note._octave
@@ -106,7 +104,7 @@ export class Note {
      * returns a clone of the note(new instance).
      */
     clone() {
-        return (new Note(this._note, this._octave, this.instrument))
+        return (new Note(this.note, this.octave, this.duration, this.instrument))
     }
     /**
      * gets a number as interval and returns a new instance of a note 
@@ -119,8 +117,8 @@ export class Note {
     getInterval(interval) {
         let oct_diff = (this.index + interval) / 12
         if (notes[this.lang][(this.index)][0] != notes[this.lang][(this.index + interval) % 12][0])
-            return new Note(notes[this.lang][(this.index + interval) % 12], parseInt(this.octave) + parseInt(oct_diff), this.instrument)
-        return new Note(notes[this.lang][(this.index + interval) % 12], parseInt(this.octave) + parseInt(oct_diff), this.instrument)
+            return new Note(notes[this.lang][(this.index + interval) % 12], parseInt(this.octave) + parseInt(oct_diff), this.duration, this.instrument)
+        return new Note(notes[this.lang][(this.index + interval) % 12], parseInt(this.octave) + parseInt(oct_diff), this.duration, this.instrument)
     }
     getMajorChord() {
         return new Chord(this, this.getInterval(4), this.getInterval(7))
@@ -157,6 +155,7 @@ export class Note {
      * Play the note.
      */
     play() {
+        console.log(this)
         if (sounds.get(this.instrument + notes['b'][notes[this.lang].indexOf(this.note)] + this._octave) instanceof Howl)
             sounds.get(this.instrument + notes['b'][notes[this.lang].indexOf(this.note)] + this._octave).play()
         else

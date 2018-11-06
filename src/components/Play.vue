@@ -15,7 +15,7 @@
                 <!-- <input name="volume" type="range" id="vol" min="0" max="1" step="0.01" v-model="vol" @change="updateVol" class="slider"/> -->
                 <v-slider name="volume" prepend-icon="volume_up" min="0" max="1" step="0.01" v-model="vol" @change="updateVol" class="slider"></v-slider>
                 <br><br><br>
-                <v-btn color="success" round large @click="g" class="btn">
+                <v-btn class="general-btn" color="success" round large @click="g">
                     <v-icon>music_note</v-icon>Press Me!<v-icon>music_note</v-icon>
                 </v-btn>
             </v-container>

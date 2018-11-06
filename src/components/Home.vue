@@ -1,75 +1,116 @@
 <template>
-    <div class="home">
+    <v-app class="home">
         <navigation></navigation>
-        <br>
-        <v-app v-if="!composer_on">
-                <h1>Song Composer</h1>
-                <div>
-                    <input class="in" type="text" v-model="n">
-                    <input class="in" type="text" v-model="octave">
-                    <v-btn @click="f" round color="primary green">get Scale</v-btn>
-                </div>
-                <div>
-                <v-btn color="blue" flat @click="note.play()" style="background-color: yellow;">
-                    {{note_output}}
-                    <v-icon>music_note</v-icon>
-                </v-btn>
-                <v-btn color="blue" flat @click="oct" style="background-color: yellow;">
-                    Study Note:<v-icon>music_note</v-icon>
-                </v-btn>
-                </div>
-            <transition-group name="fade" tag="span">
-                <div class="diatonic_scales" v-for="(s, i) in scale" :key="i">
-                    <v-layout justify-center>
-                        <v-flex xs4>
-                            {{i+1}}.
-                            <v-btn round class="scale_btn" color="secondary orange" @click="g(s)"> {{note.note}} {{Object.keys(diatonic_scales)[i]}}
-                            </v-btn>
+        <template v-if="!composer_on">
+            <v-container grid-list-xs>
+                <v-flex xs12>
+                    <h1 style="text-align:center;">Note Generator</h1>
+                </v-flex>
+                <v-layout row wrap>
+                    <v-flex xs6>
+                        <v-text-field v-model="n" label="Note" outline clearable></v-text-field>
+                    </v-flex>
+                    <v-flex xs6>
+                        <v-text-field v-model="octave" label="Octave" type="text" outline clearable></v-text-field>
+                    </v-flex>
+                </v-layout>
+                <v-layout row wrap justify-center>
+                    <div class="text-xs-center">
+                        <v-flex xs11>
+                            <v-btn class="general-btn" large @click="generate" round color="primary">Generate</v-btn>
                         </v-flex>
+                    </div>
+                </v-layout>
+                <v-layout wrap justify-center v-if="generated" align-center>
+                    <v-flex xs1>
+                        <span>
+                            {{note.toString()}}
+                        </span>
+                    </v-flex>
+                    <v-flex xs1>
+                        <v-btn class="general-btn" color="blue" flat icon @click="note.play()" style="text-align:center;">
+                            <v-icon>music_note</v-icon>
+                        </v-btn>
+                    </v-flex>
+                    <v-flex xs12>
+                    <v-layout row wrap>
+                            <div  v-for="p in pages" :key="p">
                         <v-flex xs1>
-                            <v-btn color="blue" flat icon @click="s.play()" style="background-color: yellow;">
-                                <v-icon>music_note</v-icon>
-                            </v-btn>
+                                <v-btn small fab color="warning">{{p}} </v-btn>
                         </v-flex>
-                        <v-flex xs1>
-                                                        <v-btn color="blue" flat icon @click="goToComposer(s)" style="background-color: yellow;">
-                                <v-icon>edit</v-icon>
-                            </v-btn>
-                        </v-flex>
+                            </div>
                     </v-layout>
-                    <template v-if="s.show == true">
-                        <p>Notes : {{s.toString()}}</p>
-                        <span v-for="(c, j) in s.chords" :key="c.toString()" class="chords">
-                            <v-layout row wrap justify-center>
-                                <v-flex xs1>
-                                    <span>
-                                        <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-                                        {{j+1}}.
+                    </v-flex>
+                </v-layout>
+                <transition-group name="fade" tag="span" v-if="generated">
+                    <v-container class="diatonic_scales" v-for="(s, i) in scale" :key="i">
+                        <v-layout row justify-center>
+                            <v-flex xs1>
+                                {{i+1}}.
+                            </v-flex>
+                            <v-flex x7>
+                                <v-layout column wrap>
+                                    <v-btn class="general-btn scale_btn" round color="secondary orange" @click="g(s)"> {{note.note}} {{diatonic[i]['Scale'].length > 12 ? diatonic[i]['Scale'].slice(0,10)+'...' : diatonic[i]['Scale']}}
+                                    </v-btn>
+                                    <v-flex xs6>
+                                        <span class="scale-notes">
+                                            Notes: {{s.toString()}}
+                                        </span>
+                                    </v-flex>
+                                </v-layout>
+                            </v-flex>
+                            <v-flex xs2>
+                                <v-btn class="general-btn" color="blue" flat icon @click="s.play()" style="background-color: yellow;">
+                                    <v-icon>music_note</v-icon>
+                                </v-btn>
+                            </v-flex>
+                            <v-flex xs2>
+                                <v-btn class="general-btn" color="blue" flat icon @click="goToComposer(s)" style="background-color: yellow;">
+                                    <v-icon>edit</v-icon>
+                                </v-btn>
+                            </v-flex>
+                        </v-layout>
+                        <template v-if="s.show == true">
+                            <v-layout wrap justify-center align-center>
+                                <v-flex xs10>
+                                    <v-flex 12>
+                                        <h4>Chords In Scale:</h4>
+                                    </v-flex>
+                                    <span v-for="(c, j) in s.chords" :key="c.toString()" class="chords">
+                                        <v-layout row wrap justify-center>
+                                            <v-flex xs1>
+                                                <span class="notes">
+                                                    {{j+1}}.
+                                                </span>
+                                            </v-flex>
+                                            <v-flex xs7>
+                                                <span class="notes">
+                                                    {{c.toString()}}
+                                                </span>
+                                            </v-flex>
+                                            <v-flex xs2>
+                                                <v-btn class="general-btn" color="blue" flat icon @click="c.play()" style="background-color: yellow;">
+                                                    <v-icon>music_note</v-icon>
+                                                </v-btn>
+                                            </v-flex>
+                                            <v-flex xs2>
+                                                <v-btn class="general-btn" color="blue" flat icon @click="c.playMelody()" style="background-color: yellow;">
+                                                    <v-icon>music_note</v-icon>
+                                                </v-btn>
+                                            </v-flex>
+                                        </v-layout>
                                     </span>
                                 </v-flex>
-                                <v-flex xs3>
-                                    {{c.toString()}}
-                                </v-flex>
-                                <v-flex xs1>
-                                    <v-btn color="blue" flat icon @click="c.play()" style="background-color: yellow;">
-                                        <v-icon>music_note</v-icon>
-                                    </v-btn>
-                                </v-flex>
-                                <v-flex xs1>
-                                    <v-btn color="blue" flat icon @click="c.playMelody()" style="background-color: yellow;">
-                                        <v-icon>music_note</v-icon>
-                                    </v-btn>
-                                </v-flex>
                             </v-layout>
-                        </span>
-                    </template>
-                </div>
-            </transition-group>
-            <br><br>
-        </v-app>
+                        </template>
+                    </v-container>
+                </transition-group>
+                <br><br>
+            </v-container>
+        </template>
         <compose :scale="chosen_scale" v-if="composer_on" @toggle="composer_on=false">
         </compose>
-    </div>
+    </v-app>
 </template>
 
 <script>
@@ -84,17 +125,20 @@ import {
 } from '../Classes/Base/Chord'
 import {
     diatonic_scales,
-    notes
+    notes,
+    all_scales,
+    all_diatonic_scales
 } from '../Classes/Base/Patterns'
 import Piano from './Piano'
 import navigation from './Navigation'
 import Compose from './Compose'
 function firstToUpper(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+    return str.charAt(0).toUpperCase() + str.slice(1)
 }
 export default {
     name: "Home",
     data() {
+        let max_scales_shown = 30
         return {
             n: "",
             octave: "",
@@ -106,26 +150,45 @@ export default {
             chord_types: ["root", "1st Inversion", "second Inversion"],
             composer_on: false,
             chosen_scale: null,
-        };
+            generated: false,
+            all_scales,
+            diatonic: [],
+            max_scales_shown: 30,
+            start_index: 0,
+            end_index: 30,
+            pages: all_diatonic_scales.length%max_scales_shown,
+        }
     },
     components: {
         navigation,
         Compose
     },
     methods: {
-        f() {
-            if (this.n != null) this.n = firstToUpper(this.n);
+        generate() {
+            this.generated = true
+            this.scale_index = 0
+            if (this.n != null) this.n = firstToUpper(this.n)
             if (!notes["#"].includes(this.n) && !notes["b"].includes(this.n)) {
-                this.note = "";
-                this.note_output = "NOT A NOTE!";
-                this.scale = [];
+                this.note = ""
+                this.note_output = "NOT A NOTE!"
+                this.scale = []
+                this.generated = false
             } else {
-                this.note = this.octave == "" ? new Note(this.n) : new Note(this.n, this.octave);
-                this.note_output = "Note: " + this.note;
-                this.scale = [];
-                for (let s in diatonic_scales)
-                    this.scale.push(new DiatonicScale(this.note, diatonic_scales[s]));
+                this.note = this.octave == "" ? new Note(this.n) : new Note(this.n, this.octave)
+                this.note_output = "Note: " + this.note
+                this.scale = []
+                let count = 0
+                for (let s of all_diatonic_scales.slice(this.start_index, this.end_index)){
+                    const pattern = s['Semi – Tones'].substring(1, s['Semi – Tones'].length - 1).split(',').map(Number)
+                        count++
+                        this.diatonic.push(s)
+                        console.log(s)
+                        this.scale.push(new DiatonicScale(this.note, pattern))
+                        if(count == this.max_scales_shown)
+                            break
             }
+            }
+            console.log(this.pages)
         },
         g(s) {
             s.show = !s.show
@@ -133,20 +196,6 @@ export default {
         goToComposer(scale){
             this.composer_on = true
             this.chosen_scale = scale
-        },
-        oct() {
-            let tmp = []
-            for (let i = 1; i <= 7; i++)
-                tmp.push(new Note(this.n, i))
-            this.foo = tmp
-            let timerId = setInterval(() => {
-                let i = Math.floor(Math.random() * 7)
-                this.foo[i].play()
-            }, 2000)
-            setTimeout(() => {
-                    clearInterval(timerId)
-                },
-                20000)
         },
     }
 }
@@ -157,43 +206,20 @@ export default {
 h1,
 h2 {
   font-weight: normal;
-  font-size: 50pt;
+  font-size: 35pt;
 }
 a {
   color: #42b983;
-}
-.home{
-    text-align: center;
 }
 
 .diatonic_scales{
     text-align: center !important;
   font-size: 2em;
 }
-@media only screen and (min-width: 768px) {
-    /* For mobile phones: */
-    [class*="diatonic_scales"] {
-        font-size: 30pt;
-    }
-}
-.in{
-    background-color: chartreuse;
-    font-size: 30pt;
-	color: black;
-    width: 15%;
-}
 .scale_btn{
-	text-transform: none !important;
-	/* font-size: 20pt; */
-	/* color:cyan !important; */
 	background-color: coral !important;
 }
-@media only screen and (min-width: 768px) {
-    /* For mobile phones: */
-    [class*="scale_btn"] {
-        font-size: 20pt;
-    }
-}
+
 /* moving */
 .fade-move {
   transition: all 200ms ease-in;
@@ -213,5 +239,14 @@ a {
 .fade-enter,
 .fade-leave-to {
   transition: all 200ms ease-in;
+}
+.scale-notes{
+    color: brown;
+    font-size: 55%;
+}
+.notes{
+    color: #42b983;
+    font-size: 55%;
+    text-align: center;
 }
 </style>

@@ -14,10 +14,12 @@ export class MusicalPattern {
         else
             this.tonic = new Note(tonic)
         this.pattern = pattern
-        this.notes = [this.tonic]
+        // this.notes = [this.tonic]
+        this.notes = []
         for (let j of pattern) {
             this.notes.push(this.tonic.getInterval(j))
         }
+        this.notes.push(this.tonic.getInterval(12))
     }
     /**
      * returns array that contains all the notes in the pattern.

@@ -1,20 +1,21 @@
 <template>
-    <div>
-                        <navigation></navigation>
-                        <br>
         <v-app id="inspire">
-            <v-container fluid grid-list-lg>
+            <div v-if="!picked">
+            <v-flex xs1>
+                            <v-btn class="general-btn" color="error" to="/learnmenu">Back</v-btn>
+            </v-flex>
+            <v-container fluid grid-list-lg >
                 <br>
                 <div class="n" v-for="note in notes['#']" :key="note.id">
-                    <v-btn class="note" color="success" fab @click="pick=new Note(note)">{{note}}</v-btn>
-                    <!-- <p v-if="notes['#'].indexOf(note)%3==0"> -->
-                        <span></span>
-                    <!-- </p> -->
+                    <v-btn class="general-btn" color="success" fab @click="gotPicked(note)">{{note}}</v-btn>
                 </div>
-                <learn-note :note="pick"></learn-note>
             </v-container>
+            </div>
+            <div fluid grid-list-lg v-if="picked">
+            <v-btn class="general-btn" color="error" @click="picked = false">Back</v-btn>
+            <learn-note :note="pick"></learn-note>
+            </div>
         </v-app>
-    </div>
 </template>
 
 <script>
@@ -33,19 +34,14 @@ export default {
             notes,
             Note,
             pick: new Note('C'),
+            picked: false,
         }
     },
+    methods: {
+        gotPicked(note){
+            this.pick=new Note(note)
+            this.picked = true
+        }
+    }
 }
 </script>
-
-<style>
-.head{
-    font-size: 50pt;
-    color: red;
-
-}
-.n{
-    display: inline;
-}
-</style>
-

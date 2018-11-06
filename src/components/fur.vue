@@ -1,29 +1,39 @@
 <template>
-    <div id="app">
+    <v-app id="inspire">
         <navigation></navigation>
-        <br>
-        <v-app id="inspire">
-            <v-container fluid grid-list-lg>
-                <h1 class="st">Fur Elise!</h1>
-                <br><br><br>
-                <span id="bpmval">BPM: {{bpm}}</span>
-                <v-slider name="bpm" type="range" :min="40" :max="300" step="5" v-model="bpm" @change="updateBPM" thumb-label="always" class="slider" height="70"></v-slider>
-                <br><br><br>
-                <p v-if="r">Current Beat: {{piece.rhythm.getBeat()}}
-                    <v-btn color="primary" fab @click="piece.rhythm.toggleMetronome">Toggle Metronome</v-btn>
-                </p>
-                <br><br><br>
-                <span>Volume: {{Math.floor(vol*100)}}</span>
-                <!-- <input name="volume" type="range" id="vol" min="0" max="1" step="0.01" v-model="vol" @change="updateVol" class="slider"/> -->
-                <v-slider name="volume" prepend-icon="volume_up" min="0" max="1" step="0.01" v-model="vol" @change="updateVol" class="slider"></v-slider>
-                <br><br><br>
-                <v-btn color="success" round large @click="g" class="btn">
+        <v-container fluid grid-list-lg>
+            <v-layout row wrap justify-center>
+                <v-flex xs12>
+                    <h1 class="st" style="text-align:center;">Fur Elise</h1>
+                </v-flex>
+            </v-layout>
+            <v-flex xs12 style="text-align:center;">
+                <v-btn class="general-btn" color="success" round large @click="g">
                     <v-icon>music_note</v-icon>Press Me!<v-icon>music_note</v-icon>
                 </v-btn>
-                <span>{{piece.length}}</span>
-            </v-container>
-        </v-app>
-    </div>
+            </v-flex>
+            <br><br>
+            <v-layout row align-center>
+                <v-flex xs12>
+                    <v-slider name="bpm" label="BPM" :min="40" :max="300" step="5" v-model="bpm" @change="updateBPM" thumb-label="always" class="slider" height="30"></v-slider>
+                </v-flex>
+            </v-layout>
+            <v-flex xs12>
+                <v-slider name="volume" prepend-icon="volume_up" min="0" max="1" step="0.01" v-model="vol" @change="updateVol" class="slider" height="30"></v-slider>
+            </v-flex>
+            <v-layout column wrap align-center>
+                <v-flex xs12>
+                    <v-btn class="general-btn" color="primary" fab @click="piece.rhythm.toggleMetronome">Toggle Metronome</v-btn>
+                </v-flex>
+                <v-flex xs12>
+                    <p v-if="piece.rhythm.metronome"> 
+                        Current Beat:{{piece.rhythm.getBeat()}}
+                    </p>
+                </v-flex>
+            </v-layout>
+            <br><br><br>
+        </v-container>
+    </v-app>
 </template>
 
 <script>
@@ -81,7 +91,6 @@ export default {
         const fur_elise = [ms1, sq1, sq2,sq1, sq2, sq1, sq2, sq1, sq2]
         return {
             bpm,
-            r: new Rhythm(bpm, [4, 4]),
             beat: null,
             vol: 1,
             piece: new Piece(bpm, [4, 4], fur_elise),
@@ -115,21 +124,19 @@ export default {
   h2 {
     font-weight: normal;
           font-size: 40pt;
-      background-color: aqua;
+      /* background-color: aqua; */
   }
   p, span{
-      font-size: 30pt;
+      font-size: 20pt;
       color: red;
-      /* background-color: lightcoral; */
       display: inline;
   }
   .slider{
       background-color: lavender;
   }
 .v-btn {
-  min-width: 0;
-  width: 200pt;
-  height: 100pt;
+  width: 100pt;
+  height: 60pt;
 }
 
 </style>

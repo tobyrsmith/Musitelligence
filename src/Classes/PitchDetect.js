@@ -38,6 +38,8 @@ var mediaStreamSource = null
 let sensitivity = 0.04
 let started = false
 let start_time = null
+let current_note_time = null
+let is_new_note = true
 export const pitch_data = {
     note: "-",
     pitch: "-",
@@ -47,6 +49,7 @@ export const pitch_data = {
         let note = 0
         let play_time = audioContext.currentTime
         const timer = setInterval(() => {
+            if(pitch_data.notes[note])
             if (pitch_data.notes[note].time <= audioContext.currentTime - play_time) {
                 console.log(pitch_data.notes[note].time)
                 piano.note((pitch_data.notes[note].notes) + 'q').play()
@@ -207,7 +210,6 @@ export function updatePitch(time) {
         return
     analyser.getFloatTimeDomainData(buf)
     var ac = autoCorrelate(buf, audioContext.sampleRate)
-
     if (ac != -1) {
         if (started == false) {
             start_time = audioContext.currentTime
@@ -221,6 +223,10 @@ export function updatePitch(time) {
         pitch_data.detune = detune
         cached_notes.push(noteStrings[note % 12])
         cached_frequencies.push(pitch_data.frequency)
+        if(is_new_note){
+            current_note_time = audioContext.currentTime
+            is_new_note = false
+        }
     }
     if (!window.requestAnimationFrame)
         window.requestAnimationFrame = window.webkitRequestAnimationFrame
@@ -232,10 +238,12 @@ function updateNotes() {
         if (cached_notes.length > 5) {
             pitch_data.notes.push({
                 notes: frequent(cached_notes) + frequentFrequency(cached_frequencies),
-                time: audioContext.currentTime - start_time
+                time: current_note_time - start_time
             })
-            console.log(audioContext.currentTime - start_time)
+
+            console.log(current_note_time - start_time)
         }
+        is_new_note = true
         cached_notes.length = 0
         cached_frequencies.length = 0
         new_note = false
@@ -264,6 +272,5 @@ function frequentFrequency(frequencies) {
             mostFrequent = octave;
         }
     }
-    console.log(mostFrequent)
     return parseInt(mostFrequent);
 }

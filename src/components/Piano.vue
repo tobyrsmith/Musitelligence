@@ -1,5 +1,8 @@
 <template>
-    <div>
+    <v-app>
+        <v-container grid-list-xs>
+            <v-layout row wrap justify-center>
+                
         <div class="in" v-for="(k, i) in octaves" :key="k.id">
             <img :src="piano_keys" alt="" :usemap="'#piano-map'+i">
             <map :name="'piano-map' + i">
@@ -35,7 +38,9 @@
                 <area target="" alt="" title="" @click="piano.note('b' + parseInt(i+1) + 'q').play()" coords="300,125,349,217" shape="rect">
             </map>
         </div>
-    </div>
+            </v-layout>            
+        </v-container>
+    </v-app>
 </template>
 
 <script>
