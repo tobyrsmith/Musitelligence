@@ -1,11 +1,76 @@
 [
- {
-   "Scale": "Unison",
-   "Intervals": "[1]",
-   "Semi – Tones": "[0]",
-   "Length": "1",
-   "PositionOfTonic": "1"
- },
+  {
+    "Scale": "Major / Ionian",
+    "Intervals": "[1, 2, 3, 4, 5, 6, 7]",
+    "Semi – Tones": "[0, 2, 4, 5, 7, 9, 11]",
+    "Length": "7",
+    "PositionOfTonic": "2",
+    "AKA": "Chord CMaj69sus4 - Thaat,  Nid Murub (Sumerian) - white notes from C - Abheri Desc Raga "
+  },
+  {
+    "Scale": "Natural Minor / Aeolian",
+    "Intervals": "[1, 2, 3b, 4, 5, 6b, 7b, , , ]",
+    "Semi – Tones": "[0, 2, 3, 5, 7, 8, 10]",
+    "Length": "7",
+    "PositionOfTonic": "5",
+    "AKA": "Chord Cm9b6sus4 - Gregorian Scale 2, Assari Thaat (India), Se (China) Kitmun (Sumarian)"
+  },
+  {
+    "Scale": "Harmonic Minor",
+    "Intervals": "[1, 2, 3b, 4, 5, 6b, 7]",
+    "Semi – Tones": "[0, 2, 3, 5, 7, 8, 11]",
+    "Length": "7",
+    "PositionOfTonic": "5",
+    "AKA": "Raga Kirwani?"
+  },
+  {
+    "Scale": "Melodic Minor",
+    "Intervals": "[1, 2, 3b, 4, 5, 6, 7]",
+    "Semi – Tones": "[0, 2, 3, 5, 7, 9, 11]",
+    "Length": "7",
+    "PositionOfTonic": "4",
+    "AKA": "Jazz Minor"
+  },
+  {
+    "Scale": "Dorian",
+    "Intervals": "[1, 2, 3b, 4, 5, 6, 7b]",
+    "Semi – Tones": "[0, 2, 3, 5, 7, 9, 10]",
+    "Length": "7",
+    "PositionOfTonic": "4",
+    "AKA": "Chord Cm69sus4 - Eskimo Heptatonic (N. America) Kafi Thaat (India), Embulum (Sumerian)"
+  },
+  {
+    "Scale": "Phrygian",
+    "Intervals": "[1, 2b, 3b, 4, 5, 6b, 7b]",
+    "Semi – Tones": "[0, 1, 3, 5, 7, 8, 10]",
+    "Length": "7",
+    "PositionOfTonic": "6",
+    "AKA": "Ishartum (Sumerian), Ousak (Greece), Zokuso (Japan) Gregorian Scale 3"
+  },
+  {
+    "Scale": "Lydian",
+    "Intervals": "[1, 2, 3, 4#, 5, 6, 7]",
+    "Semi – Tones": "[0, 2, 4, 6, 7, 9, 11]",
+    "Length": "7",
+    "PositionOfTonic": "1",
+    "AKA": "Ping (China)  Nis Garb.ri (Mesopotamian)"
+  },
+  {
+    "Scale": "Mixolydian",
+    "Intervals": "[1, 2, 3, 4, 5, 6, 7b]",
+    "Semi – Tones": "[0, 2, 4, 5, 7, 9, 10]",
+    "Length": "7",
+    "PositionOfTonic": "3",
+    "AKA": " Chord C69sus4 - Ching (China). Mitum (Sumerian) Gregorian Scale 7"
+  },
+  {
+    "Scale": "Locrian",
+    "Intervals": "[1, 2b, 3b, 4, 5b, 6b, 7b]",
+    "Semi – Tones": "[0, 1, 3, 5, 6, 8, 10]",
+    "Length": "7",
+    "PositionOfTonic": "7",
+    "AKA": "Qablitum (Sumerian)"
+  },
  {
    "Scale": "Fifth Interval",
    "Intervals": "[1, 5]",
@@ -799,62 +864,6 @@
    "Semi – Tones": "[0, 1, 3, 8, 10]",
    "Length": "5",
    "PositionOfTonic": "6"
- },
- {
-   "Scale": "Lydian, Kalyan F to E ascending naturals",
-   "Intervals": "[1, 2, 3, 4#, 5, 6, 7]",
-   "Semi – Tones": "[0, 2, 4, 6, 7, 9, 11]",
-   "Length": "7",
-   "PositionOfTonic": "1",
-   "AKA": "Ping (China)  Nis Garb.ri (Mesopotamian)"
- },
- {
-   "Scale": "Ionian, Major, Bilaval  C to B asc.  nats.",
-   "Intervals": "[1, 2, 3, 4, 5, 6, 7]",
-   "Semi – Tones": "[0, 2, 4, 5, 7, 9, 11]",
-   "Length": "7",
-   "PositionOfTonic": "2",
-   "AKA": "Chord CMaj69sus4 - Thaat,  Nid Murub (Sumerian) - white notes from C - Abheri Desc Raga "
- },
- {
-   "Scale": "Mixolydian, Khamaj G to F ascend. nats",
-   "Intervals": "[1, 2, 3, 4, 5, 6, 7b]",
-   "Semi – Tones": "[0, 2, 4, 5, 7, 9, 10]",
-   "Length": "7",
-   "PositionOfTonic": "3",
-   "AKA": " Chord C69sus4 - Ching (China). Mitum (Sumerian) Gregorian Scale 7"
- },
- {
-   "Scale": "Dorian, Kafi  D to C asc. naturals",
-   "Intervals": "[1, 2, 3b, 4, 5, 6, 7b]",
-   "Semi – Tones": "[0, 2, 3, 5, 7, 9, 10]",
-   "Length": "7",
-   "PositionOfTonic": "4",
-   "AKA": "Chord Cm69sus4 - Eskimo Heptatonic (N. America) Kafi Thaat (India), Embulum (Sumerian)"
- },
- {
-   "Scale": "Aeolian Natural Minor, Asavari Asc Nats. A to G",
-   "Intervals": "[1, 2, 3b, 4, 5, 6b, 7b, , , ]",
-   "Semi – Tones": "[0, 2, 3, 5, 7, 8, 10]",
-   "Length": "7",
-   "PositionOfTonic": "5",
-   "AKA": "Chord Cm9b6sus4 - Gregorian Scale 2, Assari Thaat (India), Se (China) Kitmun (Sumarian)"
- },
- {
-   "Scale": "Phrygian, Bhairavi  E to D asc. nats.(as 11/678910/4 in 12edo)",
-   "Intervals": "[1, 2b, 3b, 4, 5, 6b, 7b]",
-   "Semi – Tones": "[0, 1, 3, 5, 7, 8, 10]",
-   "Length": "7",
-   "PositionOfTonic": "6",
-   "AKA": "Ishartum (Sumerian), Ousak (Greece), Zokuso (Japan) Gregorian Scale 3"
- },
- {
-   "Scale": "Locrian  - B to A Ascending naturals",
-   "Intervals": "[1, 2b, 3b, 4, 5b, 6b, 7b]",
-   "Semi – Tones": "[0, 1, 3, 5, 6, 8, 10]",
-   "Length": "7",
-   "PositionOfTonic": "7",
-   "AKA": "Qablitum (Sumerian)"
  },
  {
    "Scale": "Raga Mrunganandana (India)",
@@ -5223,14 +5232,6 @@
    "AKA": "Mela Vacaspati (India) Raga Bhusavati (India) Lydian Mixolydian. Bartok Scale, Lydian Dominant"
  },
  {
-   "Scale": "Minor Melodic",
-   "Intervals": "[1, 2, 3b, 4, 5, 6, 7]",
-   "Semi – Tones": "[0, 2, 3, 5, 7, 9, 11]",
-   "Length": "7",
-   "PositionOfTonic": "4",
-   "AKA": "Jazz Minor"
- },
- {
    "Scale": "Major Minor, Hindu bVI & bVII",
    "Intervals": "[1, 2, 3, 4, 5, 6b, 7b]",
    "Semi – Tones": "[0, 2, 4, 5, 7, 8, 10]",
@@ -9404,14 +9405,6 @@
    "Length": "7",
    "PositionOfTonic": "4",
    "AKA": "Ukrainian minor Raja, Dorian with a sharp fourth"
- },
- {
-   "Scale": "Harmonic Minor",
-   "Intervals": "[1, 2, 3b, 4, 5, 6b, 7]",
-   "Semi – Tones": "[0, 2, 3, 5, 7, 8, 11]",
-   "Length": "7",
-   "PositionOfTonic": "5",
-   "AKA": "Raga Kirwani?"
  },
  {
    "Scale": "Phrygian Dominant, Dorico Flamenco, Avaha Raba, Spanish Folk, Jewish Major",

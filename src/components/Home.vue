@@ -36,21 +36,21 @@
                     <v-layout row wrap>
                             <div  v-for="p in pages" :key="p">
                         <v-flex xs1>
-                                <v-btn small fab color="warning">{{p}} </v-btn>
+                                <v-btn small fab color="warning" @click="goToPage(p)">{{p}} </v-btn>
                         </v-flex>
                             </div>
                     </v-layout>
                     </v-flex>
                 </v-layout>
                 <transition-group name="fade" tag="span" v-if="generated">
-                    <v-container class="diatonic_scales" v-for="(s, i) in scale" :key="i">
+                    <v-container class="diatonic_scales" v-for="(s, i) in scales_shown" :key="i">
                         <v-layout row justify-center>
                             <v-flex xs1>
                                 {{i+1}}.
                             </v-flex>
                             <v-flex x7>
                                 <v-layout column wrap>
-                                    <v-btn class="general-btn scale_btn" round color="secondary orange" @click="g(s)"> {{note.note}} {{diatonic[i]['Scale'].length > 12 ? diatonic[i]['Scale'].slice(0,10)+'...' : diatonic[i]['Scale']}}
+                                    <v-btn class="general-btn scale_btn" round color="secondary orange" @click="g(s)"> {{note.note}} {{diatonic[start_index + i]['Scale'].length > 12 ? diatonic[start_index + i]['Scale'].slice(0,10)+'...' : diatonic[start_index + i]['Scale']}}
                                     </v-btn>
                                     <v-flex xs6>
                                         <span class="scale-notes">
@@ -153,15 +153,22 @@ export default {
             generated: false,
             all_scales,
             diatonic: [],
+            scales_shown: null,
             max_scales_shown: 30,
             start_index: 0,
             end_index: 30,
-            pages: all_diatonic_scales.length%max_scales_shown,
+            pages: Math.ceil(all_diatonic_scales.length/max_scales_shown),
+            max_pages: 10,
         }
     },
     components: {
         navigation,
         Compose
+    },
+    computed: {
+        generateScales(){
+
+        }
     },
     methods: {
         generate() {
@@ -177,18 +184,13 @@ export default {
                 this.note = this.octave == "" ? new Note(this.n) : new Note(this.n, this.octave)
                 this.note_output = "Note: " + this.note
                 this.scale = []
-                let count = 0
-                for (let s of all_diatonic_scales.slice(this.start_index, this.end_index)){
+                for (let s of all_diatonic_scales){
                     const pattern = s['Semi – Tones'].substring(1, s['Semi – Tones'].length - 1).split(',').map(Number)
-                        count++
                         this.diatonic.push(s)
-                        console.log(s)
                         this.scale.push(new DiatonicScale(this.note, pattern))
-                        if(count == this.max_scales_shown)
-                            break
             }
+            this.getPage()
             }
-            console.log(this.pages)
         },
         g(s) {
             s.show = !s.show
@@ -196,6 +198,14 @@ export default {
         goToComposer(scale){
             this.composer_on = true
             this.chosen_scale = scale
+        },
+        getPage(){
+            this.scales_shown = this.scale.slice(this.start_index, this.end_index)
+        },
+        goToPage(p){
+            this.start_index = 0 + (p-1) * this.max_scales_shown
+            this.end_index = this.start_index + this.max_scales_shown < this.diatonic.length ? this.start_index + this.max_scales_shown : this.diatonic.length
+            this.getPage()
         },
     }
 }

@@ -1,4 +1,5 @@
 import Note from './Note'
+import piano from './../Piano'
 /**
  * Represents a musical pattern.
  */
@@ -10,16 +11,17 @@ export class MusicalPattern {
      */
     constructor(tonic, pattern) {
         if (tonic instanceof Note)
-            this.tonic = tonic.clone()
+            this.tonic = piano.note(tonic.note + tonic.octave + tonic.duration)
         else
-            this.tonic = new Note(tonic)
+            this.tonic = new piano.note(tonic + 3 + 'q')
         this.pattern = pattern
         // this.notes = [this.tonic]
         this.notes = []
         for (let j of pattern) {
-            this.notes.push(this.tonic.getInterval(j))
+            const interval = this.tonic.getInterval(j)
+            this.notes.push(piano.note(interval.note + interval.octave + interval.duration))
         }
-        this.notes.push(this.tonic.getInterval(12))
+        this.notes.push(piano.note(tonic.note + (tonic.octave + 1) + tonic.duration))
     }
     /**
      * returns array that contains all the notes in the pattern.
@@ -67,4 +69,3 @@ export class MusicalPattern {
         }
     }
 }
-export default MusicalPattern
