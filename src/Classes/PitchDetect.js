@@ -1,8 +1,4 @@
-import {
-    frequent,
-    getOctave
-} from "./Addons"
-import piano from './Piano'
+import {piano} from '.'
 
 /*
 The MIT License (MIT)
@@ -40,7 +36,12 @@ let started = false
 let start_time = null
 let current_note_time = null
 let is_new_note = true
-export const pitch_data = {
+
+let cached_notes = []
+let cached_frequencies = []
+
+export {pitch_data, toggleLiveInput, noteFromPitch, cached_notes, cached_frequencies, updatePitch, reset}
+const pitch_data = {
     note: "-",
     pitch: "-",
     detune: "-",
@@ -108,7 +109,7 @@ function gotStream(stream) {
     updatePitch()
 }
 
-export function toggleLiveInput() {
+function toggleLiveInput() {
     getUserMedia({
         "audio": {
             "mandatory": {
@@ -129,7 +130,7 @@ var buf = new Float32Array(buflen)
 
 var noteStrings = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
-export function noteFromPitch(frequency) {
+function noteFromPitch(frequency) {
     var noteNum = 12 * (Math.log(frequency / 440) / Math.log(2))
     return Math.round(noteNum) + 69
 }
@@ -142,8 +143,6 @@ function centsOffFromPitch(frequency, note) {
     return Math.floor(1200 * Math.log(frequency / frequencyFromNoteNumber(note)) / Math.log(2))
 }
 let new_note = false
-export let cached_notes = []
-export let cached_frequencies = []
 
 function autoCorrelate(buf, sampleRate) {
     // Implements the ACF2+ algorithm
@@ -204,7 +203,7 @@ function autoCorrelate(buf, sampleRate) {
     return sampleRate / T0
 }
 
-export function updatePitch(time) {
+function updatePitch(time) {
     var cycles = new Array
     if (!analyser)
         return
@@ -249,7 +248,7 @@ function updateNotes() {
         new_note = false
     }
 }
-export function reset() {
+function reset() {
     started = false
     pitch_data.notes.length = 0
 }
@@ -273,4 +272,33 @@ function frequentFrequency(frequencies) {
         }
     }
     return parseInt(mostFrequent);
+}
+
+function frequent(array){
+    let counts = {}, 
+        compare = 0,
+        mostFrequent
+    for(var i = 0, len = array.length; i < len; i++){
+        var member = array[i];
+        
+        if(counts[member] === undefined){
+            counts[member] = 1;
+        }else{
+            counts[member] = counts[member] + 1;
+        }
+        if(counts[member] > compare){
+              compare = counts[member];
+              mostFrequent = array[i];
+        }
+     }
+   return mostFrequent;
+}
+
+function getOctave(frequency){
+    for(let i in octave_frequencies){
+        let tmp = octave_frequencies[i]
+        if(frequency > tmp[0] && frequency <= tmp[1])
+            return i
+    }
+    return null
 }

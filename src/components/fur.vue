@@ -41,21 +41,7 @@ import {
     Howl,
     Howler
 } from 'howler'
-import Rhythm from './../Classes/Base/Rhythm'
-import Measure from './../Classes/Measure'
-import Chord from './../Classes/Base/Chord'
-import {
-    Note
-} from '../Classes/Base/Note'
-import {
-    DiatonicScale
-} from '../Classes/Base/Scale'
-import {
-    major_scale
-} from '../Classes/Base/Patterns'
-import Piece from './../Classes/Piece'
-import Sequence from './../Classes/Sequence'
-import piano from './../Classes/Piano'
+import {Rhythm,Measure,Chord,Note, DiatonicScale, major_scale, Piece, Sequence, piano}  from './../Classes/'
 import navigation from './Navigation'
 
 export default {

@@ -1,15 +1,8 @@
-import Rhythm from './Base/Rhythm'
-import Sequence from './Sequence'
-import Measure from './Measure'
-import Note from './Base/Note'
-import Chord from './Base/Chord'
-import {
-    note_durations
-} from './Base/Patterns'
+import {Note, Rhythm, Sequence, Measure, Chord, note_durations} from '.'
 import {
     isArray
 } from 'util'
-class Piece {
+export class Piece {
     constructor(BPM, time_signature, data) {
         this._BPM = BPM
         this._time_signature = time_signature

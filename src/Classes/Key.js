@@ -1,7 +1,4 @@
-import {Chord} from './Chord'
-import {Note} from './Note'
-import {DiatonicScale} from './Scale'
-
+import {Note, Chord, DiatonicScale} from '.'
 /**
  * represents a Musical Key that is based on a specific Diatonic Scale., 
  * @extends DiatonicScale

@@ -1,9 +1,4 @@
-import {
-    all_notes, note_durations
-} from './Base/Patterns'
-import Note from './Base/Note'
-import {firstToUpper} from './Addons'
-
+import {Note, all_notes, note_durations, firstToUpper} from '.'
 class Piano {
     constructor() {
         this.piano = new Map()
@@ -23,4 +18,5 @@ class Piano {
     }
 }
 const piano = new Piano()
-export default piano
+export {piano}
+// export const piano = "p"

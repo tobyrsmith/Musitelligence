@@ -1,15 +1,9 @@
-import {
-    notes,
+import path from 'path'
+import {firstToUpper, notes,
     circle_of_fourths,
-    semitone
-} from './Patterns'
+    semitone} from '.'
 import {
-    firstToUpper
-} from './../Addons'
-import Chord from './Chord'
-import {
-    Howl,
-    Howler
+    Howl
 } from 'howler'
 const sounds = new Map()
 /**
@@ -39,11 +33,11 @@ export class Note {
      * @param {Note} note 
      */
     static setSound(note) {
-        const key = note.instrument + notes['b'][notes[note.lang].indexOf(note._note)] + note._octave
+        const key = note.instrument + notes['b'][notes[note.lang].indexOf(note.note)] + note._octave
         if (!sounds.has(key)) {
-            const path = '/static/Media/' + note.instrument + '/' + 'FF_' + notes['b'][notes[note.lang].indexOf(note._note)] + note._octave + '.mp3'
+            const filePath = '/static/Media/' + note.instrument + '/' + 'FF_' + notes['b'][notes[note.lang].indexOf(note.note)] + note._octave + '.mp3'
             sounds.set(key, new Howl({
-                src: [path]
+                src: [filePath]
             }))
         }
     }
@@ -120,9 +114,9 @@ export class Note {
             return new Note(notes[this.lang][(this.index + interval) % 12], parseInt(this.octave) + parseInt(oct_diff), this.duration, this.instrument)
         return new Note(notes[this.lang][(this.index + interval) % 12], parseInt(this.octave) + parseInt(oct_diff), this.duration, this.instrument)
     }
-    getMajorChord() {
-        return new Chord(this, this.getInterval(4), this.getInterval(7))
-    }
+    // getMajorChord() {
+    //     return new Chord(this, this.getInterval(4), this.getInterval(7))
+    // }
     getMajorScale() {
         let scale = [this.note]
         for (let i of major_scale) {
@@ -155,12 +149,9 @@ export class Note {
      * Play the note.
      */
     play() {
-        console.log(this)
         if (sounds.get(this.instrument + notes['b'][notes[this.lang].indexOf(this.note)] + this._octave) instanceof Howl)
             sounds.get(this.instrument + notes['b'][notes[this.lang].indexOf(this.note)] + this._octave).play()
         else
             console.log('Sound not loaded! please make sure you load with x.loadSound()')
     }
 }
-
-export default Note

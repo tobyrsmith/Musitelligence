@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import {notes} from './../Classes/Base/Patterns'
+import {notes} from './../Classes/'
 import test from './Test'
 import navigation from './Navigation'
 

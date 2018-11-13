@@ -22,8 +22,7 @@
     </div>
 </template>
 <script>
-import {pitch_data, toggleLiveInput, cached_notes, cached_frequencies, reset} from './../Classes/PitchDetect'
-import piano from './../Classes/Piano'
+import {pitch_data, toggleLiveInput, cached_notes, cached_frequencies, reset, piano} from './../Classes/'
 import navigation from './Navigation'
 export default {
     data() {

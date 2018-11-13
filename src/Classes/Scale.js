@@ -1,6 +1,4 @@
-import {MusicalPattern} from './MusicalPattern'
-import Note from './Note'
-import Chord from './Chord'
+import {Note, Chord, MusicalPattern} from '.'
 /**
 * represents a Diatonic Scale(a scale that consists of 7 notes), 
 * @extends MusicalPattern
@@ -32,4 +30,3 @@ export class DiatonicScale extends MusicalPattern {
    return this.chords
  }
 }
-export default DiatonicScale

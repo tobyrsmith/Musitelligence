@@ -1,8 +1,9 @@
-import { octave_frequencies } from "./Base/Patterns";
+import { octave_frequencies } from "."
 
-export function firstToUpper(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+function firstToUpper(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1)
 }
+export {firstToUpper}
 export function notesCopy(arr){
     let notes = new Array()
     for(let i of arr){

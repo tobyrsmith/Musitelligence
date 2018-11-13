@@ -40,10 +40,8 @@
 <script>
 import navigation from './Navigation'
 import {
-    notes
-} from './../Classes/Base/Patterns'
-import Note from './../Classes/Base/Note'
-import piano from './../Classes/Piano'
+    notes, Note, piano
+} from './../Classes/'
 export default {
     name: "learn-note",
     props: ['note'],

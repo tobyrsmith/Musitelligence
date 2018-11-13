@@ -21,8 +21,9 @@
 <script>
 import navigation from './Navigation'
 import LearnNote from './LearnNote'
-import {notes} from './../Classes/Base/Patterns'
-import Note from './../Classes/Base/Note'
+import {
+    notes, Note
+} from './../Classes/'
 export default {
     name: "select-note",
     components:{

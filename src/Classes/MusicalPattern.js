@@ -1,5 +1,4 @@
-import Note from './Note'
-import piano from './../Piano'
+import {Note, piano} from '.'
 /**
  * Represents a musical pattern.
  */

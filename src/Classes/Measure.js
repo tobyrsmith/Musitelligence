@@ -1,12 +1,7 @@
-import Note from "./Base/Note"
-import Rhythm from './Base/Rhythm'
-import Chord from "./Base/Chord"
+import {Note, Rhythm, Chord, note_durations} from "."
 import {
     isArray
 } from 'util'
-import {
-    note_durations
-} from "./Base/Patterns"
 /**
  * Measure - represents a single measure as part of a musical piece.
  * @class

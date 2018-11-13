@@ -45,7 +45,7 @@
 
 <script>
     import piano_keys from './../assets/piano-keys.jpg'
-    import piano from './../Classes/Piano'
+    import {piano} from './../Classes/'
     export default {
         name: "Piano",
         created() {

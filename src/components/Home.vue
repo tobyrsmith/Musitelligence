@@ -114,22 +114,7 @@
 </template>
 
 <script>
-import {
-    Note
-} from '../Classes/Base/Note'
-import {
-    DiatonicScale
-} from '../Classes/Base/Scale'
-import {
-    Chord
-} from '../Classes/Base/Chord'
-import {
-    diatonic_scales,
-    notes,
-    all_scales,
-    all_diatonic_scales
-} from '../Classes/Base/Patterns'
-import Piano from './Piano'
+import {Rhythm,Measure,Chord,Note, DiatonicScale, major_scale, Piece, Sequence, piano, notes, all_scales, all_diatonic_scales}  from './../Classes/'
 import navigation from './Navigation'
 import Compose from './Compose'
 function firstToUpper(str) {
@@ -146,7 +131,6 @@ export default {
             note_output: "",
             scale_output: "",
             scale: [],
-            diatonic_scales,
             chord_types: ["root", "1st Inversion", "second Inversion"],
             composer_on: false,
             chosen_scale: null,

@@ -1,13 +1,8 @@
-import Note from './Note'
+import {Note, Chord, note_durations} from '.'
 import {
     isArray
 } from 'util'
-import Chord from './Chord'
-import {
-    note_durations,
-    time_signature_note_types
-} from './Patterns'
-var rhythm;
+var rhythm
 
 // for cross browser compatibility
 const AudioContext = window.AudioContext || window.webkitAudioContext   //web audio api instance
@@ -165,4 +160,3 @@ export class Rhythm {
             rhythm.metronome = !rhythm.metronome
     }
 }
-export default Rhythm

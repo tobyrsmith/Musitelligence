@@ -1,4 +1,4 @@
-class Sequence {
+export class Sequence {
     constructor(measures = []) {
         this._measures = measures
         this._duration = 0
@@ -45,4 +45,3 @@ class Sequence {
         return string
     }
 }
-export default Sequence

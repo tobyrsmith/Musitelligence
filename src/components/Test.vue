@@ -47,8 +47,7 @@
 </template>
 
 <script>
-import {notes} from './../Classes/Base/Patterns'
-import piano from './../Classes/Piano'
+import {notes, piano} from './../Classes/'
 export default {
     name: 'test-perfect-pitch',
     data() {

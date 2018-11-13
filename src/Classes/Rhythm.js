@@ -1,17 +1,7 @@
-import Note from './Note'
+import {Note, Chord, note_durations} from '.'
 import {
     isArray
 } from 'util'
-import Chord from './Chord'
-import {
-    note_durations,
-} from './Patterns'
-// var rhythm;
-
-// import {Note, Chord, note_durations} from '.'
-// import {
-//     isArray
-// } from 'util'
 let rhythm
 
 function scheduler() {
@@ -156,7 +146,7 @@ export class Rhythm {
     }
     draw() {
         let drawNote = rhythm.lastNoteDrawn
-        rhythm.currentTime = this.audioCtx.currentTime
+        rhythm.currentTime = rhythm.audioCtx.currentTime
 
         // We only need to draw if the note has moved.
         if (rhythm.lastNoteDrawn != drawNote) {
@@ -207,4 +197,3 @@ export class Rhythm {
         }
     }
 }
-export default Rhythm
