@@ -79,8 +79,8 @@ export const notes             = {
 	"#": ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"],
 	"b": ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
 }
-export const all_notes = ['C','C#','Db','D','D#','Eb','E','F','F#','Gb','G','G#','Ab','A', 'A#', 'Bb','B']
-
+const all_notes = ['C','C#','Db','D','D#','Eb','E','F','F#','Gb','G','G#','Ab','A', 'A#', 'Bb','B']
+export {all_notes  as all_notes}
 export const note_durations = {
     'w': 1,
     'h': 1 / 2,

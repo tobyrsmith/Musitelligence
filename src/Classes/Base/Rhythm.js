@@ -6,20 +6,19 @@ import Chord from './Chord'
 import {
     note_durations,
 } from './Patterns'
-var rhythm;
+// var rhythm;
 
-// for cross browser compatibility
-const AudioContext = window.AudioContext || window.webkitAudioContext //web audio api instance
-const audioCtx = new AudioContext()
-let min_interval = 1 / 16 //the interval at which the schedualer will be called and data will be able to be played.
-let next_interval = 0.0 //the time at which the next interval will be called updating with currentTime
-let calculate_ahead = 10 // how many notes to calculate precise time for ahead
+// import {Note, Chord, note_durations} from '.'
+// import {
+//     isArray
+// } from 'util'
+let rhythm
 
 function scheduler() {
     // while there are notes that will need to play before the next interval, schedule them and advance the pointer.
-    while (next_interval < audioCtx.currentTime + rhythm.scheduleAheadTime) {
+    while (rhythm.next_interval < rhythm.audioCtx.currentTime + rhythm.scheduleAheadTime) {
         if (rhythm.next_note >= rhythm.data_with_time.length - 1){
-        for(let i=0;i<calculate_ahead;i++)
+        for(let i=0;i<rhythm.calculate_ahead;i++)
             rhythm.scheduleNote()
         }
         rhythm.nextNote()
@@ -44,6 +43,13 @@ export class Rhythm {
         this.metronome_sound = new Howl({
             src: ['/static/Media/Metronome/1.wav']
         })
+
+        // for cross browser compatibility
+        AudioContext = window.AudioContext || window.webkitAudioContext //web audio api instance
+        this.audioCtx = new AudioContext()
+        this.min_interval = 1 / 16 //the interval at which the schedualer will be called and data will be able to be played.
+        this.next_interval = 0.0 //the time at which the next interval will be called updating with currentTime
+        this.calculate_ahead = 10 // how many notes to calculate precise time for ahead
 
         this.data_with_time = [] //Array which contains objects with sounds and time properties
         this.next_note = 0 //the next note which needs to be played
@@ -126,10 +132,10 @@ export class Rhythm {
      * Advances to the next note and updates the beat
      */
     nextNote() {
-        next_interval += this.seconds_per_beat * min_interval
+        this.next_interval += this.seconds_per_beat * this.min_interval
         // Advance the beat number, wrap to zero
-        this.beat_check += this.seconds_per_beat * min_interval
-        if (this.prev_beat_time + this.seconds_per_beat <= audioCtx.currentTime) {
+        this.beat_check += this.seconds_per_beat * this.min_interval
+        if (this.prev_beat_time + this.seconds_per_beat <= this.audioCtx.currentTime) {
             // console.log(this.prev_beat_time - this.start_time)
             if (this.metronome)
                 this.metronome_sound.play()
@@ -142,7 +148,7 @@ export class Rhythm {
             this.prev_beat_time += this.seconds_per_beat
         }
         if (this.data_with_time[this.next_note])
-            if (this.data_with_time[this.next_note].time <= audioCtx.currentTime) {
+            if (this.data_with_time[this.next_note].time <= this.audioCtx.currentTime) {
                 // console.log(this.data_with_time[this.next_note].time - this.start_time)
                 this.playSounds()
                 this.next_note++
@@ -150,7 +156,7 @@ export class Rhythm {
     }
     draw() {
         let drawNote = rhythm.lastNoteDrawn
-        rhythm.currentTime = audioCtx.currentTime
+        rhythm.currentTime = this.audioCtx.currentTime
 
         // We only need to draw if the note has moved.
         if (rhythm.lastNoteDrawn != drawNote) {
@@ -169,12 +175,12 @@ export class Rhythm {
         this.isPlaying = !this.isPlaying
         if (this.isPlaying) { // start playing
             // check if context is in suspended state (autoplay policy)
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume()
+            if (this.audioCtx.state === 'suspended') {
+                this.audioCtx.resume()
             }
-            this.start_time = audioCtx.currentTime
-            this.overall_time = audioCtx.currentTime
-            this.prev_beat_time = audioCtx.currentTime
+            this.start_time = this.audioCtx.currentTime
+            this.overall_time = this.audioCtx.currentTime
+            this.prev_beat_time = this.audioCtx.currentTime
             this.data_with_time.length = 0
             this.next_note = index
             this.current_beat = 1

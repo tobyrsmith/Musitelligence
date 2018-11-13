@@ -5,7 +5,7 @@
                         <v-btn class="general-btn" color="error" @click="$emit('test-off')">Back</v-btn>
                 </v-flex>
         <v-container grid-list-xs>
-<v-layout column align-center>    
+            <v-layout column align-center>    
                 <v-flex xs12 align-center>
                     <br><br>
                     <v-btn class="general-btn" color="success" @click="play">
@@ -21,7 +21,7 @@
                         <v-container v-bind="{ [`grid-list-${'md'}`]: true }" fluid>
                             <v-layout row wrap>
                                 <v-flex v-for="(note,i) in notes_picked" :key="note.id" xs4>
-                                    <v-btn class="general-btn" color="success" @click="choose(i)">{{note}}</v-btn>
+                                    <v-btn fab class="general-btn" color="success" @click="choose(i)">{{note}}</v-btn>
                                 </v-flex>
                             </v-layout>
                         </v-container>
@@ -44,7 +44,6 @@
         </v-container>
         </v-app>
     </div>
-
 </template>
 
 <script>

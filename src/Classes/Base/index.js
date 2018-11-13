@@ -4,5 +4,4 @@ export {MusicalPattern} from './MusicalPattern'
 export * from './Scale'
 export {Rhythm} from './Rhythm'
 export {piano} from '../Piano'
-
 export * from './Patterns'

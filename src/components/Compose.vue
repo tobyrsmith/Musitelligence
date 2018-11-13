@@ -23,7 +23,7 @@
             <v-btn class="general-btn" color="success" @click="removeData">Remove!</v-btn>
             <br>
             <span id="bpmval">BPM: {{bpm}}</span>
-            <v-slider name="bpm" type="range" :min="40" :max="300" step="5" v-model="bpm" @change="updateBPM" thumb-label="always" class="slider" height="70"></v-slider>
+            <v-slider name="bpm" :min="40" :max="300" step="5" v-model="bpm" @change="updateBPM" thumb-label="always" class="slider" height="70"></v-slider>
             <br><br><br>
             <p>Current Beat: {{piece.rhythm.getBeat()}}
                 <!-- <v-btn class="general-btn" color="primary" fab @click="piece.rhythm.toggleMetronome">Toggle Metronome</v-btn> -->
