@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import {notes, piano} from './../Classes/'
+import {notes, piano} from 'm-note'
 export default {
     name: 'test-perfect-pitch',
     data() {

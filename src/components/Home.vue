@@ -114,8 +114,7 @@
 </template>
 
 <script>
-import {Rhythm,Measure, DiatonicScale,Chord, Note, major_scale, Piece, Sequence, piano, notes, all_scales, all_diatonic_scales}  from './../Classes/'
-// import {Chord, Note} from 'm-note'
+import {Rhythm,Measure, DiatonicScale,Chord, Note, major_scale, Piece, Sequence, piano, notes, all_scales, all_diatonic_scales}  from 'm-note'
 import navigation from './Navigation'
 import Compose from './Compose'
 function firstToUpper(str) {

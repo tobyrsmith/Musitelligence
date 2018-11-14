@@ -40,7 +40,7 @@
     </v-app>
 </template>
 <script>
-import {Rhythm,Measure,Chord,Note, DiatonicScale, major_scale, Piece, Sequence, piano}  from './../Classes/'
+import {Rhythm,Measure,Chord,Note, DiatonicScale, major_scale, Piece, Sequence, piano}  from 'm-note'
 import navigation from './Navigation'
 export default {
     name: 'compose',

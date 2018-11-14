@@ -45,7 +45,7 @@
 
 <script>
     import piano_keys from './../assets/piano-keys.jpg'
-    import {piano} from './../Classes/'
+    import {piano} from 'm-note'
     export default {
         name: "Piano",
         created() {

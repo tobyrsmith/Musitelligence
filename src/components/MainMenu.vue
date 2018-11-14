@@ -23,7 +23,7 @@
 import navigation from './Navigation'
 import {
     notes, Note, piano
-} from './../Classes/'
+} from 'm-note'
 import LearnNote from './LearnNote'
 
 export default {

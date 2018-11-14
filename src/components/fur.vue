@@ -41,7 +41,7 @@ import {
     Howl,
     Howler
 } from 'howler'
-import {Rhythm,Measure,Chord,Note, DiatonicScale, major_scale, Piece, Sequence, piano}  from './../Classes/'
+import {Rhythm,Measure,Chord,Note, DiatonicScale, major_scale, Piece, Sequence, piano}  from 'm-note'
 import navigation from './Navigation'
 
 export default {
@@ -60,13 +60,13 @@ export default {
                 [piano.note('a4q'), piano.note('a2e')], piano.note('e3e'), piano.note('a3e'), piano.note('c4e'), piano.note('e4e'), piano.note('a4e')
             ]),
             ms4 = new Measure([
-                [b.newDuration('q'), piano.note('e2e')], piano.note('e3e'), new Note('g#', 3, 'e'), new Note('e', 4, 'e'), new Note('g#', 4, 'e'), new Note('b', 4, 'e')
+                [piano.note('b4q'), piano.note('e2e')], piano.note('e3e'), new Note('g#', 3, 'e'), new Note('e', 4, 'e'), new Note('g#', 4, 'e'), new Note('b', 4, 'e')
             ]),
             ms5 = new Measure([
-                [c.newDuration('q'), new Note('a', 2, 'e')], new Note('e', 3, 'e'), new Note('a', 3, 'e'), new Note('e', 4, 'e'), e, ds
+                [piano.note('c5q'), new Note('a', 2, 'e')], new Note('e', 3, 'e'), new Note('a', 3, 'e'), new Note('e', 4, 'e'), e, ds
             ]),
             ms6 = new Measure([
-                [b.newDuration('q'), piano.note('e2e')], piano.note('e3e'), new Note('g#', 3, 'e'), new Note('e', 4, 'e'), c, b
+                [piano.note('b4q'), piano.note('e2e')], piano.note('e3e'), new Note('g#', 3, 'e'), new Note('e', 4, 'e'), c, b
             ]),
             ms7 = new Measure([
                 [a, new Note('a', 2, 'h'), ], new Note('e', 3, 'e'), new Note('a', 3, 'q'), e, ds
