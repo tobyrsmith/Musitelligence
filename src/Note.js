@@ -82,7 +82,7 @@ export class Note {
      * @property {String} lang set whether note is in '#' or 'b' family
      */
     set lang(l){
-        this._lang = l
+        this._lang = (l == '#' || l == 'b') ? l : this._lang
     }
         /**
      * returns the index of the note from the 12 notes (C, Db, etc...)
