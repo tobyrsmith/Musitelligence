@@ -1,4 +1,4 @@
-import {piano} from '.'
+import {piano, octave_frequencies} from '.'
 
 /*
 The MIT License (MIT)
@@ -24,8 +24,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-window.AudioContext = window.AudioContext || window.webkitAudioContext
-
 var MAX_SIZE = null
 var audioContext = null
 var analyser = null
@@ -40,7 +38,7 @@ let is_new_note = true
 let cached_notes = []
 let cached_frequencies = []
 
-export {pitch_data, toggleLiveInput, noteFromPitch, cached_notes, cached_frequencies, updatePitch, reset}
+export {init, pitch_data, toggleLiveInput, noteFromPitch, cached_notes, cached_frequencies, updatePitch, reset}
 const pitch_data = {
     note: "-",
     pitch: "-",
@@ -76,7 +74,8 @@ const pitch_data = {
     //     }, 500)
 }
 
-window.onload = function() {
+function init() {
+    window.AudioContext = window.AudioContext || window.webkitAudioContext
     audioContext = new AudioContext()
     MAX_SIZE = Math.max(4, Math.floor(audioContext.sampleRate / 5000)) // corresponds to a 5kHz signal
     return false

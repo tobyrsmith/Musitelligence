@@ -1,4 +1,6 @@
-import {Note} from '.'
+import {
+    Note
+} from '.'
 /**
  * represents a Chord.
  */
@@ -11,18 +13,18 @@ export class Chord {
      * @param {Note} note4(optional) 
      * @param {Note} note5(optional)
      */
-    constructor(root, third, fifth, note4 = null, note5 = null, duration = 'q') {
-        this.root = root.clone()
-        this.third = third.clone()
-        this.fifth = fifth.clone()
+    constructor(root, third, fifth, note4 = null, duration = 'q') {
+        this.root = root
         this.duration = duration
         this.isChord = true
-        this.third.octave = this.root.octave
-        this.fifth.octave = this.root.octave
-        if (this.root.index > this.third.index)
-            this.third.octave = this.root.octave + 1
-        if (this.root.index > this.fifth.index)
-            this.fifth.octave = this.root.octave + 1
+        if (this.root.index > third.index)
+            this.third = new Note(third.note, third.octave + 1, third.duration, third.instrument)
+        else
+            this.third = third
+        if (this.root.index > fifth.index)
+            this.fifth = new Note(fifth.note, fifth.octave + 1, fifth.duration, fifth.instrument)
+        else
+            this.fifth = fifth
         if (this.root.getInterval(4).isEqual(this.third)) {
             if (this.root.getInterval(7).isEqual(this.fifth)) {
                 if (note4 == null) {
@@ -100,7 +102,7 @@ export class Chord {
                     this.type = "Minor"
                     this.symbol = "m"
                 } else {
-                    this.note4 = note4.clone()
+                    this.note4 = note4
                     if (this.root.getInterval(5).isEqual(this.note4)) {
                         this.type = "Minor Added Fourth"
                         this.symbol = "madd4"
@@ -122,7 +124,7 @@ export class Chord {
                             this.type = "Minor Seventh"
                             this.symbol = "m7"
                         } else {
-                            this.note5 = note5.clone()
+                            this.note5 = note5
                             if (this.root.getInterval(14).isEqual(note5)) {
                                 this.type = "Minor Ninth"
                                 this.symbol = "m9"
@@ -348,7 +350,7 @@ export class Chord {
             return this.root.note + this.symbol + " {" + this.root + ", " + this.third + ", " + this.fifth + ", " + this.note4 + "}"
         return this.root.note + this.symbol + " {" + this.root + ", " + this.third + ", " + this.fifth + ", " + this.note4 + ", " + this.note5 + "}"
     }
-    newDuration(duration){
-        return new Chord(this.root, this.third,this.fifth, this.note4, this.note5, duration)
+    newDuration(duration) {
+        return new Chord(this.root, this.third, this.fifth, this.note4, this.note5, duration)
     }
 }

@@ -13,7 +13,8 @@ const sounds = new Map()
 export class Note {
     /**
      * @param {String} note Musical Note
-     * @param {number} octave Octave
+     * @param {number} octave Note Octave
+     * @param {String} duration Note duration
      * @param {String} instrument Piano/Guitar/etc...
      * @constructor
      */
@@ -22,8 +23,8 @@ export class Note {
         note = !notes["#"].includes(note) && !notes.b.includes(note) ? "A" : note
         this._octave = octave
         this._duration = duration
-        this.lang = circle_of_fourths.includes(note) ? "b" : "#"
-        this.index = notes[this.lang].indexOf(note)
+        this._lang = circle_of_fourths.includes(note) ? "b" : "#"
+        this._index = notes[this.lang].indexOf(note)
         this._note = note
         this.instrument = "Piano"
         Note.setSound(this)
@@ -43,56 +44,52 @@ export class Note {
     }
     /**
      * returns the note alphabet representation as a string.
+     * @readonly
      */
     get note() {
         return this._note
     }
     /**
-     * set new value to note.
-     * if value is not a note nothing happens.
-     * @param {string} note Musical Note
-     */
-    set note(note) {
-        this._note = !notes["#"].includes(note) && !notes.b.includes(note) ? this._note : note
-    }
-    /**
      * get octave of note.
+     * @readonly
      */
     get octave() {
         return this._octave
     }
     /**
-     * set octave of _note.
-     * @param {number} octave Octave Number
-     */
-    set octave(octave) {
-        this._octave = octave
-    }
-    newOctave(octave) {
-        return new Note(this.note, octave, this.duration)
-    }
-    /**
      * get the duration of a note
+     * @readonly
      */
     get duration() {
         return this._duration
     }
     /**
-     * set the duration of a note
-     * @param {String} duration
-     */
-    set duration(duration) {
-        this._duration = duration
-    }
-    newDuration(duration) {
-        return new Note(this.note, this.octave, duration)
-    }
-    /**
      * get the frequancy of a note.
+     * @readonly
      */
     get frequency() {
         let octave_interval = this._octave - 4 //calculate octave difference
         return Math.pow(semitone, this.index - 9 + octave_interval * 12) * 440
+    }
+    /**
+     * whether the note is a part of flats or sharps.
+     */
+    get lang() {
+        return this._lang
+    }
+    /**
+     * 
+     * @property {String} lang set whether note is in '#' or 'b' family
+     */
+    set lang(l){
+        this._lang = l
+    }
+        /**
+     * returns the index of the note from the 12 notes (C, Db, etc...)
+     * @readonly
+     */
+    get index() {
+        return this._index
     }
     /**
      * returns a clone of the note(new instance).
@@ -135,7 +132,7 @@ export class Note {
      * @param {Note} note
      */
     isEqual(note) {
-        if (this.note == note.note && this._octave == note._octave)
+        if (this.note == note.note && this.octave == note.octave)
             return true
         return false
     }
@@ -143,7 +140,7 @@ export class Note {
      * Returns string of of the note fields formatted as an object.
      */
     print() {
-        return "{Note: " + this.note + ", Octave: " + this._octave + "}"
+        return '{Note: ' + this.note + ', Octave: ' + this._octave +  '}'
     }
     /**
      * Play the note.
