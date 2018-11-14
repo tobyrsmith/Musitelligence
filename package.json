@@ -1,0 +1,38 @@
+{
+  "name": "note-art",
+  "version": "1.0.0",
+  "description": "Music programming package",
+  "main": "./src/index.js",
+  "scripts": {
+    "build": "webpack",
+    "prepare": "npm run build",
+    "test": "mocha --require @babel/register \"test/**/*.spec.js\""
+  },
+  "keywords": [
+    "music",
+    "art",
+    "note",
+    "chord",
+    "key",
+    "scale",
+    "rhythm"
+  ],
+  "author": "Sean Dvir Seanitzel <seandvir12@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.5",
+    "@babel/preset-env": "^7.1.5",
+    "@babel/register": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "howler": "^2.0.15"
+  }
+}
