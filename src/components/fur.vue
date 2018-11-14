@@ -41,7 +41,7 @@ import {
     Howl,
     Howler
 } from 'howler'
-import {Rhythm,Measure,Chord,Note, DiatonicScale, major_scale, Piece, Sequence, piano}  from 'm-note'
+import {Rhythm,Measure,Chord,Note, DiatonicScale, major_scale, Piece, Sequence, piano}  from 'note-art'
 import navigation from './Navigation'
 
 export default {

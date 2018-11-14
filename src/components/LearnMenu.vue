@@ -17,7 +17,7 @@
 import navigation from './Navigation'
 import {
     notes, Note, piano
-} from 'm-note'
+} from 'note-art'
 import LearnNote from './LearnNote'
 
 export default {

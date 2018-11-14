@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import {notes} from 'm-note'
+import {notes} from 'note-art'
 import test from './Test'
 import navigation from './Navigation'
 

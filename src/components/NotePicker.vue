@@ -23,7 +23,7 @@ import navigation from './Navigation'
 import LearnNote from './LearnNote'
 import {
     notes, Note
-} from 'm-note'
+} from 'note-art'
 export default {
     name: "select-note",
     components:{

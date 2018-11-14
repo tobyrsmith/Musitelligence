@@ -41,7 +41,7 @@
 import navigation from './Navigation'
 import {
     notes, Note, piano
-} from 'm-note'
+} from 'note-art'
 export default {
     name: "learn-note",
     props: ['note'],

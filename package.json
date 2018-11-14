@@ -16,7 +16,7 @@
   "dependencies": {
     "howler": "^2.0.15",
     "ink-docstrap": "^1.3.2",
-    "m-note": "file:../Web/JESUS",
+    "note-art": "file:../Note-Art",
     "v-tooltip": "^2.0.0-rc.33",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",

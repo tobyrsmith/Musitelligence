@@ -1,9 +1,9 @@
 <template>
     <v-app>
-        <v-container grid-list-xs>
-            <v-layout row wrap justify-center>
-                
-        <div class="in" v-for="(k, i) in octaves" :key="k.id">
+        <v-container grid-list-xs pa-0 ma-0>
+            <v-layout row style="overflow: auto;" pa-0 ma-0>
+                <v-flex xs12 class="in" pa-0 ma-0 v-for="(k, i) in octaves" :key="k.id">
+
             <img :src="piano_keys" alt="" :usemap="'#piano-map'+i">
             <map :name="'piano-map' + i">
                 <area target="" alt="k" title="k" @click="piano.note('c' + parseInt(i+1) + 'q').play()"  coords="0,2,37,125" shape="rect">
@@ -38,6 +38,7 @@
                 <area target="" alt="" title="" @click="piano.note('b' + parseInt(i+1) + 'q').play()" coords="300,125,349,217" shape="rect">
             </map>
         </div>
+                </v-flex>
             </v-layout>            
         </v-container>
     </v-app>
@@ -45,7 +46,7 @@
 
 <script>
     import piano_keys from './../assets/piano-keys.jpg'
-    import {piano} from 'm-note'
+    import {piano} from 'note-art'
     export default {
         name: "Piano",
         created() {
@@ -134,6 +135,9 @@
  <style>
  .in{
     display: inline-block;
+    -moz-user-select: none;
+-webkit-user-select: none;
+user-select: none;
  }
  </style>
  
