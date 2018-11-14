@@ -35,7 +35,6 @@
   },
   "dependencies": {
     "howler": "^2.0.15",
-    "jsdoc": "^3.5.5",
     "ink-docstrap": "^1.3.2"
   }
 }

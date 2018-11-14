@@ -101,10 +101,8 @@ export class Note {
         this.instrument = "Piano"
         Note.setSound(this)
     }
-    /**
-     * gets a note and creates it's active Howl player so we can play it
-     * @param {Note} note 
-     */
+    
+    // gets a note and creates it's active Howl player in the notes hash-table so we can play it
     static setSound(note) {
         const key = note.instrument + notes['b'][notes[note.lang].indexOf(note.note)] + note._octave
         if (!sounds.has(key)) {
@@ -116,6 +114,7 @@ export class Note {
     }
     /**
      * returns the note alphabet representation as a string.
+     * @type {String}
      * @readonly
      */
     get note() {
@@ -123,6 +122,7 @@ export class Note {
     }
     /**
      * get octave of note.
+     * @type {Number}
      * @readonly
      */
     get octave() {
@@ -130,6 +130,7 @@ export class Note {
     }
     /**
      * get the duration of a note
+     * @type {String}
      * @readonly
      */
     get duration() {
@@ -137,29 +138,25 @@ export class Note {
     }
     /**
      * get the frequancy of a note.
+     * @type {Number}
      * @readonly
      */
     get frequency() {
         let octave_interval = this._octave - 4 //calculate octave difference
         return Math.pow(semitone, this.index - 9 + octave_interval * 12) * 440
     }
-    /**
-     * whether the note is a part of flats or sharps.
-     */
+    
+    // whether the note is a part of flats or sharps.
     get lang() {
         return this._lang
     }
-    /**
-     * 
-     * @property {String} lang set whether note is in '#' or 'b' family
-     */
+    
+    // set whether note is in '#' or 'b' family
     set lang(l){
         this._lang = (l == '#' || l == 'b') ? l : this._lang
     }
-        /**
-     * returns the index of the note from the 12 notes (C, Db, etc...)
-     * @readonly
-     */
+
+    // returns the index of the note from the 12 notes (C, Db, etc...)
     get index() {
         return this._index
     }
@@ -196,7 +193,9 @@ export class Note {
         return toString(scale)
     }
     /**
-     * Returns only the letter of the note and the octave.
+     * Returns the note name and octave.
+     * @example 
+     * 'C3'
      */
     toString() {
         return this.note + this.octave
@@ -211,7 +210,7 @@ export class Note {
         return false
     }
     /**
-     * Returns string of of the note fields formatted as an object.
+     * Returns string of the note fields formatted as an object.
      */
     print() {
         return '{Note: ' + this.note + ', Octave: ' + this._octave +  '}'
