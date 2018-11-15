@@ -2,6 +2,7 @@ import {expect} from 'chai'
 import {Note} from './../src'
 
 const c = new Note('c')
+const b = new Note('b')
 
 describe('Note Methods', () => {
     it('checks properties', () => {
@@ -31,5 +32,6 @@ describe('Note Methods', () => {
         expect(c.getInterval(23)).to.eql(new Note('b',4))
         expect(c.getInterval(24)).to.eql(new Note('c',5))
         expect(c.getInterval(25)).to.eql(new Note('db',5))
+        expect(b.getInterval(1)).to.eql(new Note('c',4))
     })
 })
