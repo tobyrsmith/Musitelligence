@@ -26,10 +26,10 @@ export class Note {
         this._lang = circle_of_fourths.includes(note) ? "b" : "#"
         this._index = notes[this.lang].indexOf(note)
         this._note = note
-        this.instrument = "Piano"
+        this.instrument = instrument
         Note.setSound(this)
     }
-    
+
     // gets a note and creates it's active Howl player in the notes hash-table so we can play it
     static setSound(note) {
         const key = note.instrument + notes['b'][notes[note.lang].indexOf(note.note)] + note._octave
@@ -73,12 +73,12 @@ export class Note {
         let octave_interval = this._octave - 4 //calculate octave difference
         return Math.pow(semitone, this.index - 9 + octave_interval * 12) * 440
     }
-    
+
     // whether the note is a part of flats or sharps.
     get lang() {
         return this._lang
     }
-    
+
     // set whether note is in '#' or 'b' family
     set lang(l){
         this._lang = (l == '#' || l == 'b') ? l : this._lang
@@ -95,9 +95,9 @@ export class Note {
         return (new Note(this.note, this.octave, this.duration, this.instrument))
     }
     /**
-     * gets a number as interval and returns a new instance of a note 
+     * gets a number as interval and returns a new instance of a note
      * which is constructed by the musical interval formula.
-     * for example, if the note is a 'C' in octave 3, 
+     * for example, if the note is a 'C' in octave 3,
      * calling the function with the number 4(which is a major third) will return
      * a Note instance with the musical note 'E' in octave 3 with the same instrument.
      * @param {number} interval Musical Interval
@@ -122,7 +122,7 @@ export class Note {
     }
     /**
      * Returns the note name and octave.
-     * @example 
+     * @example
      * 'C3'
      */
     toString() {
