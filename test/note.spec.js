@@ -15,10 +15,6 @@ describe('Note Methods', () => {
         expect(c.isEqual(new Note('c'))).to.true
     })
 
-    it('checks specific weird stuff', () => {
-        expect(new Note('g').getInterval(11).lang).to.be.eql('#')
-    })
-
     describe('checks intervals', () => {
         it('checks the note C', function () {
             const c_stub = {

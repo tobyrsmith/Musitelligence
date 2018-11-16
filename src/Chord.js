@@ -12,81 +12,82 @@ export class Chord {
      * @param {Note} third
      * @param {Note} fifth
      * @param {Note} note4(optional)
-     * @param {Note} note5(optional)
      */
     constructor(root, third, fifth, note4 = null, duration = 'q') {
-        this.root      = root
         this._duration = duration
         this.isChord   = true
-        if (this.root.index > third.index) {
-            this.third = new Note(third.note, this.root.octave + 1, third.duration, third.instrument)
-        } else {
-            this.third = new Note(third.note, this.root.octave, third.duration, third.instrument)
+        if (!(root instanceof Note)) {
+            root  = new Note(root)
+            third = new Note(third)
+            fifth = new Note(fifth)
+            note4 = note4 ? new Note(note4) : null
         }
-        if (this.root.index > fifth.index) {
-            this.fifth = new Note(fifth.note, this.root.octave + 1, fifth.duration, fifth.instrument)
+        if (root.index > third.index) {
+            third = new Note(third.note, root.octave + 1, third.duration, third.instrument)
         } else {
-            this.fifth = new Note(fifth.note, this.root.octave, third.duration, third.instrument)
+            third = new Note(third.note, root.octave, third.duration, third.instrument)
         }
-        if (this.root.getInterval(4).note === this.third.note) {
-            if (this.root.getInterval(7).note === this.fifth.note) {
+        if (root.index > fifth.index) {
+            fifth = new Note(fifth.note, root.octave + 1, fifth.duration, fifth.instrument)
+        } else {
+            fifth = new Note(fifth.note, root.octave, third.duration, third.instrument)
+        }
+        if (root.getInterval(4).note === third.note) {
+            if (root.getInterval(7).note === fifth.note) {
                 if (note4 == null) {
                     this.type   = 'Major'
                     this.symbol = ''
                 } else {
-                    this.note4 = note4
-                    if (this.root.getInterval(5).note === this.note4.note) {
+                    if (root.getInterval(5).note === note4.note) {
                         this.type   = 'Added Fourth'
                         this.symbol = 'add4'
                     }
-                    else if (this.root.getInterval(9).note === this.note4.note) {
+                    else if (root.getInterval(9).note === note4.note) {
                         this.type   = 'Sixth'
                         this.symbol = '6'
                     }
-                    else if (this.root.getInterval(11).note === this.note4.note) {
+                    else if (root.getInterval(11).note === note4.note) {
                         this.type   = 'Major 7th'
                         this.symbol = 'Maj7'
                     }
-                    else if (this.root.getInterval(10).note === this.note4.note) {
+                    else if (root.getInterval(10).note === note4.note) {
                         this.type   = 'Seventh'
                         this.symbol = '7'
                     }
                 }
-            } else if (this.root.getInterval(6).note === this.fifth.note) {
+            } else if (root.getInterval(6).note === fifth.note) {
                 this.type   = 'Major Flat Fifth'
                 this.symbol = 'b5'
             }
-            else if (this.root.getInterval(8).note === this.fifth.note) {
+            else if (root.getInterval(8).note === fifth.note) {
                 this.type   = 'Major Augmented Fifth'
                 this.symbol = 'aug'
             }
         }
-        else if (this.root.getInterval(3).note === this.third.note) {
-            if (this.root.getInterval(7).note === this.fifth.note) {
+        else if (root.getInterval(3).note === third.note) {
+            if (root.getInterval(7).note === fifth.note) {
                 if (note4 == null) {
                     this.type   = 'Minor'
                     this.symbol = 'm'
                 } else {
-                    this.note4 = note4
-                    if (this.root.getInterval(5).note === this.note4.note) {
+                    if (root.getInterval(5).note === note4.note) {
                         this.type   = 'Minor Added Fourth'
                         this.symbol = 'madd4'
-                    } else if (this.root.getInterval(9).note === this.note4.note) {
-                            this.type   = 'Minor Sixth'
-                            this.symbol = 'm6'
+                    } else if (root.getInterval(9).note === note4.note) {
+                        this.type   = 'Minor Sixth'
+                        this.symbol = 'm6'
                     }
-                    else if (this.root.getInterval(10).note === this.note4.note) {
-                            this.type   = 'Minor Seventh'
-                            this.symbol = 'm7'
+                    else if (root.getInterval(10).note === note4.note) {
+                        this.type   = 'Minor Seventh'
+                        this.symbol = 'm7'
                     }
                 }
-            } else if (this.root.getInterval(6).note === this.fifth.note) {
-                if (this.note4 == null) {
+            } else if (root.getInterval(6).note === fifth.note) {
+                if (note4 == null) {
                     this.type   = 'Diminished'
                     this.symbol = 'dim'
                 } else {
-                    this.note4 = note4
-                    if (this.root.getInterval(9).isEqual(this.note4)) {
+                    if (root.getInterval(9).isEqual(note4)) {
                         this.type   = 'Diminished Seventh'
                         this.symbol = 'dim7'
                     }
@@ -94,16 +95,79 @@ export class Chord {
             }
         }
         if (this.type === undefined) {
-            this.type   = this.root.note + '?'
-            this.symbol = '?'
+            this.type    = root.note + '?'
+            this.symbol  = '?'
+            this.isChord = false
         }
-        if (this.note4 == null) {
-            this.chord_notes = [this.root, this.third, this.fifth]
-        } else {
-            this.chord_notes = [this.root, this.third, this.fifth, this.note4]
+        this.chord_notes = [root, third, fifth]
+        if (note4) {
+            this.chord_notes.push(note4)
         }
     }
 
+    /**
+     * The index of the root.
+     * @type    {Number}
+     * @readonly
+     */
+    static get ROOT() {return 0}
+
+    /**
+     * The index of the third.
+     * @type    {Number}
+     * @readonly
+     */
+    static get THIRD() {return 1}
+
+    /**
+     * The index of the fifth.
+     * @type    {Number}
+     * @readonly
+     */
+    static get FIFTH() {return 2}
+
+    /**
+     * The index of the fourth note.
+     * @type    {Number}
+     * @readonly
+     */
+    static get NOTE4() {return 3}
+
+    /**
+     * The root of the chord as Note
+     * @returns {Note}
+     * @readonly
+     */
+    get root() {
+        return this.chord_notes[Chord.ROOT]
+    }
+
+    /**
+     * The third of the chord as Note
+     * @returns {Note}
+     * @readonly
+     */
+    get third() { return this.chord_notes[Chord.THIRD]}
+
+    /**
+     * The fifth of the chord as Note
+     * @returns {Note}
+     * @readonly
+     */
+    get fifth() {return this.chord_notes[Chord.FIFTH]}
+
+    /**
+     * The fourth note of the chord as Note
+     * @returns {Note}
+     * @readonly
+     */
+    get note4() {return this.chord_notes[Chord.NOTE4]}
+
+    /**
+     * The duration of the chord as String
+     * @returns {String}
+     * @readonly
+     */
     get duration() {
         return this._duration
     }
@@ -124,7 +188,6 @@ export class Chord {
      * play all the notes in the chord as a harmony.
      */
     play() {
-        console.log(this.root)
         for (let i = 0; i < this.chord_notes.length; i++)
             this.chord_notes[i].play()
     }
@@ -133,26 +196,21 @@ export class Chord {
      * Transforms the chord into its root position.
      */
     rootPosition() {
-        this.third._octave = this.root._octave
-        this.fifth._octave = this.root._octave
-        return this
+        // TODO
     }
 
     /**
      * Transforms the chord into its 1st-inversion.
      */
     inversionFirst() {
-        this.root._octave = this.root._octave + 1
-        return this
+        //TODO
     }
 
     /**
      * Transforms the chord into its 2st-inversion.
      */
     inversionSecond() {
-        this.root.octave  = this.root.octave + 1
-        this.third.octave = this.third.octave + 1
-        return this
+        //TODO
     }
 
     /**

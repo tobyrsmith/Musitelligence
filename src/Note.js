@@ -147,9 +147,6 @@ export class Note {
      * Play the note.
      */
     play() {
-        console.log(this.note, this)
-        console.log(notes[this.lang], notes[this.lang].indexOf(this.note), notes['b'][notes[this.lang].indexOf(this.note)])
-        console.log(sounds)
         if (sounds.get(this.instrument + notes['b'][notes[this.lang].indexOf(this.note)] + this._octave) instanceof Howl)
             sounds.get(this.instrument + notes['b'][notes[this.lang].indexOf(this.note)] + this._octave).play()
         else

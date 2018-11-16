@@ -20,6 +20,4 @@ class Piano {
     }
 }
 
-const piano = new Piano()
-export {piano}
-// export const piano = "p"
+export {Piano}

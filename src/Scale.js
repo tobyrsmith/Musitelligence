@@ -14,12 +14,8 @@ export class DiatonicScale extends MusicalPattern {
         super(tonic, pattern)
         this.chords = []
         this.show   = false
-        for (let i in this.notes.slice(0, 7)) {
-            const chord = new Chord(this.notes[i], this.notes[(parseInt(i) + 2) % 7], this.notes[(parseInt(i) + 4) % 7])
-            this.chords.push(chord)
-            // console.log(chord)
-        }
-            console.log(this.chords)
+        for (let i in this.notes.slice(0, 7))
+            this.chords.push(new Chord(this.notes[i], this.notes[(parseInt(i) + 2) % 7], this.notes[(parseInt(i) + 4) % 7]))
     }
 
     /**

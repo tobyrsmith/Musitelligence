@@ -1,4 +1,4 @@
-import {piano, octave_frequencies} from '.'
+import {Piano, octave_frequencies} from '.'
 
 /*
 The MIT License (MIT)
@@ -47,6 +47,7 @@ const pitch_data = {
     play: () => {
         let note = 0
         let play_time = audioContext.currentTime
+        const piano = new Piano()
         const timer = setInterval(() => {
             if(pitch_data.notes[note])
             if (pitch_data.notes[note].time <= audioContext.currentTime - play_time) {
@@ -65,13 +66,6 @@ const pitch_data = {
         str+= "}"
         return str
     }
-
-    // const timer = setInterval(()=>{
-    //         piano.note(pitch_data.notes[note].notes + "q").play()
-    //         note++
-    //         if(note == pitch_data.notes.length)
-    //             clearInterval(timer)
-    //     }, 500)
 }
 
 function init() {
@@ -153,7 +147,7 @@ function autoCorrelate(buf, sampleRate) {
         rms += val * val
     }
     rms = Math.sqrt(rms / SIZE)
-    if (rms < sensitivity) { // not enough signal 
+    if (rms < sensitivity) { // not enough signal
         updateNotes()
         return -1
     }
@@ -274,12 +268,12 @@ function frequentFrequency(frequencies) {
 }
 
 function frequent(array){
-    let counts = {}, 
+    let counts = {},
         compare = 0,
         mostFrequent
     for(var i = 0, len = array.length; i < len; i++){
         var member = array[i];
-        
+
         if(counts[member] === undefined){
             counts[member] = 1;
         }else{
