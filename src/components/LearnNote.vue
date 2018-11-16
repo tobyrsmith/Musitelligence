@@ -2,7 +2,7 @@
         <v-app id="inspire">
             <v-container fluid grid-list-lg>
                 <v-layout column wrap align-center>
-                    
+
                 <h1>{{note.note}}</h1>
                 <v-btn class="general-btn" color="success" @click="note.play()">play Note!</v-btn>
                 <v-btn class="general-btn" color="success" @click="learn">Learn Note!</v-btn>
@@ -40,7 +40,7 @@
 <script>
 import navigation from './Navigation'
 import {
-    notes, Note, piano
+    notes, Piano
 } from 'note-art'
 export default {
     name: "learn-note",
@@ -50,6 +50,7 @@ export default {
     },
     data() {
         return {
+            piano: new Piano(),
             notes,
             time: '00:00',
             time_comp: false,
@@ -62,7 +63,7 @@ export default {
             let i = 0
             this.timerId = setInterval(() => {
                 // let i = Math.floor(Math.random() * 7)
-                piano.note(this.note.note + this.sequence[i] + 'q').play()
+                this.piano.note(this.note.note + this.sequence[i] + 'q').play()
                 i++
                 if(i==this.sequence.length)
                     i=0

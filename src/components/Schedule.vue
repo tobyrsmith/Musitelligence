@@ -22,7 +22,7 @@
 <script>
 import navigation from './Navigation'
 import {
-    notes, Note, piano
+    notes, Note, Piano
 } from 'note-art'
 import LearnNote from './LearnNote'
 
@@ -33,6 +33,7 @@ export default {
         LearnNote
     },
     data() {
+        const piano = new Piano()
         return {
             notes,
             weeks: [piano.note('c3q'), piano.note('g3q'), piano.note('d3q'),piano.note('a3q'), piano.note('e3q'),piano.note('b3q'),piano.note('f#3q'),

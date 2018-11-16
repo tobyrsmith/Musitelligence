@@ -40,8 +40,7 @@
     </v-app>
 </template>
 <script>
-import {Rhythm,Measure,Chord,Note, DiatonicScale, major_scale, Piece, Sequence, piano}  from 'note-art'
-import navigation from './Navigation'
+import {Measure, major_scale, Piece, Sequence}  from 'note-art'
 export default {
     name: 'compose',
     props: ['scale'],
@@ -54,7 +53,6 @@ export default {
             bpm: 80,
             vol: 1,
             piece: new Piece(80, [4,4]),
-
         }
     },
     methods: {
@@ -74,7 +72,7 @@ export default {
         updateVol() {
             Howler.volume([this.vol])
         }
-    } 
+    }
 }
 </script>
 <style>

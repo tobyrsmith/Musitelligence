@@ -26,7 +26,7 @@
                     <v-btn class="general-btn" color="primary" fab @click="piece.rhythm.toggleMetronome">Toggle Metronome</v-btn>
                 </v-flex>
                 <v-flex xs12>
-                    <p v-if="piece.rhythm.metronome"> 
+                    <p v-if="piece.rhythm.metronome">
                         Current Beat:{{piece.rhythm.getBeat()}}
                     </p>
                 </v-flex>
@@ -41,12 +41,13 @@ import {
     Howl,
     Howler
 } from 'howler'
-import {Rhythm,Measure,Chord,Note, DiatonicScale, major_scale, Piece, Sequence, piano}  from 'note-art'
+import {Measure,Note, major_scale, Piece, Sequence, Piano}  from 'note-art'
 import navigation from './Navigation'
 
 export default {
     name: "Play",
     data() {
+        const piano = new Piano()
         const e = new Note('e', 5, 'e'),
             ds = new Note('d#', 5, 'e'),
             b = new Note('b', 4, 'e'),
@@ -80,7 +81,6 @@ export default {
             beat: null,
             vol: 1,
             piece: new Piece(bpm, [4, 4], fur_elise),
-            piano: piano.note('E5')
         }
     },
     components: {

@@ -22,13 +22,13 @@
     </div>
 </template>
 <script>
-import {init, pitch_data, toggleLiveInput, cached_notes, cached_frequencies, reset, piano} from 'note-art'
+import {init, pitch_data, toggleLiveInput, cached_notes, cached_frequencies, reset, Piano} from 'note-art'
 import navigation from './Navigation'
 export default {
     data() {
         return {
             toggleLiveInput,
-            piano,
+            piano: new Piano(),
             timer: null,
             pitch_data,
             cached_notes,
@@ -37,7 +37,7 @@ export default {
         }
     },
     components:{
-        navigation, 
+        navigation,
     },
     created(){
       init()

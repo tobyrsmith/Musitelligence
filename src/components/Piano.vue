@@ -39,14 +39,14 @@
             </map>
         </div>
                 </v-flex>
-            </v-layout>            
+            </v-layout>
         </v-container>
     </v-app>
 </template>
 
 <script>
     import piano_keys from './../assets/piano-keys.jpg'
-    import {piano} from 'note-art'
+    import {Piano} from 'note-art'
     export default {
         name: "Piano",
         created() {
@@ -58,7 +58,7 @@
         data() {
             return {
                 piano_keys,
-                piano,
+                piano: new Piano(),
                 octaves: 7
             }
         },
@@ -140,4 +140,3 @@
 user-select: none;
  }
  </style>
- 

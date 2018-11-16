@@ -15,9 +15,6 @@
 
 <script>
 import navigation from './Navigation'
-import {
-    notes, Note, piano
-} from 'note-art'
 import LearnNote from './LearnNote'
 
 export default {
