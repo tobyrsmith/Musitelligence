@@ -105,7 +105,7 @@ export class Note {
     getInterval(interval) {
         if(interval >= 0){
             const oct_diff = (this.index + interval) / 12
-            return new Note(notes[this.lang][(this.index + interval) % 12], parseInt(this.octave) + parseInt(oct_diff), this.duration, this.instrument)
+            return new Note(notes[this.lang][(this.index + interval) % 12], this.octave + parseInt(oct_diff), this.duration, this.instrument)
         }
         const oct_diff = this.index + interval < 0 ? Math.floor((this.index + interval) / 12) : 0
         return new Note(notes[this.lang][Math.abs((this.index + (12 + (interval%12)))%12)], parseInt(this.octave) + parseInt(oct_diff), this.duration, this.instrument)
@@ -147,6 +147,9 @@ export class Note {
      * Play the note.
      */
     play() {
+        console.log(this.note, this)
+        console.log(notes[this.lang], notes[this.lang].indexOf(this.note), notes['b'][notes[this.lang].indexOf(this.note)])
+        console.log(sounds)
         if (sounds.get(this.instrument + notes['b'][notes[this.lang].indexOf(this.note)] + this._octave) instanceof Howl)
             sounds.get(this.instrument + notes['b'][notes[this.lang].indexOf(this.note)] + this._octave).play()
         else

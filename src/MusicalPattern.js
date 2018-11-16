@@ -4,8 +4,8 @@ import {Note, piano} from '.'
  */
 export class MusicalPattern {
     /**
-     * @param {String/Note} tonic 
-     * @param {Array} pattern 
+     * @param {String/Note} tonic
+     * @param {Array} pattern
      *@constructor
      */
     constructor(tonic, pattern) {
@@ -16,11 +16,9 @@ export class MusicalPattern {
         this.pattern = pattern
         // this.notes = [this.tonic]
         this._notes = []
-        for (let j of pattern) {
-            const interval = this.tonic.getInterval(j)
-            this._notes.push(piano.note(interval.note + interval.octave + interval.duration))
-        }
-        this._notes.push(piano.note(tonic.note + (tonic.octave + 1) + tonic.duration))
+        for (let j of pattern)
+            this._notes.push(this.tonic.getInterval(j))
+        this._notes.push(this.tonic.getInterval(12))
     }
     /**
      * returns array that contains all the notes in the pattern.
@@ -41,7 +39,7 @@ export class MusicalPattern {
      * returns the interval inside the pattern
      * for example - if the pattern is C Major scale,
      * than getInterval(1) wiil return D.
-     * @param {number} interval 
+     * @param {number} interval
      */
     getInterval(interval) {
         let counter = 0
