@@ -18,15 +18,15 @@ export class Note {
      * @param {String} instrument Piano/Guitar/etc...
      * @constructor
      */
-    constructor(note = "A", octave = 3, duration = 'q', instrument = 'Piano') {
-        note = firstToUpper(note)
-        note = !notes["#"].includes(note) && !notes.b.includes(note) ? "A" : note
-        this._octave = octave
-        this._duration = duration
-        this._lang = circle_of_fourths.includes(note) ? "b" : "#"
-        this._index = notes[this.lang].indexOf(note)
-        this._note = note
-        this.instrument = instrument
+    constructor(attributes = {note: 'A', octave: '4', duration: 'q', instrument: 'Piano'}) {
+        attributes.note = firstToUpper(attributes.attributes.note)
+        attributes.note = !notes["#"].includes(attributes.note) && !notes.b.includes(attributes.note) ? "A" : attributes.note
+        this._octave = attributes.octave ? attributes.octave : 3
+        this._duration = attributes.duration ? attributes.duration : 'q'
+        this._lang = circle_of_fourths.includes(attributes.note) ? "b" : "#"
+        this._index = notes[this.lang].indexOf(attributes.note)
+        this._note = attributes.note
+        this.instrument = attributes.instrument ? attributes.instrument : 'Piano'
         Note.setSound(this)
     }
 
