@@ -71,300 +71,180 @@
     <article>
         <pre
             class="sunlight-highlight-javascript linenums">import {
-    Note
+    Note,
 } from '.'
+
 /**
  * represents a Chord.
  */
 export class Chord {
     /**
-     * 
-     * @param {Note} root 
-     * @param {Note} third 
-     * @param {Note} fifth 
-     * @param {Note} note4(optional) 
-     * @param {Note} note5(optional)
+     *
+     * @param {Note} root
+     * @param {Note} third
+     * @param {Note} fifth
+     * @param {Note} note4(optional)
+     * @param duration
      */
     constructor(root, third, fifth, note4 = null, duration = 'q') {
-        this.root = root
-        this.duration = duration
-        this.isChord = true
-        if (this.root.index > third.index)
-            this.third = new Note(third.note, third.octave + 1, third.duration, third.instrument)
-        else
-            this.third = third
-        if (this.root.index > fifth.index)
-            this.fifth = new Note(fifth.note, fifth.octave + 1, fifth.duration, fifth.instrument)
-        else
-            this.fifth = fifth
-        if (this.root.getInterval(4).isEqual(this.third)) {
-            if (this.root.getInterval(7).isEqual(this.fifth)) {
+        this._duration = duration
+        this.isChord   = true
+        if (!(root instanceof Note)) {
+            root  = new Note(root)
+            third = new Note(third)
+            fifth = new Note(fifth)
+            note4 = note4 ? new Note(note4) : null
+        }
+        if (root.index > third.index) {
+            third = new Note(third.note, root.octave + 1, third.duration, third.instrument)
+        } else {
+            third = new Note(third.note, root.octave, third.duration, third.instrument)
+        }
+        if (root.index > fifth.index) {
+            fifth = new Note(fifth.note, root.octave + 1, fifth.duration, fifth.instrument)
+        } else {
+            fifth = new Note(fifth.note, root.octave, third.duration, third.instrument)
+        }
+        if (root.getInterval(4).note === third.note) {
+            if (root.getInterval(7).note === fifth.note) {
                 if (note4 == null) {
-                    this.type = "Major"
-                    this.symbol = ""
+                    this.type   = 'Major'
+                    this.symbol = ''
                 } else {
-                    this.note4 = note4
-                    if (this.root.getInterval(5).isEqual(this.note4)) {
-                        this.type = "Added Fourth"
-                        this.symbol = "add4"
-                    } else if (this.root.getInterval(9).isEqual(this.note4)) {
-                        if (note5 == null) {
-                            this.note5 = note5
-                            this.type = "Sixth"
-                            this.symbol = "6"
-                        } else {
-                            if (this.root.getInterval(14).isEqual(this.note5)) {
-                                this.type = "Six Nine"
-                                this.symbol = "6/9"
-                            } else {
-                                this.isChord = false
-                            }
-                        }
-                    } else if (this.root.getInterval(11).isEqual(this.note4)) {
-                        if (note5 == null) {
-                            this.type = "Major 7th"
-                            this.symbol = "Maj7"
-                        } else {
-                            this.note5 = note5
-                            if (this.root.getInterval(14).isEqual(note5)) {
-                                this.type = "Major Ninth"
-                                this.symbol = "Maj9"
-                            } else if (this.root.getInterval(17).isEqual(note5)) {
-                                this.type = "Major Eleventh"
-                                this.symbol = "Maj11"
-                            } else if (this.root.getInterval(21).isEqual(note5)) {
-                                this.type = "Major Thirteenth"
-                                this.symbol = "Maj13"
-                            } else if (this.root.getInterval(18).isEqual(note5)) {
-                                this.type = "Major Seven Sharp Eleventh"
-                                this.symbol = "Maj7#11"
-                            } else {
-                                this.isChord = false
-                            }
-                        }
-                    } else if (this.root.getInterval(10).isEqual(this.note4)) {
-                        if (note5 == null) {
-                            this.type = "Seventh"
-                            this.symbol = "7"
-                        } else {
-                            this.note5 = note5
-                            if (this.root.getInterval(14).isEqual(note5)) {
-                                this.type = "Ninth"
-                                this.symbol = "9"
-                            } else if (this.root.getInterval(17).isEqual(note5)) {
-                                this.type = "Eleventh"
-                                this.symbol = "11"
-                            } else if (this.root.getInterval(21).isEqual(note5)) {
-                                this.type = "Thirteenth"
-                                this.symbol = "13"
-                            }
-                        }
+                    if (root.getInterval(5).note === note4.note) {
+                        this.type   = 'Added Fourth'
+                        this.symbol = 'add4'
+                    }
+                    else if (root.getInterval(9).note === note4.note) {
+                        this.type   = 'Sixth'
+                        this.symbol = '6'
+                    }
+                    else if (root.getInterval(11).note === note4.note) {
+                        this.type   = 'Major 7th'
+                        this.symbol = 'Maj7'
+                    }
+                    else if (root.getInterval(10).note === note4.note) {
+                        this.type   = 'Seventh'
+                        this.symbol = '7'
                     }
                 }
-            } else if (this.root.getInterval(6).isEqual(this.fifth)) {
-                this.type = "Major Flat Fifth"
-                this.symbol = "b5"
-            } else if (this.root.getInterval(8).isEqual(this.fifth)) {
-                this.type = "Major Augmented Fifth"
-                this.symbol = "aug"
+            } else if (root.getInterval(6).note === fifth.note) {
+                this.type   = 'Major Flat Fifth'
+                this.symbol = 'b5'
             }
-        } else if (this.root.getInterval(3).isEqual(this.third)) {
-            if (this.root.getInterval(7).isEqual(this.fifth)) {
+            else if (root.getInterval(8).note === fifth.note) {
+                this.type   = 'Major Augmented Fifth'
+                this.symbol = 'aug'
+            }
+        }
+        else if (root.getInterval(3).note === third.note) {
+            if (root.getInterval(7).note === fifth.note) {
                 if (note4 == null) {
-                    this.type = "Minor"
-                    this.symbol = "m"
+                    this.type   = 'Minor'
+                    this.symbol = 'm'
                 } else {
-                    this.note4 = note4
-                    if (this.root.getInterval(5).isEqual(this.note4)) {
-                        this.type = "Minor Added Fourth"
-                        this.symbol = "madd4"
-                    } else if (this.root.getInterval(9).isEqual(this.note4)) {
-                        if (note5 == null) {
-                            this.note5 = note5
-                            this.type = "Minor Sixth"
-                            this.symbol = "m6"
-                        } else {
-                            if (this.root.getInterval(14).isEqual(this.note5)) {
-                                this.type = "Minor Six Nine"
-                                this.symbol = "m6/9"
-                            } else {
-                                this.isChord = false
-                            }
-                        }
-                    } else if (this.root.getInterval(10).isEqual(this.note4)) {
-                        if (note5 == null) {
-                            this.type = "Minor Seventh"
-                            this.symbol = "m7"
-                        } else {
-                            this.note5 = note5
-                            if (this.root.getInterval(14).isEqual(note5)) {
-                                this.type = "Minor Ninth"
-                                this.symbol = "m9"
-                            } else if (this.root.getInterval(17).isEqual(note5)) {
-                                this.type = "Minor Eleventh"
-                                this.symbol = "m11"
-                            } else if (this.root.getInterval(21).isEqual(note5)) {
-                                this.type = "Minor Thirteenth"
-                                this.symbol = "m13"
-                            } else {
-                                this.isChord = false
-                            }
-                        }
+                    if (root.getInterval(5).note === note4.note) {
+                        this.type   = 'Minor Added Fourth'
+                        this.symbol = 'madd4'
+                    } else if (root.getInterval(9).note === note4.note) {
+                        this.type   = 'Minor Sixth'
+                        this.symbol = 'm6'
+                    }
+                    else if (root.getInterval(10).note === note4.note) {
+                        this.type   = 'Minor Seventh'
+                        this.symbol = 'm7'
                     }
                 }
-            } else if (this.root.getInterval(6).isEqual(this.fifth)) {
-                if (this.note4 == null) {
-                    this.type = "Diminished"
-                    this.symbol = "dim"
+            } else if (root.getInterval(6).note === fifth.note) {
+                if (note4 == null) {
+                    this.type   = 'Diminished'
+                    this.symbol = 'dim'
                 } else {
-                    this.note4 = note4
-                    if (this.root.getInterval(9).isEqual(this.note4)) {
-                        this.type = "Diminished Seventh"
-                        this.symbol = "dim7"
+                    if (root.getInterval(9).note === note4.note) {
+                        this.type   = 'Diminished Seventh'
+                        this.symbol = 'dim7'
                     }
                 }
             }
         }
-        if (this.type == undefined) {
-            this.root.lang = "#" == this.root.lang ? "b" : "#"
-            if (this.root.getInterval(4).isEqual(this.third)) {
-                if (this.root.getInterval(7).isEqual(this.fifth)) {
-                    if (note4 == null) {
-                        this.type = "Major"
-                        this.symbol = ""
-                    } else {
-                        this.note4 = note4
-                        if (this.root.getInterval(5).isEqual(this.note4)) {
-                            this.type = "Added Fourth"
-                            this.symbol = "add4"
-                        } else if (this.root.getInterval(9).isEqual(this.note4)) {
-                            if (note5 == null) {
-                                this.note5 = note5
-                                this.type = "Sixth"
-                                this.symbol = "6"
-                            } else {
-                                if (this.root.getInterval(14).isEqual(this.note5)) {
-                                    this.type = "Six Nine"
-                                    this.symbol = "6/9"
-                                } else {
-                                    this.isChord = false
-                                }
-                            }
-                        } else if (this.root.getInterval(11).isEqual(this.note4)) {
-                            if (note5 == null) {
-                                this.type = "Major 7th"
-                                this.symbol = "Maj7"
-                            } else {
-                                this.note5 = note5
-                                if (this.root.getInterval(14).isEqual(note5)) {
-                                    this.type = "Major Ninth"
-                                    this.symbol = "Maj9"
-                                } else if (this.root.getInterval(17).isEqual(note5)) {
-                                    this.type = "Major Eleventh"
-                                    this.symbol = "Maj11"
-                                } else if (this.root.getInterval(21).isEqual(note5)) {
-                                    this.type = "Major Thirteenth"
-                                    this.symbol = "Maj13"
-                                } else if (this.root.getInterval(18).isEqual(note5)) {
-                                    this.type = "Major Seven Sharp Eleventh"
-                                    this.symbol = "Maj7#11"
-                                } else {
-                                    this.isChord = false
-                                }
-                            }
-                        } else if (this.root.getInterval(10).isEqual(this.note4)) {
-                            if (note5 == null) {
-                                this.type = "Seventh"
-                                this.symbol = "7"
-                            } else {
-                                this.note5 = note5
-                                if (this.root.getInterval(14).isEqual(note5)) {
-                                    this.type = "Ninth"
-                                    this.symbol = "9"
-                                } else if (this.root.getInterval(17).isEqual(note5)) {
-                                    this.type = "Eleventh"
-                                    this.symbol = "11"
-                                } else if (this.root.getInterval(21).isEqual(note5)) {
-                                    this.type = "Thirteenth"
-                                    this.symbol = "13"
-                                }
-                            }
-                        }
-                    }
-                } else if (this.root.getInterval(6).isEqual(this.fifth)) {
-                    this.type = "Major Flat Fifth"
-                    this.symbol = "b5"
-                } else if (this.root.getInterval(8).isEqual(this.fifth)) {
-                    this.type = "Major Augmented Fifth"
-                    this.symbol = "aug"
-                }
-            } else if (this.root.getInterval(3).isEqual(this.third)) {
-                if (this.root.getInterval(7).isEqual(this.fifth)) {
-                    if (note4 == null) {
-                        this.type = "Minor"
-                        this.symbol = "m"
-                    } else {
-                        this.note4 = note4
-                        if (this.root.getInterval(5).isEqual(this.note4)) {
-                            this.type = "Minor Added Fourth"
-                            this.symbol = "madd4"
-                        } else if (this.root.getInterval(9).isEqual(this.note4)) {
-                            if (note5 == null) {
-                                this.note5 = note5
-                                this.type = "Minor Sixth"
-                                this.symbol = "m6"
-                            } else {
-                                if (this.root.getInterval(14).isEqual(this.note5)) {
-                                    this.type = "Minor Six Nine"
-                                    this.symbol = "m6/9"
-                                } else {
-                                    this.isChord = false
-                                }
-                            }
-                        } else if (this.root.getInterval(10).isEqual(this.note4)) {
-                            if (note5 == null) {
-                                this.type = "Minor Seventh"
-                                this.symbol = "m7"
-                            } else {
-                                this.note5 = note5
-                                if (this.root.getInterval(14).isEqual(note5)) {
-                                    this.type = "Minor Ninth"
-                                    this.symbol = "m9"
-                                } else if (this.root.getInterval(17).isEqual(note5)) {
-                                    this.type = "Minor Eleventh"
-                                    this.symbol = "m11"
-                                } else if (this.root.getInterval(21).isEqual(note5)) {
-                                    this.type = "Minor Thirteenth"
-                                    this.symbol = "m13"
-                                } else {
-                                    this.isChord = false
-                                }
-                            }
-                        }
-                    }
-                } else if (this.root.getInterval(6).isEqual(this.fifth)) {
-                    if (this.note4 == null) {
-                        this.type = "Diminished"
-                        this.symbol = "dim"
-                    } else {
-                        this.note4 = note4
-                        if (this.root.getInterval(9).isEqual(this.note4)) {
-                            this.type = "Diminished Seventh"
-                            this.symbol = "dim7"
-                        }
-                    }
-                }
-            }
+        if (this.type === undefined) {
+            this.type    = 'Unknown'
+            this.symbol  = ''
+            this.isChord = false
         }
-        if (this.note4 == null)
-            this.chord_notes = [this.root, this.third, this.fifth]
-        else {
-            if (this.note5 == null)
-                this.chord_notes = [this.root, this.third, this.fifth, this.note4]
-            else
-                this.chord_notes = [this.root, this.third, this.fifth, this.note4, this.note5]
+        this.chord_notes = [root, third, fifth]
+        if (note4) {
+            this.chord_notes.push(note4)
         }
     }
+
+    /**
+     * The index of the root.
+     * @type    {Number}
+     * @readonly
+     */
+    static get ROOT() {return 0}
+
+    /**
+     * The index of the third.
+     * @type    {Number}
+     * @readonly
+     */
+    static get THIRD() {return 1}
+
+    /**
+     * The index of the fifth.
+     * @type    {Number}
+     * @readonly
+     */
+    static get FIFTH() {return 2}
+
+    /**
+     * The index of the fourth note.
+     * @type    {Number}
+     * @readonly
+     */
+    static get NOTE4() {return 3}
+
+    /**
+     * The root of the chord as Note
+     * @returns {Note}
+     * @readonly
+     */
+    get root() {
+        return this.chord_notes[Chord.ROOT]
+    }
+
+    /**
+     * The third of the chord as Note
+     * @returns {Note}
+     * @readonly
+     */
+    get third() { return this.chord_notes[Chord.THIRD]}
+
+    /**
+     * The fifth of the chord as Note
+     * @returns {Note}
+     * @readonly
+     */
+    get fifth() {return this.chord_notes[Chord.FIFTH]}
+
+    /**
+     * The fourth note of the chord as Note
+     * @returns {Note}
+     * @readonly
+     */
+    get note4() {return this.chord_notes[Chord.NOTE4]}
+
+    /**
+     * The duration of the chord as String
+     * @returns {String}
+     * @readonly
+     */
+    get duration() {
+        return this._duration
+    }
+
     /**
      * play all the notes in the chord as a melody.
      */
@@ -376,6 +256,7 @@ export class Chord {
             }, i * 500)
         }
     }
+
     /**
      * play all the notes in the chord as a harmony.
      */
@@ -383,49 +264,52 @@ export class Chord {
         for (let i = 0; i &lt; this.chord_notes.length; i++)
             this.chord_notes[i].play()
     }
+
     /**
      * Transforms the chord into its root position.
      */
     rootPosition() {
-        this.third._octave = this.root._octave
-        this.fifth._octave = this.root._octave
-        return this
+        // TODO
     }
+
     /**
      * Transforms the chord into its 1st-inversion.
      */
     inversionFirst() {
-        this.root._octave = this.root._octave + 1
-        return this
+        //TODO
     }
+
     /**
      * Transforms the chord into its 2st-inversion.
      */
     inversionSecond() {
-        this.root.octave = this.root.octave + 1
-        this.third.octave = this.third.octave + 1
-        return this
+        //TODO
     }
+
     /**
      * returns string of the name of the chord and all the notes it contains.
      */
     toString() {
         if (this.symbol == undefined) {
-            if (this.note4 == null)
-                return this.root.note + " {" + this.root + ", " + this.third + ", " + this.fifth + "}"
-            else if (this.note5 == null)
-                return this.root.note + " {" + this.root + ", " + this.third + ", " + this.fifth + ", " + this.note4 + "}"
-            return this.root.note + " {" + this.root + ", " + this.third + ", " + this.fifth + ", " + this.note4 + ", " + this.note5 + "}"
-        } else if (this.note4 == null)
-            return this.root.note + this.symbol + " {" + this.root + ", " + this.third + ", " + this.fifth + "}"
-        else if (this.note5 == null)
-            return this.root.note + this.symbol + " {" + this.root + ", " + this.third + ", " + this.fifth + ", " + this.note4 + "}"
-        return this.root.note + this.symbol + " {" + this.root + ", " + this.third + ", " + this.fifth + ", " + this.note4 + ", " + this.note5 + "}"
+            if (this.note4 == null) {
+                return this.root.note + ' {' + this.root + ', ' + this.third + ', ' + this.fifth + '}'
+            } else if (this.note5 == null) {
+                return this.root.note + ' {' + this.root + ', ' + this.third + ', ' + this.fifth + ', ' + this.note4 + '}'
+            }
+            return this.root.note + ' {' + this.root + ', ' + this.third + ', ' + this.fifth + ', ' + this.note4 + ', ' + this.note5 + '}'
+        } else if (this.note4 == null) {
+            return this.root.note + this.symbol + ' {' + this.root + ', ' + this.third + ', ' + this.fifth + '}'
+        } else if (this.note5 == null) {
+            return this.root.note + this.symbol + ' {' + this.root + ', ' + this.third + ', ' + this.fifth + ', ' + this.note4 + '}'
+        }
+        return this.root.note + this.symbol + ' {' + this.root + ', ' + this.third + ', ' + this.fifth + ', ' + this.note4 + ', ' + this.note5 + '}'
     }
+
     newDuration(duration) {
         return new Chord(this.root, this.third, this.fifth, this.note4, this.note5, duration)
     }
-}</pre>
+}
+</pre>
     </article>
 </section>
 
@@ -470,7 +354,7 @@ export class Chord {
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on Thu Nov 15th 2018
+		on Sat Nov 17th 2018
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

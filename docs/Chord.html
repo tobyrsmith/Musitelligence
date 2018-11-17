@@ -86,7 +86,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="Chord"><span class="type-signature"></span>new Chord(root, third, fifth, note4(optional), note5(optional))</h4>
+    <h4 class="name" id="Chord"><span class="type-signature"></span>new Chord(root, third, fifth, note4(optional), duration)</h4>
     
     
 </dt>
@@ -221,16 +221,10 @@
 
         <tr>
             
-                <td class="name"><code>note5(optional)</code></td>
+                <td class="name"><code>duration</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type"><a href="Note.html">Note</a></span>
-
-
-
             
             </td>
 
@@ -283,7 +277,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="src_Chord.js.html">src/Chord.js</a>,
-				 <a href="src_Chord.js.html#sunlight-1-line-7">line 7</a>
+				 <a href="src_Chord.js.html#sunlight-1-line-8">line 8</a>
 			</li>
 		</ul>
 	</dd>
@@ -325,6 +319,684 @@
 
     
 
+    
+        <h3 class="subsection-title">Members</h3>
+
+        <dl>
+            
+<hr>
+<dt class="name" id=".FIFTH">
+    <h4 id=".FIFTH"><span class="type-signature">&lt;static, readonly> </span>FIFTH<span class="type-signature"> :Number</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>The index of the fifth.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Number</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="src_Chord.js.html">src/Chord.js</a>,
+				 <a href="src_Chord.js.html#sunlight-1-line-128">line 128</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id=".NOTE4">
+    <h4 id=".NOTE4"><span class="type-signature">&lt;static, readonly> </span>NOTE4<span class="type-signature"> :Number</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>The index of the fourth note.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Number</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="src_Chord.js.html">src/Chord.js</a>,
+				 <a href="src_Chord.js.html#sunlight-1-line-135">line 135</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id=".ROOT">
+    <h4 id=".ROOT"><span class="type-signature">&lt;static, readonly> </span>ROOT<span class="type-signature"> :Number</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>The index of the root.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Number</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="src_Chord.js.html">src/Chord.js</a>,
+				 <a href="src_Chord.js.html#sunlight-1-line-114">line 114</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id=".THIRD">
+    <h4 id=".THIRD"><span class="type-signature">&lt;static, readonly> </span>THIRD<span class="type-signature"> :Number</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>The index of the third.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Number</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="src_Chord.js.html">src/Chord.js</a>,
+				 <a href="src_Chord.js.html#sunlight-1-line-121">line 121</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="duration">
+    <h4 id="duration"><span class="type-signature">&lt;readonly> </span>duration<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>The duration of the chord as String</p>
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="src_Chord.js.html">src/Chord.js</a>,
+				 <a href="src_Chord.js.html#sunlight-1-line-172">line 172</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="fifth">
+    <h4 id="fifth"><span class="type-signature">&lt;readonly> </span>fifth<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>The fifth of the chord as Note</p>
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="src_Chord.js.html">src/Chord.js</a>,
+				 <a href="src_Chord.js.html#sunlight-1-line-158">line 158</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="note4">
+    <h4 id="note4"><span class="type-signature">&lt;readonly> </span>note4<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>The fourth note of the chord as Note</p>
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="src_Chord.js.html">src/Chord.js</a>,
+				 <a href="src_Chord.js.html#sunlight-1-line-165">line 165</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="root">
+    <h4 id="root"><span class="type-signature">&lt;readonly> </span>root<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>The root of the chord as Note</p>
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="src_Chord.js.html">src/Chord.js</a>,
+				 <a href="src_Chord.js.html#sunlight-1-line-142">line 142</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="third">
+    <h4 id="third"><span class="type-signature">&lt;readonly> </span>third<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>The third of the chord as Note</p>
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="src_Chord.js.html">src/Chord.js</a>,
+				 <a href="src_Chord.js.html#sunlight-1-line-151">line 151</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        </dl>
     
 
     
@@ -389,7 +1061,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="src_Chord.js.html">src/Chord.js</a>,
-				 <a href="src_Chord.js.html#sunlight-1-line-325">line 325</a>
+				 <a href="src_Chord.js.html#sunlight-1-line-206">line 206</a>
 			</li>
 		</ul>
 	</dd>
@@ -477,7 +1149,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="src_Chord.js.html">src/Chord.js</a>,
-				 <a href="src_Chord.js.html#sunlight-1-line-332">line 332</a>
+				 <a href="src_Chord.js.html#sunlight-1-line-213">line 213</a>
 			</li>
 		</ul>
 	</dd>
@@ -565,7 +1237,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="src_Chord.js.html">src/Chord.js</a>,
-				 <a href="src_Chord.js.html#sunlight-1-line-310">line 310</a>
+				 <a href="src_Chord.js.html#sunlight-1-line-191">line 191</a>
 			</li>
 		</ul>
 	</dd>
@@ -653,7 +1325,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="src_Chord.js.html">src/Chord.js</a>,
-				 <a href="src_Chord.js.html#sunlight-1-line-299">line 299</a>
+				 <a href="src_Chord.js.html#sunlight-1-line-179">line 179</a>
 			</li>
 		</ul>
 	</dd>
@@ -741,7 +1413,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="src_Chord.js.html">src/Chord.js</a>,
-				 <a href="src_Chord.js.html#sunlight-1-line-317">line 317</a>
+				 <a href="src_Chord.js.html#sunlight-1-line-199">line 199</a>
 			</li>
 		</ul>
 	</dd>
@@ -829,7 +1501,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="src_Chord.js.html">src/Chord.js</a>,
-				 <a href="src_Chord.js.html#sunlight-1-line-340">line 340</a>
+				 <a href="src_Chord.js.html#sunlight-1-line-220">line 220</a>
 			</li>
 		</ul>
 	</dd>
@@ -912,7 +1584,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on Thu Nov 15th 2018
+		on Sat Nov 17th 2018
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
