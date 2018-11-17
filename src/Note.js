@@ -74,7 +74,7 @@ export class Note {
         return Math.pow(semitone, this.index - 9 + octave_interval * 12) * 440
     }
 
-    // whether the note is a part of flats or sharps.
+    // whether the note is a part of circle of fourths or fifths.
     get lang() {
         return this._lang
     }
@@ -133,7 +133,7 @@ export class Note {
      * @param {Note} note
      */
     isEqual(note) {
-        if (this.note == note.note && this.octave == note.octave)
+        if (this.note === note.note && this.octave === note.octave)
             return true
         return false
     }

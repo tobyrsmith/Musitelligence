@@ -1,9 +1,10 @@
 import {expect}      from 'chai'
-import {Note, piano} from './../src'
+import {Note, Piano} from './../src'
 
+const piano = new Piano()
 const c = new Note('c')
 
-describe('Note Methods', () => {
+describe('Note Object', () => {
     it('checks properties', () => {
         expect(c.note).to.eql('C')
         expect(c.octave).to.eql(3)

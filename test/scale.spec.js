@@ -1,6 +1,7 @@
 import {expect} from 'chai'
-import {DiatonicScale, Note, piano} from '../src'
+import {DiatonicScale, Note, Piano} from '../src'
 
+const piano = new Piano()
 const c = new Note('c')
 const m = new DiatonicScale(c, [0,2,4,5,7,9,11])
 const stub = [piano.note('c3q'),piano.note('d3q'),piano.note('e3q'),

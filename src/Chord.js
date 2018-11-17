@@ -12,6 +12,7 @@ export class Chord {
      * @param {Note} third
      * @param {Note} fifth
      * @param {Note} note4(optional)
+     * @param duration
      */
     constructor(root, third, fifth, note4 = null, duration = 'q') {
         this._duration = duration
@@ -87,7 +88,7 @@ export class Chord {
                     this.type   = 'Diminished'
                     this.symbol = 'dim'
                 } else {
-                    if (root.getInterval(9).isEqual(note4)) {
+                    if (root.getInterval(9).note === note4.note) {
                         this.type   = 'Diminished Seventh'
                         this.symbol = 'dim7'
                     }
@@ -95,8 +96,8 @@ export class Chord {
             }
         }
         if (this.type === undefined) {
-            this.type    = root.note + '?'
-            this.symbol  = '?'
+            this.type    = 'Unknown'
+            this.symbol  = ''
             this.isChord = false
         }
         this.chord_notes = [root, third, fifth]
