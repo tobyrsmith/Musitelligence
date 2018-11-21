@@ -1,0 +1,6 @@
+
+-Generate Docs:
+
+jsdoc -c /home/seanitzel/Documents/Programming/Musitelligence/node_modules/ink-docstrap/template/conf.json -t ./node_modules/ink-docstrap/template -R README.md -r .
+
+

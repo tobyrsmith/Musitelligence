@@ -1,0 +1,25 @@
+<?xml version="1.0"?><svg width="793.7007874015749" height="497.1866666666666" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>Layer 1</title>
+  <g transform="matrix(1.03149, 0, 0, 1.03149, -20.5234, -155.7)" id="g840">
+   <rect fill="#000000" fill-rule="evenodd" stroke="#000000" stroke-width="0.96589556pt" y="154.06419" x="98.751094" width="51.717539" id="rect826" height="255.70679"/>
+   <rect fill="#000000" fill-rule="evenodd" stroke="#000000" stroke-width="0.96589556pt" y="153.93763" x="201.13907" width="51.717541" id="rect828" height="255.70679"/>
+   <rect fill="#000000" fill-rule="evenodd" stroke="#000000" stroke-width="0.96589556pt" y="153.42867" x="406.25146" width="51.717541" id="rect829" height="255.70679"/>
+   <rect fill="#000000" fill-rule="evenodd" stroke="#000000" stroke-width="0.96589556pt" y="154.4466" x="508.04421" width="51.717541" id="rect830" height="255.70679"/>
+   <rect fill="#000000" fill-rule="evenodd" stroke="#000000" stroke-width="0.96589556pt" y="153.93764" x="611.87282" width="51.717541" id="rect831" height="255.70679"/>
+   <rect fill="none" fill-opacity="0.75" fill-rule="evenodd" stroke="#000000" stroke-width="2.375" y="152.63287" x="21.593504" width="718.34387" id="rect832" height="449.14487"/>
+   <path fill="none" fill-opacity="0.75" fill-rule="evenodd" stroke="#000000" stroke-width="2.375" id="path833" d="m123.80275,399.558594l0,202.179199"/>
+   <path fill="none" fill-opacity="0.75" fill-rule="evenodd" stroke="#000000" stroke-width="2.375" id="path834" d="m227.451569,398.582947l0,202.179199"/>
+   <path fill="none" fill-opacity="0.75" fill-rule="evenodd" stroke="#000000" stroke-width="2.375" id="path835" d="m432.249207,399.918457l0,202.179199"/>
+   <path fill="none" fill-opacity="0.75" fill-rule="evenodd" stroke="#000000" stroke-width="2.375" id="path836" d="m534.079346,399.918457l0,202.179199"/>
+   <path fill="none" fill-opacity="0.75" fill-rule="evenodd" stroke="#000000" stroke-width="2.375" id="path837" d="m638.447937,399.1987l0,202.179169"/>
+   <path fill="none" fill-opacity="0.75" fill-rule="evenodd" stroke="#000000" stroke-width="2.375" id="path839" d="m329.725555,153.097488l0,448.215622"/>
+  </g>
+  <rect id="svg_1" height="263" width="48" y="2.813324" x="84.299194" stroke-width="5" stroke="#000000" fill="#ffffff"/>
+  <rect id="svg_2" height="263" width="48" y="3.314148" x="189.297607" stroke-width="5" stroke="#000000" fill="#ffffff"/>
+  <rect id="svg_3" height="263" width="48" y="1.314148" x="401.297607" stroke-width="5" stroke="#000000" fill="#ffffff"/>
+  <rect id="svg_4" height="263" width="48" y="4.314148" x="506.297607" stroke-width="5" stroke="#000000" fill="#ffffff"/>
+  <rect id="svg_5" height="263" width="48" y="4.314148" x="613.297607" stroke-width="5" stroke="#000000" fill="#ffffff"/>
+ </g>
+</svg>
