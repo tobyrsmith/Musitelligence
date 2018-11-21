@@ -86,7 +86,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="Note"><span class="type-signature"></span>new Note(note, octave, duration, instrument)</h4>
+    <h4 class="name" id="Note"><span class="type-signature"></span>new Note(attributes)</h4>
     
     
 </dt>
@@ -115,8 +115,6 @@
         
 
         
-        <th>Default</th>
-        
 
         <th class="last">Description</th>
     </tr>
@@ -127,13 +125,13 @@
 
         <tr>
             
-                <td class="name"><code>note</code></td>
+                <td class="name"><code>attributes</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">Object</span>
 
 
 
@@ -143,104 +141,8 @@
             
 
             
-                <td class="default">
-                
-                    A
-                
-                </td>
-            
 
-            <td class="description last"><p>Musical Note</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>octave</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                    3
-                
-                </td>
-            
-
-            <td class="description last"><p>Note Octave</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>duration</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                    q
-                
-                </td>
-            
-
-            <td class="description last"><p>Note duration</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>instrument</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                    Piano
-                
-                </td>
-            
-
-            <td class="description last"><p>Piano/Guitar/etc...</p></td>
+            <td class="description last"><p>Object that contains some or all of the following keys:<br>{String} note Musical Note<br>{number} octave Note Octave<br>{String} duration Note duration<br>{String} instrument Piano/Guitar/etc...</p></td>
         </tr>
 
     
@@ -285,7 +187,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="src_Note.js.html">src/Note.js</a>,
-				 <a href="src_Note.js.html#sunlight-1-line-13">line 13</a>
+				 <a href="src_Note.js.html#sunlight-1-line-17">line 17</a>
 			</li>
 		</ul>
 	</dd>
@@ -394,7 +296,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="src_Note.js.html">src/Note.js</a>,
-				 <a href="src_Note.js.html#sunlight-1-line-64">line 64</a>
+				 <a href="src_Note.js.html#sunlight-1-line-73">line 73</a>
 			</li>
 		</ul>
 	</dd>
@@ -475,7 +377,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="src_Note.js.html">src/Note.js</a>,
-				 <a href="src_Note.js.html#sunlight-1-line-72">line 72</a>
+				 <a href="src_Note.js.html#sunlight-1-line-82">line 82</a>
 			</li>
 		</ul>
 	</dd>
@@ -556,7 +458,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="src_Note.js.html">src/Note.js</a>,
-				 <a href="src_Note.js.html#sunlight-1-line-48">line 48</a>
+				 <a href="src_Note.js.html#sunlight-1-line-55">line 55</a>
 			</li>
 		</ul>
 	</dd>
@@ -568,6 +470,12 @@
 
 	
 </dl>
+
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">const c = new Note({note: &#x27;C&#x27;, octave: &#x27;3&#x27;, duration: &#x27;e&#x27;, instrument: &#x27;Piano&#x27;})</pre>
 
 
     
@@ -637,7 +545,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="src_Note.js.html">src/Note.js</a>,
-				 <a href="src_Note.js.html#sunlight-1-line-56">line 56</a>
+				 <a href="src_Note.js.html#sunlight-1-line-64">line 64</a>
 			</li>
 		</ul>
 	</dd>
@@ -719,7 +627,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="src_Note.js.html">src/Note.js</a>,
-				 <a href="src_Note.js.html#sunlight-1-line-94">line 94</a>
+				 <a href="src_Note.js.html#sunlight-1-line-105">line 105</a>
 			</li>
 		</ul>
 	</dd>
@@ -857,7 +765,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="src_Note.js.html">src/Note.js</a>,
-				 <a href="src_Note.js.html#sunlight-1-line-105">line 105</a>
+				 <a href="src_Note.js.html#sunlight-1-line-117">line 117</a>
 			</li>
 		</ul>
 	</dd>
@@ -995,7 +903,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="src_Note.js.html">src/Note.js</a>,
-				 <a href="src_Note.js.html#sunlight-1-line-135">line 135</a>
+				 <a href="src_Note.js.html#sunlight-1-line-160">line 160</a>
 			</li>
 		</ul>
 	</dd>
@@ -1083,7 +991,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="src_Note.js.html">src/Note.js</a>,
-				 <a href="src_Note.js.html#sunlight-1-line-149">line 149</a>
+				 <a href="src_Note.js.html#sunlight-1-line-177">line 177</a>
 			</li>
 		</ul>
 	</dd>
@@ -1171,7 +1079,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="src_Note.js.html">src/Note.js</a>,
-				 <a href="src_Note.js.html#sunlight-1-line-143">line 143</a>
+				 <a href="src_Note.js.html#sunlight-1-line-170">line 170</a>
 			</li>
 		</ul>
 	</dd>
@@ -1259,7 +1167,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="src_Note.js.html">src/Note.js</a>,
-				 <a href="src_Note.js.html#sunlight-1-line-128">line 128</a>
+				 <a href="src_Note.js.html#sunlight-1-line-152">line 152</a>
 			</li>
 		</ul>
 	</dd>
@@ -1348,7 +1256,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on Sat Nov 17th 2018
+		on Wed Nov 21st 2018
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

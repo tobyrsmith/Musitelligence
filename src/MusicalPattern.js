@@ -12,9 +12,8 @@ export class MusicalPattern {
         if (tonic instanceof Note)
             this.tonic = tonic
         else
-            this.tonic = new Note(tonic)
+            this.tonic = new Note({note: tonic})
         this.pattern = pattern
-        // this.notes = [this.tonic]
         this._notes = []
         for (let j of pattern)
             this._notes.push(this.tonic.getInterval(j))
