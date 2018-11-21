@@ -20,37 +20,35 @@
 </template>
 
 <script>
-import navigation from './Navigation'
-import LearnNote from './LearnNote'
+    import navigation from './Navigation'
+    import LearnNote  from './LearnNote'
 
-export default {
-    name: "LearnMenu",
-    components: {
-        navigation,
-        LearnNote
-    },
-    data() {
-        return {
-
-        }
-    },
-    methods:{
-        go(i){
-            this.pick = i
-            this.learn = true
-        }
+    export default {
+        name:       'LearnMenu',
+        components: {
+            navigation,
+            LearnNote,
+        },
+        data () {
+            return {}
+        },
+        methods:    {
+            go (i) {
+                this.pick  = i
+                this.learn = true
+            },
+        },
     }
-}
 </script>
 
 <style>
-.head{
-    font-size: 50pt;
-    color: red;
+    .head {
+        font-size: 50pt;
+        color:     red;
+    }
 
-}
-.n{
-    display: inline;
-}
+    .n {
+        display: inline;
+    }
 </style>
 

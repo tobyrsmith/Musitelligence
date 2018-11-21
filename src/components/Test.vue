@@ -65,7 +65,7 @@
                 last_note:     null,
                 right_answers: 0,
                 questions:     0,
-                piano: new Piano(),
+                piano:         new Piano(),
             }
         },
         props:   ['notes_picked'],
@@ -110,7 +110,7 @@
             wrongAns () {
                 this.chose  = true
                 this.answer = 'mood_bad'
-            }
-        }
+            },
+        },
     }
 </script>

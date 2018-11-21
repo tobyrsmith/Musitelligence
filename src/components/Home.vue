@@ -132,7 +132,7 @@
 <script>
     import {
         DiatonicScale, Note, notes, all_scales,
-        all_diatonic_scales, firstToUpper
+        all_diatonic_scales, firstToUpper,
     }                 from 'note-art'
     import navigation from './Navigation'
     import Compose    from './Compose'
@@ -182,7 +182,8 @@
                     this.scale       = []
                     this.generated   = false
                 } else {
-                    this.note        = this.octave == '' ? new Note(this.n) : new Note(this.n, this.octave)
+                    this.note        = this.octave == '' ? new Note({note: this.n}) : new
+                    Note({note: this.n, octave: this.octave})
                     this.note_output = 'Note: ' + this.note
                     this.scale       = []
                     for (let s of all_diatonic_scales) {

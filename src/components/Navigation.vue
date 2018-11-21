@@ -9,15 +9,16 @@
 </template>
 
 <script>
-export default {
-    name: "navigation"
-}
+    export default {
+        name: 'navigation',
+    }
 </script>
-<style> 
-  .spacing { 
-    Margin-right: 10px; 
-  } 
-  #links{
-      float: left;
-  }
+<style>
+    .spacing {
+        Margin-right: 10px;
+    }
+
+    #links {
+        float: left;
+    }
 </style>

@@ -15,22 +15,22 @@
 </template>
 
 <script>
-import Piano from './Piano'
-import navigation from './Navigation'
-export default {
-    name: "PianoPage",
-    components:{
-        navigation, 
-        Piano
+    import Piano      from './Piano'
+    import navigation from './Navigation'
+
+    export default {
+        name:       'PianoPage',
+        components: {
+            navigation,
+            Piano,
+        },
     }
-}
 </script>
 
 <style>
-.head{
-    font-size: 50pt;
-    color: red;
-
-}
+    .head {
+        font-size: 50pt;
+        color:     red;
+    }
 </style>
 
