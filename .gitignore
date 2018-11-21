@@ -5,7 +5,7 @@ dist/
 ### Linux ###
 *~
 
-
+.vscode/
 .idea/
 
 
