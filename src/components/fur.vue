@@ -142,6 +142,7 @@
                 sq2 = new Sequence([ms2, ms3, ms6, ms7])
             let bpm = 120
             const fur_elise = [ms1, sq1, sq2, sq1, sq2, sq1, sq2, sq1, sq2]
+            // const piece = new piece
             return {
                 bpm,
                 beat: null,
@@ -152,6 +153,10 @@
         },
         components: {
             navigation,
+        },
+        destroyed(){
+            if(this.piece.isPlaying())
+                this.piece.play()
         },
         methods: {
             g() {
