@@ -4,7 +4,10 @@
         <v-container fluid grid-list-lg>
             <v-layout row wrap justify-center>
                 <v-flex xs12>
-                    <h1 class="st" style="text-align:center;">Fur Elise [{{piece.duration}}s]</h1>
+                    <h1
+                        class="st"
+                        style="text-align:center;"
+                    >Fur Elise [{{piece.duration}}s]</h1>
                 </v-flex>
             </v-layout>
             <v-flex xs12 style="text-align:center;">
@@ -90,72 +93,86 @@
         Howl,
         Howler,
     } from 'howler'
-    import { Measure, Note, major_scale, Piece, Sequence, Piano} from 'note-art'
+    import { Measure, Note, major_scale, Piece, Sequence, Piano } from 'note-art'
     import navigation from './Navigation'
 
     export default {
         name: 'Play',
         data() {
             const piano = new Piano()
-            const ms1 = new Measure([piano.note('e5e'), piano.note('d#5e')]),
-                ms2 = new Measure([
-                    piano.note('e5e'),
-                    piano.note('d#5e'),
-                    piano.note('e5e'),
-                    piano.note('b4e'),
-                    piano.note('d5e'),
-                    piano.note('c5e'),
-                ]),
-                ms3 = new Measure([
+            const fur_elise = []
+            for (let i = 0; i < 7; i++)
+                fur_elise.push(new Measure())
+            const m_notes = [
+                [
+                    [piano.note('e5e')],
+                    [piano.note('d#5e')]
+                ],
+                [
+                    [piano.note('e5e')],
+                    [piano.note('d#5e')],
+                    [piano.note('e5e')],
+                    [piano.note('b4e')],
+                    [piano.note('d5e')],
+                    [piano.note('c5e')],
+                ],
+                [
                     [piano.note('a4q'), piano.note('a2e')],
-                    piano.note('e3e'),
-                    piano.note('a3e'),
-                    piano.note('c4e'),
-                    piano.note('e4e'),
-                    piano.note('a4e'),
-                ]),
-                ms4 = new Measure([
-                    [piano.note('b4q'), piano.note('e2e')], piano.note('e3e'), piano.note('g#3e'), piano.note('e4e'),
-                    piano.note('g#4e'), piano.note('b4e'),
-                ]),
-                ms5 = new Measure([
+                    [piano.note('e3e')],
+                    [piano.note('a3e')],
+                    [piano.note('c4e')],
+                    [piano.note('e4e')],
+                    [piano.note('a4e')],
+                ],
+                [
+                    [piano.note('b4q'), piano.note('e2e')], [piano.note('e3e')], [piano.note('g#3e')], [piano.note('e4e')],
+                    [piano.note('g#4e')], [piano.note('b4e')]
+                ],
+                [
                     [piano.note('c5q'), piano.note('a2e')],
-                    piano.note('e3e'),
-                    piano.note('a3e'),
-                    piano.note('e4e'),
-                    piano.note('e5e'),
-                    piano.note('d#5e'),
-                ]),
-                ms6 = new Measure([
+                    [piano.note('e3e')],
+                    [piano.note('a3e')],
+                    [piano.note('e4e')],
+                    [piano.note('e5e')],
+                    [piano.note('d#5e')],
+                ],
+                [
                     [piano.note('b4q'), piano.note('e2e')],
-                    piano.note('e3e'),
-                    piano.note('g#3e'),
-                    piano.note('e4e'),
-                    piano.note('c5e'),
-                    piano.note('b4e'),
-                ]),
-                ms7 = new Measure([
-                    [piano.note('a4q'), piano.note('a2h')], piano.note('e3e'), piano.note('a3q'),
-                    piano.note('e5e'), piano.note('d#5e'),
-                ])
-            const sq1 = new Sequence([ms2, ms3, ms4, ms5]),
-                sq2 = new Sequence([ms2, ms3, ms6, ms7])
+                    [piano.note('e3e')],
+                    [piano.note('g#3e')],
+                    [piano.note('e4e')],
+                    [piano.note('c5e')],
+                    [piano.note('b4e')],
+                ],
+                [
+                    [piano.note('a4q'), piano.note('a2h')], [piano.note('e3e')], [piano.note('a3q')],
+                    [piano.note('e5e')], [piano.note('d#5e')],
+                ]]
+
+            const sq1 = new Sequence(),
+                sq2 = new Sequence()
+            sq1.pushMeasures([fur_elise[1], fur_elise[2], fur_elise[3], fur_elise[4]])
+            sq2.pushMeasures([fur_elise[1], fur_elise[2], fur_elise[5], fur_elise[6]])
+
             let bpm = 120
-            const fur_elise = [ms1, sq1, sq2, sq1, sq2, sq1, sq2, sq1, sq2]
-            // const piece = new piece
+            for (let i = 0; i < 7; i++) {
+                fur_elise[i].pushNotes(m_notes[i])
+            }
+            const piece = new Piece(120, [3, 4])
+            piece.pushMandS([fur_elise[0], sq1,sq2,sq1,sq2,sq1,sq2])
             return {
                 bpm,
                 beat: null,
                 vol: 1,
-                piece: new Piece(bpm, [3, 4], fur_elise),
+                piece,
                 trans: 1,
             }
         },
         components: {
             navigation,
         },
-        destroyed(){
-            if(this.piece.isPlaying())
+        destroyed() {
+            if (this.piece.isPlaying())
                 this.piece.play()
         },
         methods: {
